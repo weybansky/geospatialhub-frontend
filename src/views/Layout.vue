@@ -38,6 +38,6 @@ export default {
 <style lang="scss">
 @import "../scss/variables";
 #nav {
-  background-color: $primary-color;
+  // background-color: $primary-color;
 }
 </style>
