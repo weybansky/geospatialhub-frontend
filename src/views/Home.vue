@@ -1,18 +1,25 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h3>Home</h3>
+    <button v-if="isAuthenticated" type="button" @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters["auth/isAuthenticated"];
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+    }
   }
 };
 </script>
