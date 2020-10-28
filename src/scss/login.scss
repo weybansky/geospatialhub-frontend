@@ -127,9 +127,9 @@
           text-align: center;
           .submit-btn {
             cursor: pointer;
-            background: linear-gradient(90deg, $color-blue, $color-black);
+            background: linear-gradient(90deg, lighten($color-black, 25%), $color-blue);
             color: #ffffff;
-            padding: 10px 15px;
+            padding: 12px 24px;
             border: 0;
             outline: 0;
             border-radius: 4px;
