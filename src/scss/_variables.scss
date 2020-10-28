@@ -1,9 +1,58 @@
-$primary-color: #0e67ec;
-$danger-color: #f44336;
-$success-color: #4caf50;
-$secondary-color: #000000;
+// Body
+// $body-bg: #f8fafc;
+
+// // Typography
+// $font-family-sans-serif: 'Nunito', sans-serif;
+// $font-size-base: 0.9rem;
+// $line-height-base: 1.6;
+
+// // Colors
+// $blue: #3490dc;
+// $indigo: #6574cd;
+// $purple: #9561e2;
+// $pink: #f66d9b;
+// $red: #e3342f;
+// $orange: #f6993f;
+// $yellow: #ffed4a;
+// $green: #38c172;
+// $teal: #4dc0b5;
+// $cyan: #6cb2eb;
+
+// ...
+
+$color-blue: #0e67ec;
+$color-red: #f44336;
+$color-green: #4caf50;
+$color-black: #000000;
 
 * {
   padding: 0;
   margin: 0;
+}
+
+.text-blue {
+  color: $color-blue;
+}
+.text-red {
+  color: $color-red;
+}
+.text-green {
+  color: $color-green;
+}
+.text-black {
+  color: $color-black;
+}
+
+/* BACKGROUND COLOR */
+.bg-blue {
+  background-color: $color-blue;
+}
+.bg-red {
+  background-color: $color-red;
+}
+.bg-green {
+  background-color: $color-green;
+}
+.bg-black {
+  background-color: $color-black;
 }
