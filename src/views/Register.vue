@@ -199,7 +199,6 @@ export default {
 
     handleFormError(field) {
       delete this.errors[field];
-      this.$store.commit("showAlert", null, { root: true });
     }
   }
 };
