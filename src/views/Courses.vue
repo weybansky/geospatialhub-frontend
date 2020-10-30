@@ -5,21 +5,21 @@
 
       <p class="feature">
         <font-awesome-icon
-          :icon="['fas', 'envelope']"
+          :icon="['fas', 'check']"
           class="icon text-blue"
         ></font-awesome-icon>
         <span class="text">Free 14-day trial</span>
       </p>
       <p class="feature">
         <font-awesome-icon
-          :icon="['fas', 'envelope']"
+          :icon="['fas', 'check']"
           class="icon text-blue"
         ></font-awesome-icon>
         <span class="text">First 2 videos free for all courses</span>
       </p>
       <p class="feature">
         <font-awesome-icon
-          :icon="['fas', 'envelope']"
+          :icon="['fas', 'check']"
           class="icon text-blue"
         ></font-awesome-icon>
         <span class="text">14-day money-back guarantee</span>
@@ -65,15 +65,20 @@
     </ul>
 
     <div class="courses">
-      <div class="course" v-for="course in coursess" :key="course.id">
+      <div
+        class="course"
+        v-for="course in courses"
+        :key="course.id"
+        @click="$router.push({ path: 'courses/' + course.id })"
+      >
         <div class="banner">
-          <img class="image" src="course_image.png" alt="" />
+          <img class="image" :src="course.course_pic || 'course_image.png'" />
         </div>
         <div class="details">
           <h4 class="course-title">
-            {{ course.title }} The Complete Sql BootCamp
+            {{ course.title }}
           </h4>
-          <p class="course-info">10 modules</p>
+          <p class="course-info">{{ course.module_count }} module(s)</p>
           <!-- <p class="rating">-----------</p> -->
         </div>
       </div>
@@ -82,13 +87,15 @@
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+library.add(faCheck);
+
 export default {
   name: "Courses",
 
   data() {
-    return {
-      coursess: [1, 2, 3]
-    };
+    return {};
   },
 
   computed: {
