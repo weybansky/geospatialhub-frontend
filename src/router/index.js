@@ -12,6 +12,22 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: {
+      guest: true
+    }
+  },
+  {
     path: "/",
     component: () =>
       import(/* webpackChunkName: "layout" */ "../views/Layout.vue"),
@@ -31,40 +47,24 @@ const routes = [
         meta: {
           requiresAuth: true
         }
-      },
-      {
-        path: "/profile",
-        name: "Profile",
-        // component: Profile,
-        meta: {
-          requiresAuth: true
-        }
-      },
-      {
-        path: "/user/:username",
-        name: "User",
-        // component: User,
-        meta: {
-          requiresAuth: true
-        }
       }
+      // {
+      //   path: "/profile",
+      //   name: "Profile",
+      //   // component: Profile,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
+      // {
+      //   path: "/user/:username",
+      //   name: "User",
+      //   // component: User,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // }
     ]
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: Login,
-    meta: {
-      guest: true
-    }
-  },
-  {
-    path: "/register",
-    name: "Register",
-    component: Register,
-    meta: {
-      guest: true
-    }
   },
   {
     path: "*",
