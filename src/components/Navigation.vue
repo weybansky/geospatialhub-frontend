@@ -13,7 +13,7 @@
     <router-link to="/courses" class="nav-link">
       <div class="nav-link-icon">
         <font-awesome-icon
-          :icon="['fas', 'home']"
+          :icon="['far', 'bookmark']"
           class="icon"
         ></font-awesome-icon>
       </div>
@@ -23,7 +23,7 @@
     <router-link to="/notification" class="nav-link" exact>
       <div class="nav-link-icon">
         <font-awesome-icon
-          :icon="['fas', 'home']"
+          :icon="['far', 'bell']"
           class="icon"
         ></font-awesome-icon>
         <span class="notification-dot"></span>
@@ -34,7 +34,7 @@
     <router-link to="/about" class="nav-link" exact>
       <div class="nav-link-icon">
         <font-awesome-icon
-          :icon="['fas', 'home']"
+          :icon="['fas', 'info-circle']"
           class="icon"
         ></font-awesome-icon>
       </div>
@@ -44,7 +44,7 @@
     <router-link to="/contact" class="nav-link dropdown" exact>
       <div class="nav-link-icon">
         <font-awesome-icon
-          :icon="['fas', 'home']"
+          :icon="['far', 'user-circle']"
           class="icon"
         ></font-awesome-icon>
       </div>
@@ -76,6 +76,15 @@
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHome, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faUserCircle,
+  faBookmark
+} from "@fortawesome/free-regular-svg-icons";
+library.add(faHome, faBell, faInfoCircle, faUserCircle, faBookmark);
+
 export default {
   name: "Navigation"
 };

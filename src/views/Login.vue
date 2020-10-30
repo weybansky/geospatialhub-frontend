@@ -37,7 +37,7 @@
 
         <div class="form-group input-group">
           <font-awesome-icon
-            :icon="['fas', 'envelope']"
+            :icon="['far', 'envelope']"
             class="form-icon text-blue"
           ></font-awesome-icon>
           <input
@@ -83,6 +83,11 @@
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+library.add(faEnvelope, faLock);
+
 export default {
   name: "Login",
 

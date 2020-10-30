@@ -7,15 +7,6 @@ import store from "./store";
 import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faEnvelope,
-  faLock,
-  faArrowRight,
-  faUser,
-  faHome
-} from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faLock, faArrowRight, faUser, faHome);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

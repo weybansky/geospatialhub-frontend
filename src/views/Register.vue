@@ -37,7 +37,7 @@
 
         <div class="form-group input-group">
           <font-awesome-icon
-            :icon="['fas', 'envelope']"
+            :icon="['far', 'envelope']"
             class="form-icon text-blue"
           ></font-awesome-icon>
           <input
@@ -55,7 +55,7 @@
 
         <div class="form-group input-group">
           <font-awesome-icon
-            :icon="['fas', 'user']"
+            :icon="['far', 'user']"
             class="form-icon text-blue"
           ></font-awesome-icon>
           <input
@@ -122,6 +122,11 @@
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faLock, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+library.add(faEnvelope, faUser, faLock, faArrowRight);
+
 export default {
   name: "Register",
 
