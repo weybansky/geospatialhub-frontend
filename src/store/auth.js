@@ -83,6 +83,10 @@ export default {
       } else {
         return false;
       }
+    },
+    fullname(state) {
+      const userProfile = state.user.profile;
+      return userProfile.first_name + " " + userProfile.last_name;
     }
   },
 

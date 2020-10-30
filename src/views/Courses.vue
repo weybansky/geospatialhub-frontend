@@ -67,7 +67,7 @@
     <div class="courses">
       <div class="course" v-for="course in coursess" :key="course.id">
         <div class="banner">
-          <img class="image" src="../assets/course_image.png" alt="" />
+          <img class="image" src="course_image.png" alt="" />
         </div>
         <div class="details">
           <h4 class="course-title">

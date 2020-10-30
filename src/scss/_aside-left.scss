@@ -21,9 +21,11 @@
     .image {
       width: 70px;
       height: 70px;
+      border-radius: 50%;
     }
     .user-name {
       color: $color-black;
+      margin: 5px 0;
     }
     .user-title {
       font-size: 0.86rem;
