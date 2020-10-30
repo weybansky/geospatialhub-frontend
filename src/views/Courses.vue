@@ -1,24 +1,118 @@
 <template>
-  <div>
-    <div v-if="courses.length">
-      <div v-for="course in courses" :key="course.id">
-        <h4>{{ course.title }}</h4>
-        <p><a :href="'/courses/' + course.id">View</a></p>
+  <section class="courses-page">
+    <div class="page-title">
+      <h1 class="title">Courses</h1>
+
+      <p class="feature">
+        <font-awesome-icon
+          :icon="['fas', 'envelope']"
+          class="icon text-blue"
+        ></font-awesome-icon>
+        <span class="text">Free 14-day trial</span>
+      </p>
+      <p class="feature">
+        <font-awesome-icon
+          :icon="['fas', 'envelope']"
+          class="icon text-blue"
+        ></font-awesome-icon>
+        <span class="text">First 2 videos free for all courses</span>
+      </p>
+      <p class="feature">
+        <font-awesome-icon
+          :icon="['fas', 'envelope']"
+          class="icon text-blue"
+        ></font-awesome-icon>
+        <span class="text">14-day money-back guarantee</span>
+      </p>
+    </div>
+
+    <ul class="categories">
+      <li
+        class="category"
+        :class="{ active: $route.query.category == 1 }"
+        @click="filterCourseByCategory('1')"
+      >
+        Category 1
+      </li>
+      <li
+        class="category"
+        :class="{ active: $route.query.category == 2 }"
+        @click="filterCourseByCategory('2')"
+      >
+        Category 2
+      </li>
+      <li
+        class="category"
+        :class="{ active: $route.query.category == 3 }"
+        @click="filterCourseByCategory('3')"
+      >
+        Category 3
+      </li>
+      <li
+        class="category"
+        :class="{ active: $route.query.category == 4 }"
+        @click="filterCourseByCategory('4')"
+      >
+        Category 4
+      </li>
+      <li
+        class="category"
+        :class="{ active: $route.query.category == 5 }"
+        @click="filterCourseByCategory('5')"
+      >
+        Category 5
+      </li>
+    </ul>
+
+    <div class="courses">
+      <div class="course" v-for="course in coursess" :key="course.id">
+        <div class="banner">
+          <img class="image" src="../assets/course_image.png" alt="" />
+        </div>
+        <div class="details">
+          <h4 class="course-title">
+            {{ course.title }} The Complete Sql BootCamp
+          </h4>
+          <p class="course-info">10 modules</p>
+          <!-- <p class="rating">-----------</p> -->
+        </div>
       </div>
     </div>
-    <div v-else>
-      <p>No Courses</p>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
   name: "Courses",
 
+  data() {
+    return {
+      coursess: [1, 2, 3]
+    };
+  },
+
   computed: {
     courses() {
       return this.$store.state.course.courses;
+    }
+  },
+
+  // beforeRouteUpdate(to, from, next) {
+  //   // react to route changes...
+  //   // don't forget to call next()
+  //   console.log(to);
+  //   next();
+  // },
+
+  methods: {
+    filterCourseByCategory(value) {
+      const queryCategory = this.$route.query.category;
+      if (queryCategory != value) {
+        return this.$router.push({
+          path: "/courses",
+          query: { category: value }
+        });
+      }
     }
   },
 
@@ -27,3 +121,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../scss/courses-page";
+</style>

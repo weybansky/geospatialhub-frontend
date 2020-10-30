@@ -1,0 +1,83 @@
+@import "variables";
+
+.courses-page {
+  padding: 50px 1px 10px;
+
+  .page-title {
+    padding-left: 40px;
+
+    .title {
+      color: $color-black;
+      font-size: 2.85rem;
+      margin-bottom: 1rem;
+      color: lighten($color-black, 25%);
+    }
+
+    .feature {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: lighten($color-black, 25%);
+      .icon {
+        margin-right: 0.75rem;
+      }
+    }
+  }
+
+  .categories {
+    margin: 1rem 0;
+    list-style: none;
+    border-bottom: 3px solid darken($color-white, 15%);
+
+    .category {
+      cursor: pointer;
+      display: inline-block;
+      padding: 7px 12px;
+      font-size: 1.05rem;
+
+      &.active {
+        border-bottom: 5px solid $color-blue;
+      }
+    }
+  }
+
+  .courses {
+    margin: 1rem 0;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .course {
+      flex: 0 1 33%;
+      margin: 10px;
+      margin-bottom: 30px;
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($color-white, 5%);
+        border-radius: 5px;
+      }
+
+      .banner {
+        .image {
+          width: 100%;
+          border-radius: 5px;
+        }
+      }
+      .details {
+        padding: 10px 0;
+        .course-title {
+          font-weight: 100;
+          color: $color-black;
+          font-size: 1.2rem;
+          margin-bottom: 5px;
+        }
+        .course-info {
+          color: lighten($color-black, 10%);
+        }
+      }
+    }
+  }
+}

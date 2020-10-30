@@ -1,0 +1,23 @@
+@import "variables";
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: darken($color-white, 8%);
+
+  @import "aside-left";
+
+  .main {
+    flex: 68%;
+    // flex: 0 1 auto;
+    // max-width: 992px;
+    // overflow-y: auto;
+  }
+
+  .aside-right {
+    border-left: 4px solid $color-white;
+    padding: 50px 1px 10px;
+    flex: 16%;
+    // flex: 0 1 300px;
+  }
+}

@@ -1,6 +1,14 @@
 <template>
-  <div class="home">
-    <div id="nav">
+  <div class="layout">
+    <aside-left></aside-left>
+
+    <main class="main">
+      <router-view />
+    </main>
+
+    <aside class="aside-right"></aside>
+
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/courses">Courses</router-link> |
       <router-link to="/about">About</router-link> |
@@ -8,17 +16,20 @@
       <router-link v-if="!isAuthenticated" to="/register">Register</router-link>
     </div>
     <Alert />
-    <router-view />
+    -->
   </div>
 </template>
 
 <script>
-import Alert from "../components/Alert";
+// import alert from "../components/Alert";
+import AsideLeft from "../components/AsideLeft";
+// import AsideRight from "../components/AsideRigth";
 
 export default {
   name: "Layout",
   components: {
-    Alert
+    // alert,
+    "aside-left": AsideLeft
   },
 
   computed: {
@@ -36,8 +47,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../scss/variables";
-#nav {
-  // background-color: $primary-color;
-}
+@import "../scss/layout";
 </style>

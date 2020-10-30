@@ -1,0 +1,55 @@
+.navigation {
+  margin-top: 50px;
+  
+  .nav-link {
+    display: flex;
+    padding: 12px;
+    margin: 3px 0;
+    text-decoration: none;
+    color: lighten($color-black, 35%);
+    font-size: 1.2rem;
+    
+    .nav-link-icon {
+      flex: 1;
+      text-align: right;
+      
+      .notification-dot{
+        height: 7px;
+        width: 7px;
+        border-radius: 50%;
+        background-color: $color-red;
+        display: inline-block;
+        vertical-align: top;
+        margin-left: -6px;
+        margin-top: -5px;
+      }
+    }
+    .text {
+      flex: 3;
+      text-align: left;
+      padding-left: 1rem;
+      font-weight: 100;
+    }
+
+    &.active {
+      background-color: $color-blue;
+      color: $color-white;
+    }
+
+    &.dropdown {
+      position: relative;
+      .dropdown-menu {
+        display: block;
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 100%;
+        .nav-link {
+          padding-left: 70px;
+          overflow: hidden;
+        }
+      }
+    }
+    
+  }
+}

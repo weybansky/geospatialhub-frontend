@@ -128,7 +128,7 @@ export default {
             },
             { root: true }
           );
-          this.$router.push("/");
+          window.location.href = "/";
         })
         .catch(error => {
           this.errors = error.response.data || {};
