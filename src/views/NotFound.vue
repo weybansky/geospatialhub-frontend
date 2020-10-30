@@ -2,13 +2,13 @@
   <div>
     <h3>404</h3>
     <p v-html="message"></p>
-    <button type="button" @click="back">Go back</button>
+    <button type="button" @click="goBack">Go back</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Not Found",
+  name: "Not-Found",
 
   props: {
     message: {
@@ -19,8 +19,8 @@ export default {
   },
 
   methods: {
-    back() {
-      this.$router.go(-1);
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     }
   }
 };
