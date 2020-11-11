@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import NotFound from "../views/NotFound.vue";
 import Courses from "../views/Courses.vue";
+import About from "../views/About.vue";
 
 import store from "../store";
 
@@ -44,6 +45,14 @@ const routes = [
         path: "/courses",
         name: "Courses",
         component: Courses,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/about",
+        name: "About",
+        component: About,
         meta: {
           requiresAuth: true
         }

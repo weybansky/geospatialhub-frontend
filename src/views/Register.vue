@@ -165,19 +165,6 @@ export default {
           password1: this.password1,
           password2: this.password2
         })
-        .then(response => {
-          localStorage.setItem("token", response.data.key);
-          this.$store.commit("auth/setUser", response.data.user);
-          this.$store.commit(
-            "showAlert",
-            {
-              message: "Registration Successful",
-              status: "success"
-            },
-            { root: true }
-          );
-          window.location.href = "/";
-        })
         .catch(error => {
           this.errors = error.response.data || {};
           this.errors.username = error.response.data.username || null;

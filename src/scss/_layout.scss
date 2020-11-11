@@ -5,7 +5,16 @@
   min-height: 100vh;
   background-color: darken($color-white, 8%);
 
-  @import "aside-left";
+  .aside-left {
+    // width: 400px;
+    // flex: 0 1 300px;
+    flex: 16%;
+    border-right: 4px solid $color-white;
+    padding: 50px 1px 10px;
+    text-align: center;
+
+    @import "aside-left";
+  }
 
   .main {
     flex: 68%;
@@ -18,6 +27,7 @@
     border-left: 4px solid $color-white;
     padding: 50px 1px 10px;
     flex: 16%;
+    // display: none;
     // flex: 0 1 300px;
   }
 }

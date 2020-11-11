@@ -2,17 +2,20 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import authModule from "./auth";
-import courseModule from "./course";
+import courseModule from "./courses";
+import userModule from "./users";
+import postModule from "./posts";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  strict: true,
+  strict: process.env.NODE_ENV !== "production",
 
   state: {
     appName: "GeoSpatial Hub",
     alert: null,
-    users: []
+
+    PAYSTACK_PUBLIC_KEY: null
   },
 
   mutations: {
@@ -20,10 +23,6 @@ export default new Vuex.Store({
       state.alert = alert;
       if (state.alert != null && state.alert.status == "error")
         state.alert.status = "danger";
-    },
-
-    getUsers(state, users) {
-      state.users = users;
     }
   },
 
@@ -33,6 +32,8 @@ export default new Vuex.Store({
 
   modules: {
     auth: authModule,
-    course: courseModule
+    course: courseModule,
+    user: userModule,
+    post: postModule
   }
 });

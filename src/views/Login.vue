@@ -122,35 +122,18 @@ export default {
           username: this.username,
           password: this.password
         })
-        .then(response => {
-          localStorage.setItem("token", response.data.key);
-          this.$store.commit("auth/setUser", response.data.user);
-          this.$store.commit(
-            "showAlert",
-            {
-              message: "Logged in",
-              status: "success"
-            },
-            { root: true }
-          );
-          window.location.href = "/";
-        })
-        .catch(error => {
-          this.errors = error.response.data || {};
-          this.errors.username = error.response.data.username || null;
-          this.errors.password = error.response.data.password || null;
-          if (error.response.data.non_field_errors != null) {
-            this.errors.username = error.response.data.non_field_errors;
+        .catch(({ response }) => {
+          this.errors = response.data || {};
+          this.errors.username = response.data.username || null;
+          this.errors.password = response.data.password || null;
+          if (response.data.non_field_errors != null) {
+            this.errors.username = response.data.non_field_errors;
           }
 
-          this.$store.commit(
-            "showAlert",
-            {
-              message: error.response.data.message || "Login Failed",
-              status: "error"
-            },
-            { root: true }
-          );
+          this.$store.commit("showAlert", {
+            message: response.data.message || "Login Failed",
+            status: "error"
+          });
         })
         .finally(() => {
           this.loading = false;

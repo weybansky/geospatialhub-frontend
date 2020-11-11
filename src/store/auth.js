@@ -3,8 +3,11 @@ import axios from "axios";
 
 export default {
   namespaced: true,
+
   state: () => ({
-    user: null
+    user: null,
+    courses: [],
+    posts: []
   }),
 
   mutations: {
@@ -15,28 +18,64 @@ export default {
       } else {
         localStorage.setItem("user", JSON.stringify(user));
       }
+    },
+
+    setCourses(state, courses) {
+      state.courses = courses;
+    },
+
+    setPosts(state, posts) {
+      state.posts = posts;
     }
   },
 
   actions: {
-    register(context, data) {
-      return axios.post("/v1/rest-auth/registration/", data, {
-        headers: {
-          Authorization: null
-        }
-      });
+    async register({ commit }, data) {
+      return await axios
+        .post("/v1/rest-auth/registration/", data, {
+          headers: {
+            Authorization: null
+          }
+        })
+        .then(({ data }) => {
+          localStorage.setItem("token", data.key);
+          commit("setUser", data.user);
+          commit(
+            "showAlert",
+            {
+              message: "Welcome",
+              status: "success"
+            },
+            { root: true }
+          );
+          window.location.href = "/";
+        });
     },
 
-    login(context, data) {
-      return axios.post("/v1/rest-auth/login/", data, {
-        headers: {
-          Authorization: null
-        }
-      });
+    async login({ commit }, data) {
+      return await axios
+        .post("/v1/rest-auth/login/", data, {
+          headers: {
+            Authorization: null
+          }
+        })
+        .then(({ data }) => {
+          localStorage.setItem("token", data.key);
+          commit("setUser", data.user);
+          commit(
+            "showAlert",
+            {
+              message: "Logged in",
+              status: "success"
+            },
+            { root: true }
+          );
+          window.location.href = "/";
+        });
     },
 
-    logout({ commit }) {
-      axios
+    async logout({ commit }) {
+      return await axios
         .post("/v1/rest-auth/logout/", null, {
           headers: { Authorization: null }
         })
@@ -55,24 +94,49 @@ export default {
         });
     },
 
-    getUser({ commit }) {
-      const id = 1; // TODO
-      axios
-        .post("/v1/users/" + id + "/")
-        .then(response => {
-          commit("setUser", response.data.user);
-          // router.push("/");
+    async updateUser({ state, commit }, data) {
+      // {
+      //   "username": "weybansky",
+      //   "profile": {
+      //         "first_name": "Abdulwahab",
+      //         "last_name": "Nasir",
+      //         "phone": null,
+      //         "profile_pic": null,
+      //         "bio": "",
+      //         "date_of_birth": null,
+      //         "location_city": "",
+      //         "location_state": "",
+      //         "location_country": "",
+      //         "company": ""
+      //     }
+      // }
+      return await axios
+        .put("/v1/users/" + state.user.id + "/", data)
+        .then(({ data }) => {
+          commit("setUser", data);
         })
-        .catch(error => {
-          commit(
-            "showAlert",
-            {
-              message: error.response.data.message || "Could not load user",
-              status: "error"
-            },
-            { root: true }
-          );
+        .catch();
+    },
+
+    async updateUserProfilePicture({ state, commit }, formData) {
+      // formData must contain profile_pic
+      return await axios
+        .put("/v1/users/" + state.user.id + "/profile/", formData)
+        .then(({ data }) => {
+          commit("setUser", data);
         });
+    },
+
+    async getUserCourses({ commit }) {
+      return await axios.get("/v1/courses/enrolled/").then(({ data }) => {
+        commit("setCourses", data.courses);
+      });
+    },
+
+    async getUserPosts({ commit }) {
+      return await axios.get("/v1/users/post/").then(({ data }) => {
+        commit("setPosts", data);
+      });
     }
   },
 
@@ -84,6 +148,7 @@ export default {
         return false;
       }
     },
+
     fullname(state) {
       const userProfile = state.user.profile;
       return userProfile.first_name + " " + userProfile.last_name;

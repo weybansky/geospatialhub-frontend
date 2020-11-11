@@ -1,37 +1,28 @@
-.aside-left {
-  // width: 400px;
-  // flex: 0 1 300px;
-  flex: 16%;
-  border-right: 4px solid $color-white;
-  padding: 50px 1px 10px;
-  text-align: center;
-
-  .branding {
-    margin: 20px 0;
-    padding: 0 10px;
-    .logo {
-      width: 70px;
-      height: 70px;
-    }
+.branding {
+  margin: 20px 0;
+  padding: 0 10px;
+  .logo {
+    width: 70px;
+    height: 70px;
   }
-  
-  .user {
-    margin: 20px 0;
-    padding: 0 10px;
-    .image {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-    }
-    .user-name {
-      color: $color-black;
-      margin: 5px 0;
-    }
-    .user-title {
-      font-size: 0.86rem;
-      color: lighten($color-black, 50%);
-    }
-  }
-
-  @import "navigation";
 }
+
+.user {
+  margin: 20px 0;
+  padding: 0 10px;
+  .image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+  .user-name {
+    color: $color-black;
+    margin: 5px 0;
+  }
+  .user-title {
+    font-size: 0.86rem;
+    color: lighten($color-black, 50%);
+  }
+}
+
+@import "navigation";
