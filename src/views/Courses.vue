@@ -29,42 +29,24 @@
     <ul class="categories">
       <li
         class="category"
-        :class="{ active: $route.query.category == 1 }"
-        @click="filterCourseByCategory('1')"
+        :class="{ active: !$route.query.category }"
+        @click="filterCourseByCategory(null)"
       >
-        Category 1
+        All
       </li>
+
       <li
+        v-for="category in categories"
+        :key="category.id"
         class="category"
-        :class="{ active: $route.query.category == 2 }"
-        @click="filterCourseByCategory('2')"
+        :class="{ active: $route.query.category == category.id }"
+        @click="filterCourseByCategory(category.id)"
       >
-        Category 2
-      </li>
-      <li
-        class="category"
-        :class="{ active: $route.query.category == 3 }"
-        @click="filterCourseByCategory('3')"
-      >
-        Category 3
-      </li>
-      <li
-        class="category"
-        :class="{ active: $route.query.category == 4 }"
-        @click="filterCourseByCategory('4')"
-      >
-        Category 4
-      </li>
-      <li
-        class="category"
-        :class="{ active: $route.query.category == 5 }"
-        @click="filterCourseByCategory('5')"
-      >
-        Category 5
+        {{ category.title }}
       </li>
     </ul>
 
-    <div class="courses">
+    <div class="courses" v-if="courses.length">
       <div
         class="course"
         v-for="course in courses"
@@ -75,11 +57,17 @@
           <img class="image" :src="course.course_pic || 'course_image.png'" />
         </div>
         <div class="details">
-          <h4 class="course-title">
-            {{ course.title }}
-          </h4>
+          <h4 class="course-title">{{ course.title }}</h4>
           <p class="course-info">{{ course.module_count }} module(s)</p>
           <!-- <p class="rating">-----------</p> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="courses" v-else>
+      <div class="course">
+        <div class="details">
+          <h4 class="course-title">No Course Found</h4>
         </div>
       </div>
     </div>
@@ -95,21 +83,32 @@ export default {
   name: "Courses",
 
   data() {
-    return {};
+    return {
+      courses: []
+    };
   },
 
-  computed: {
-    courses() {
-      return this.$store.state.course.courses;
+  watch: {
+    "$route.query.category": function(category) {
+      if (category) {
+        this.courses = this.allCourses.filter(course => {
+          return course.category.id == category;
+        });
+      } else {
+        this.courses = this.allCourses;
+      }
     }
   },
 
-  // beforeRouteUpdate(to, from, next) {
-  //   // react to route changes...
-  //   // don't forget to call next()
-  //   console.log(to);
-  //   next();
-  // },
+  computed: {
+    allCourses() {
+      return this.$store.state.course.courses;
+    },
+
+    categories() {
+      return this.$store.state.course.categories;
+    }
+  },
 
   methods: {
     filterCourseByCategory(value) {
@@ -123,8 +122,11 @@ export default {
     }
   },
 
-  mounted() {
-    this.$store.dispatch("course/getCourses");
+  async mounted() {
+    if (this.$store.state.course.courses.length < 1) {
+      await this.$store.dispatch("course/getCourses");
+    }
+    this.courses = this.$store.state.course.courses.slice();
   }
 };
 </script>
