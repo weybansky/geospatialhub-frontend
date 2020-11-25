@@ -14,6 +14,10 @@ export default new Vuex.Store({
   state: {
     appName: "GeoSpatial Hub",
     alert: null,
+    layout: {
+      sidebarEnabled: true,
+      components: ["messaging", "users", "courses"]
+    },
 
     PAYSTACK_PUBLIC_KEY: null
   },

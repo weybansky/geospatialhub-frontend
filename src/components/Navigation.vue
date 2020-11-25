@@ -2,30 +2,59 @@
   <nav class="navigation">
     <router-link to="/" class="nav-link" exact>
       <div class="nav-link-icon">
-        <font-awesome-icon
-          :icon="['fas', 'home']"
+        <svg
           class="icon"
-        ></font-awesome-icon>
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M55.459 29.5898L31.3242 5.47261C31.1504 5.29849 30.944 5.16035 30.7168 5.0661C30.4896 4.97185 30.246 4.92334 30 4.92334C29.754 4.92334 29.5104 4.97185 29.2832 5.0661C29.056 5.16035 28.8496 5.29849 28.6758 5.47261L4.54102 29.5898C3.83789 30.2929 3.43945 31.248 3.43945 32.2441C3.43945 34.3124 5.12109 35.9941 7.18945 35.9941H9.73242V53.2031C9.73242 54.2402 10.5703 55.0781 11.6074 55.0781H26.25V41.9531H32.8125V55.0781H48.3926C49.4297 55.0781 50.2676 54.2402 50.2676 53.2031V35.9941H52.8105C53.8066 35.9941 54.7617 35.6015 55.4648 34.8925C56.9238 33.4277 56.9238 31.0546 55.459 29.5898Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
       <span class="text">Home</span>
     </router-link>
 
     <router-link to="/courses" class="nav-link">
       <div class="nav-link-icon">
-        <font-awesome-icon
-          :icon="['far', 'bookmark']"
+        <svg
           class="icon"
-        ></font-awesome-icon>
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45 56.25H15C14.0057 56.249 13.0525 55.8536 12.3494 55.1506C11.6464 54.4475 11.251 53.4943 11.25 52.5V7.5C11.251 6.50574 11.6464 5.55249 12.3494 4.84945C13.0525 4.1464 14.0057 3.75099 15 3.75H45C45.9943 3.75099 46.9475 4.1464 47.6506 4.84945C48.3536 5.55249 48.749 6.50574 48.75 7.5V38.6587L39.375 33.9713L30 38.6587V7.5H15V52.5H45V45H48.75V52.5C48.7485 53.4941 48.3529 54.4471 47.65 55.15C46.9471 55.8529 45.9941 56.2485 45 56.25ZM39.375 29.7787L45 32.5912V7.5H33.75V32.5912L39.375 29.7787Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
       <span class="text">Courses</span>
     </router-link>
 
     <router-link to="/notification" class="nav-link" exact>
       <div class="nav-link-icon">
-        <font-awesome-icon
-          :icon="['far', 'bell']"
+        <svg
           class="icon"
-        ></font-awesome-icon>
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="far"
+          data-icon="bell"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path
+            fill="currentColor"
+            d="M439.39 362.29c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71zM67.53 368c21.22-27.97 44.42-74.33 44.53-159.42 0-.2-.06-.38-.06-.58 0-61.86 50.14-112 112-112s112 50.14 112 112c0 .2-.06.38-.06.58.11 85.1 23.31 131.46 44.53 159.42H67.53zM224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64z"
+          ></path>
+        </svg>
         <span class="notification-dot"></span>
       </div>
       <span class="text">Notification</span>
@@ -33,41 +62,102 @@
 
     <router-link to="/about" class="nav-link" exact>
       <div class="nav-link-icon">
-        <font-awesome-icon
-          :icon="['fas', 'info-circle']"
+        <svg
           class="icon"
-        ></font-awesome-icon>
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M30 3.75C15.5039 3.75 3.75 15.5039 3.75 30C3.75 44.4961 15.5039 56.25 30 56.25C44.4961 56.25 56.25 44.4961 56.25 30C56.25 15.5039 44.4961 3.75 30 3.75ZM30 51.7969C17.9648 51.7969 8.20312 42.0352 8.20312 30C8.20312 17.9648 17.9648 8.20312 30 8.20312C42.0352 8.20312 51.7969 17.9648 51.7969 30C51.7969 42.0352 42.0352 51.7969 30 51.7969Z"
+            fill="currentColor"
+          />
+          <path
+            d="M27.1875 19.6875C27.1875 20.4334 27.4838 21.1488 28.0113 21.6762C28.5387 22.2037 29.2541 22.5 30 22.5C30.7459 22.5 31.4613 22.2037 31.9887 21.6762C32.5162 21.1488 32.8125 20.4334 32.8125 19.6875C32.8125 18.9416 32.5162 18.2262 31.9887 17.6988C31.4613 17.1713 30.7459 16.875 30 16.875C29.2541 16.875 28.5387 17.1713 28.0113 17.6988C27.4838 18.2262 27.1875 18.9416 27.1875 19.6875ZM31.4062 26.25H28.5938C28.3359 26.25 28.125 26.4609 28.125 26.7188V42.6562C28.125 42.9141 28.3359 43.125 28.5938 43.125H31.4062C31.6641 43.125 31.875 42.9141 31.875 42.6562V26.7188C31.875 26.4609 31.6641 26.25 31.4062 26.25Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
       <span class="text">About</span>
     </router-link>
 
     <router-link to="/contact" class="nav-link dropdown" exact>
       <div class="nav-link-icon">
-        <font-awesome-icon
-          :icon="['far', 'user-circle']"
+        <svg
           class="icon"
-        ></font-awesome-icon>
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M47.5 17.5H60V22.5H47.5V17.5ZM42.5 30H60V35H42.5V30ZM50 42.5H60V47.5H50V42.5ZM5 55C5 49.6957 7.10714 44.6086 10.8579 40.8579C14.6086 37.1071 19.6957 35 25 35C30.3043 35 35.3914 37.1071 39.1421 40.8579C42.8929 44.6086 45 49.6957 45 55H40C40 51.0218 38.4196 47.2064 35.6066 44.3934C32.7936 41.5803 28.9782 40 25 40C21.0218 40 17.2064 41.5803 14.3934 44.3934C11.5804 47.2064 10 51.0218 10 55H5ZM25 32.5C16.7125 32.5 10 25.7875 10 17.5C10 9.2125 16.7125 2.5 25 2.5C33.2875 2.5 40 9.2125 40 17.5C40 25.7875 33.2875 32.5 25 32.5ZM25 27.5C30.525 27.5 35 23.025 35 17.5C35 11.975 30.525 7.5 25 7.5C19.475 7.5 15 11.975 15 17.5C15 23.025 19.475 27.5 25 27.5Z"
+            fill="currentColor"
+          />
+        </svg>
       </div>
-      <span class="text">Contact</span>
+      <span class="text">
+        Contact
+        <svg
+          class="dropdown-menu-icon"
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10.4167 16.667L25.0001 33.3337L39.5834 16.667H10.4167Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
 
       <ul class="dropdown-menu">
         <li class="nav-link">
-          <!-- <div class="nav-link-icon">
-            <font-awesome-icon
-              :icon="['fas', 'home']"
+          <div class="nav-link-icon">
+            <svg
               class="icon"
-            ></font-awesome-icon>
-          </div> -->
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M41.6666 8.33301H12.4999C10.202 8.33301 8.33325 10.2018 8.33325 12.4997V22.9163H12.4999V16.6663L25.8333 26.6663C26.194 26.9365 26.6326 27.0825 27.0833 27.0825C27.5339 27.0825 27.9725 26.9365 28.3333 26.6663L41.6666 16.6663V35.4163H24.9999V39.583H41.6666C43.9645 39.583 45.8333 37.7143 45.8333 35.4163V12.4997C45.8333 10.2018 43.9645 8.33301 41.6666 8.33301ZM27.0833 22.3955L13.8874 12.4997H40.2791L27.0833 22.3955Z"
+                fill="currentColor"
+              />
+              <path
+                d="M4.16675 25H18.7501V29.1667H4.16675V25ZM8.33341 31.25H20.8334V35.4167H8.33341V31.25ZM14.5834 37.5H22.9167V41.6667H14.5834V37.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
           <span class="text">geospatialhub@gmail.com</span>
         </li>
 
         <li class="nav-link">
-          <!-- <div class="nav-link-icon">
-            <font-awesome-icon
-              :icon="['fas', 'home']"
+          <div class="nav-link-icon">
+            <svg
               class="icon"
-            ></font-awesome-icon>
-          </div> -->
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M41.6875 32.0417C39.125 32.0417 36.6458 31.625 34.3333 30.875C33.9711 30.7522 33.5815 30.734 33.2093 30.8224C32.8372 30.9108 32.4975 31.1024 32.2292 31.375L28.9583 35.4792C23.0625 32.6667 17.5417 27.3542 14.6042 21.25L18.6667 17.7917C19.2292 17.2083 19.3958 16.3958 19.1667 15.6667C18.3958 13.3542 18 10.875 18 8.3125C18 7.1875 17.0625 6.25 15.9375 6.25H8.72917C7.60417 6.25 6.25 6.75 6.25 8.3125C6.25 27.6667 22.3542 43.75 41.6875 43.75C43.1667 43.75 43.75 42.4375 43.75 41.2917V34.1042C43.75 32.9792 42.8125 32.0417 41.6875 32.0417Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
           <span class="text">08012345678</span>
         </li>
       </ul>
@@ -76,15 +166,6 @@
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHome, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import {
-  faBell,
-  faUserCircle,
-  faBookmark
-} from "@fortawesome/free-regular-svg-icons";
-library.add(faHome, faBell, faInfoCircle, faUserCircle, faBookmark);
-
 export default {
   name: "Navigation"
 };

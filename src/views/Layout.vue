@@ -8,13 +8,7 @@
 
     <aside class="aside-right"></aside>
 
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/courses">Courses</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link v-if="!isAuthenticated" to="/login">Login</router-link> |
-      <router-link v-if="!isAuthenticated" to="/register">Register</router-link>
-    </div>
+    <!-- 
     <Alert />
     -->
   </div>
@@ -23,7 +17,6 @@
 <script>
 // import alert from "../components/Alert";
 import AsideLeft from "../components/AsideLeft";
-// import AsideRight from "../components/AsideRigth";
 
 export default {
   name: "Layout",
