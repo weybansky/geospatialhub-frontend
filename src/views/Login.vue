@@ -1,25 +1,13 @@
 <template>
-  <div class="login">
-    <div class="menu">
-      <!-- <div class="brand"> -->
-      <router-link to="/" class="brand" tag="div">
-        <img class="logo" src="@/assets/logo.png" alt="Logo" />
-        <span class="brand-name">
-          Geo<span class="text-blue">Science</span>
-        </span>
-      </router-link>
-      <!-- </div> -->
-      <div class="link">
-        <span class="text">Don't have an Account?</span>
-        <router-link class="button" to="/register">Create Profile</router-link>
-      </div>
-    </div>
+  <div class="login-page bg-blue text-white">
+    <main class="main">
+      <img
+        class="logo"
+        src="@/assets/logo/transparent_white.png"
+        alt="Geospatial Hub Logo"
+      />
 
-    <div class="left">
-      <!--  -->
-    </div>
-    <div class="right">
-      <h3 class="greeting text-blue">Welcome</h3>
+      <h3 class="greeting">Welcome , Login</h3>
 
       <form
         class="login-form"
@@ -36,10 +24,6 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['far', 'envelope']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
             type="text"
@@ -54,10 +38,6 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['fas', 'lock']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
             type="password"
@@ -72,22 +52,27 @@
         </div>
 
         <div class="form-group submit">
-          <div class="loader" v-if="loading"></div>
           <button class="submit-btn" type="submit" :disabled="loading">
+            <div class="loader" v-if="loading"></div>
             <template>Login</template>
           </button>
         </div>
+
+        <div class="form-group forgot-password-link">
+          <hr />
+          <a href="#">forgot your password ?</a>
+          <hr />
+        </div>
+
+        <div class="form-group submit">
+          <a class="submit-btn" href="/register">Register</a>
+        </div>
       </form>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faLock);
-
 export default {
   name: "Login",
 

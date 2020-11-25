@@ -26,9 +26,15 @@ $color-green: #4caf50;
 $color-black: #000000;
 $color-white: #ffffff;
 
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;900&display=swap");
+
 * {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  // font-weight: 300;
 }
 
 .text-blue {
@@ -43,6 +49,9 @@ $color-white: #ffffff;
 .text-black {
   color: $color-black;
 }
+.text-white {
+  color: $color-white;
+}
 
 /* BACKGROUND COLOR */
 .bg-blue {
@@ -56,4 +65,17 @@ $color-white: #ffffff;
 }
 .bg-black {
   background-color: $color-black;
+}
+.bg-white {
+  background-color: $color-white;
+}
+
+// tags
+a {
+  text-decoration: none;
+}
+
+body {
+  background: $color-blue;
+  min-height: 100vh;
 }

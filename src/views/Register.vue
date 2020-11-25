@@ -1,28 +1,16 @@
 <template>
-  <div class="login register">
-    <div class="menu">
-      <!-- <div class="brand"> -->
-      <router-link to="/" class="brand" tag="div">
-        <img class="logo" src="@/assets/logo.png" alt="Logo" />
-        <span class="brand-name">
-          Geo<span class="text-blue">Science</span>
-        </span>
-      </router-link>
-      <!-- </div> -->
-      <div class="link">
-        <span class="text">Already have an Account?</span>
-        <router-link class="button" to="/login">Sign in</router-link>
-      </div>
-    </div>
+  <div class="login-page bg-blue text-white">
+    <main class="main">
+      <img
+        class="logo"
+        src="@/assets/logo/transparent_white.png"
+        alt="Geospatial Hub Logo"
+      />
 
-    <div class="left">
-      <!--  -->
-    </div>
+      <h3 class="greeting">Welcome , Register</h3>
 
-    <div class="right">
-      <h3 class="greeting text-blue">Welcome</h3>
       <form
-        class="login-form register-form"
+        class="login-form"
         method="POST"
         @submit.prevent="register"
         @keydown="handleFormError($event.target.name)"
@@ -36,13 +24,9 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['far', 'envelope']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
-            type="email"
+            type="text"
             name="email"
             v-model="email"
             placeholder="Email"
@@ -54,10 +38,6 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['far', 'user']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
             type="text"
@@ -72,10 +52,6 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['fas', 'lock']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
             type="password"
@@ -90,16 +66,12 @@
         </div>
 
         <div class="form-group input-group">
-          <font-awesome-icon
-            :icon="['fas', 'lock']"
-            class="form-icon text-blue"
-          ></font-awesome-icon>
           <input
             class="form-input"
             type="password"
             name="password2"
             v-model="password2"
-            placeholder="ReType Password"
+            placeholder="Re-Type password"
             required
           />
           <small class="form-input-error" v-if="errors.password2">
@@ -108,25 +80,27 @@
         </div>
 
         <div class="form-group submit">
-          <div class="loader" v-if="loading"></div>
           <button class="submit-btn" type="submit" :disabled="loading">
-            <font-awesome-icon
-              :icon="['fas', 'arrow-right']"
-              class="form-icon"
-            ></font-awesome-icon>
+            <div class="loader" v-if="loading"></div>
+            <template>Register</template>
           </button>
         </div>
+
+        <div class="form-group forgot-password-link">
+          <hr />
+          <a href="#"></a>
+          <hr />
+        </div>
+
+        <div class="form-group submit">
+          <a class="submit-btn" href="/login">Login</a>
+        </div>
       </form>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
-import { faLock, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-library.add(faEnvelope, faUser, faLock, faArrowRight);
-
 export default {
   name: "Register",
 
@@ -198,23 +172,4 @@ export default {
 
 <style lang="scss">
 @import "@/scss/login";
-
-.register {
-  .right {
-    .register-form {
-      .form-group {
-        &.submit {
-          text-align: right;
-          .submit-btn {
-            padding: 15px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: $color-blue;
-          }
-        }
-      }
-    }
-  }
-}
 </style>
