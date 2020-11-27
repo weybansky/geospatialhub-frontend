@@ -12,15 +12,15 @@ export default {
 
   mutations: {
     setPosts(state, posts) {
-      state.posts = posts;
+      state.posts = posts || [];
     },
 
     setPost(state, post) {
-      state.post = post;
+      state.post = post || null;
     },
 
     setComments(state, comments) {
-      state.comments = comments;
+      state.comments = comments || null;
     }
   },
 
@@ -28,7 +28,7 @@ export default {
     // Get all post
     async getPosts({ commit }) {
       return await axios.get("/v1/users/post/").then(({ data }) => {
-        commit("setPosts", data);
+        commit("setPosts", data.results);
       });
     },
 

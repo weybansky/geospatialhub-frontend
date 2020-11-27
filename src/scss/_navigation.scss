@@ -8,6 +8,7 @@
     text-decoration: none;
     color: lighten($color-black, 35%);
     font-size: 1.2rem;
+    cursor: pointer;
     
     .nav-link-icon {
       flex: 1;
@@ -29,11 +30,11 @@
         margin-top: -5px;
       }
     }
+
     .text {
       flex: 3;
       text-align: left;
       padding-left: 1rem;
-      font-weight: 100;
 
       .dropdown-menu-icon {
         height: 1.2rem;
@@ -51,8 +52,13 @@
 
     &.dropdown {
       position: relative;
-      .dropdown-menu {
+
+      &:hover .dropdown-menu {
         display: block;
+      }
+
+      .dropdown-menu {
+        display: none;
         position: absolute;
         right: 0;
         left: 0;

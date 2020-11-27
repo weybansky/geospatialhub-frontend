@@ -5,7 +5,7 @@
     </div>
 
     <div class="user">
-      <img class="image" src="user.png" alt="" />
+      <img class="image" :src="profileImage" alt="Profile Image" />
       <h3 class="user-name">
         {{ fullName }}
       </h3>
@@ -27,6 +27,9 @@ export default {
   },
 
   computed: {
+    profileImage() {
+      return this.$store.state.auth.user.profile.profile_pic || "user.png";
+    },
     username() {
       return this.$store.state.auth.user.username;
     },

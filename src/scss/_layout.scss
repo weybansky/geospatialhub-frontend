@@ -6,7 +6,7 @@
   height: 100vh;
 
   .aside-left {
-    flex: 0 1 2%;
+    flex: 0 1 20%;
     min-width: 250px;
     border-right: 4px solid $color-white;
     padding: 50px 1px 10px;
@@ -28,10 +28,12 @@
   }
 
   .main {
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     max-width: 992px;
     overflow-y: auto;
     padding: 1rem;
+
+    // @import "home-page";
   }
 
   .aside-right {

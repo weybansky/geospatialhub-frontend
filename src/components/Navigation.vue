@@ -162,11 +162,24 @@
         </li>
       </ul>
     </router-link>
+
+    <a class="nav-link" @click="logout">
+      <div class="nav-link-icon">
+        <!--  -->
+      </div>
+      <span class="text">Logout</span>
+    </a>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Navigation"
+  name: "Navigation",
+
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+    }
+  }
 };
 </script>
