@@ -139,7 +139,7 @@
               />
             </svg>
           </div>
-          <span class="text">geospatialhub@gmail.com</span>
+          <span class="text">{{ email }}</span>
         </li>
 
         <li class="nav-link">
@@ -158,7 +158,7 @@
               />
             </svg>
           </div>
-          <span class="text">08012345678</span>
+          <span class="text">{{ phone }}</span>
         </li>
       </ul>
     </router-link>
@@ -175,6 +175,15 @@
 <script>
 export default {
   name: "Navigation",
+
+  computed: {
+    email() {
+      return this.$store.state.site.email;
+    },
+    phone() {
+      return this.$store.state.site.phone;
+    }
+  },
 
   methods: {
     logout() {

@@ -45,10 +45,12 @@
       }
     }
 
+    &:hover,
     &.active {
       background-color: $color-blue;
       color: $color-white;
     }
+
 
     &.dropdown {
       position: relative;
@@ -58,14 +60,22 @@
       }
 
       .dropdown-menu {
+        background-color: darken($color-white, 8%);
         display: none;
         position: absolute;
         right: 0;
         left: 0;
         top: 100%;
         .nav-link {
-          padding-left: 70px;
+          padding-left: 45px;
+          display: flex;
           overflow: hidden;
+          .nav-link-icon{
+            flex: 1;
+          }
+          .text{
+            flex: 11;
+          }
         }
       }
     }

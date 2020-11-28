@@ -14,6 +14,12 @@ export default new Vuex.Store({
   state: {
     appName: "GeoSpatial Hub",
     alert: null,
+
+    site: {
+      email: "geospatialhub@gmail.com",
+      phone: "08012345678"
+    },
+
     layout: {
       sidebarEnabled: true,
       components: ["messaging", "users", "courses"]

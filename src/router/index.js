@@ -8,6 +8,7 @@ import Home from "../views/Home.vue";
 import Courses from "../views/Courses.vue";
 import Notifications from "../views/Notifications.vue";
 import About from "../views/About.vue";
+import Contact from "../views/Contact.vue";
 
 import store from "../store";
 
@@ -63,6 +64,14 @@ const routes = [
         path: "/about",
         name: "About",
         component: About,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/contact",
+        name: "Contact",
+        component: Contact,
         meta: {
           requiresAuth: true
         }
