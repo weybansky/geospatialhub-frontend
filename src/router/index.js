@@ -1,10 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+// Views
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import NotFound from "../views/NotFound.vue";
+import Home from "../views/Home.vue";
 import Courses from "../views/Courses.vue";
+import Notifications from "../views/Notifications.vue";
 import About from "../views/About.vue";
 
 import store from "../store";
@@ -52,7 +54,7 @@ const routes = [
       {
         path: "/notifications",
         name: "Notifications",
-        component: Courses,
+        component: Notifications,
         meta: {
           requiresAuth: true
         }

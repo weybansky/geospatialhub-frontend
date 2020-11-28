@@ -7,7 +7,8 @@ export default {
   state: () => ({
     user: null,
     courses: [],
-    posts: []
+    posts: [],
+    notifications: []
   }),
 
   mutations: {
@@ -26,6 +27,10 @@ export default {
 
     setPosts(state, posts) {
       state.posts = posts;
+    },
+
+    setNotifications(state, notifications) {
+      state.notications = notifications;
     }
   },
 
@@ -136,6 +141,12 @@ export default {
     async getUserPosts({ commit }) {
       return await axios.get("/v1/users/post/").then(({ data }) => {
         commit("setPosts", data);
+      });
+    },
+
+    async getNotifications({ commit }) {
+      return await axios.get("/v1/users/notifications/").then(({ data }) => {
+        commit("setNotifications", data);
       });
     }
   },

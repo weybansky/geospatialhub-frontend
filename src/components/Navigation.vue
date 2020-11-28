@@ -38,7 +38,7 @@
       <span class="text">Courses</span>
     </router-link>
 
-    <router-link to="/notification" class="nav-link" exact>
+    <router-link to="/notifications" class="nav-link" exact>
       <div class="nav-link-icon">
         <svg
           class="icon"
@@ -57,7 +57,7 @@
         </svg>
         <span class="notification-dot"></span>
       </div>
-      <span class="text">Notification</span>
+      <span class="text">Notifications</span>
     </router-link>
 
     <router-link to="/about" class="nav-link" exact>
