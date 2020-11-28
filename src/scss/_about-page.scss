@@ -1,3 +1,25 @@
-.about-page{
-  padding: 1rem;
+.about-page {
+  padding: 50px 1px 1rem;
+
+  .page-title {
+    padding-left: 40px;
+
+    .title {
+      color: $color-black;
+      font-size: 2.85rem;
+      margin-bottom: 1rem;
+      color: lighten($color-black, 25%);
+    }
+  }
+
+  .body {
+    img,
+    p {
+      margin: 0.5rem 0;
+    }
+    
+    font-size: 1.2rem;
+    line-height: 25px;
+    letter-spacing: 1px;
+  }
 }
