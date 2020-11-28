@@ -50,9 +50,25 @@ const routes = [
         }
       },
       {
+        path: "/notifications",
+        name: "Notifications",
+        component: Courses,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: "/about",
         name: "About",
         component: About,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/mycourses",
+        name: "MyCourses",
+        component: Courses,
         meta: {
           requiresAuth: true
         }

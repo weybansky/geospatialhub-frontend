@@ -9,15 +9,15 @@ export default {
   }),
 
   mutations: {
-    course(state, course) {
+    setCourse(state, course) {
       state.course = course || null;
     },
 
-    courses(state, courses) {
+    setCourses(state, courses) {
       state.courses = courses || [];
     },
 
-    categories(state, categories) {
+    setCategories(state, categories) {
       state.categories = categories || [];
       // .sort(function(a, b) {
       //     return a.title - b.title;
@@ -27,22 +27,15 @@ export default {
 
   actions: {
     async getCourses({ commit }) {
-      return await axios
-        .get("/v1/courses/")
-        .then(response => {
-          commit("courses", response.data.courses);
-          commit("categories", response.data.categories);
-        })
-        .catch(() => {
-          commit(
-            "showAlert",
-            {
-              status: "danger",
-              message: "Failed to load courses"
-            },
-            { root: true }
-          );
-        });
+      return await axios.get("/v1/courses/").then(({ data }) => {
+        commit("setCourses", data);
+      });
+    },
+
+    async getCategories({ commit }) {
+      return await axios.get("/v1/courses/categories/").then(({ data }) => {
+        commit("setCategories", data);
+      });
     }
   },
 

@@ -33,7 +33,10 @@
     overflow-y: auto;
     padding: 1rem;
 
-    // @import "home-page";
+    @import "home-page";
+    @import "courses-page";
+    @import "about-page";
+    // @import "notifications-page";
   }
 
   .aside-right {
@@ -42,5 +45,6 @@
     flex: 0 1 25%;
     min-width: 300px;
     overflow-y: auto;
+    // display: none;
   }
 }

@@ -17,8 +17,11 @@
       margin-bottom: 1rem;
       font-size: 1.1rem;
       color: lighten($color-black, 25%);
+
       .icon {
         margin-right: 0.75rem;
+        width: 1rem;
+        height: 1rem;
       }
     }
   }
@@ -42,17 +45,15 @@
 
   .courses {
     margin: 1rem 0;
-    padding: 15px;
+    padding: 1rem;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: flex-start;
 
     .course {
-      flex: 0 1 33%;
-      margin: 10px;
+      flex: 0 1 45%;
+      margin: 0.65rem;
       margin-bottom: 30px;
-      padding: 5px 10px;
+      padding: 0.3rem 0.6rem;
       cursor: pointer;
 
       &:hover {
@@ -66,6 +67,7 @@
           border-radius: 5px;
         }
       }
+      
       .details {
         padding: 10px 0;
         .course-title {

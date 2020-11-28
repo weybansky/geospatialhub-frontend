@@ -181,7 +181,7 @@ export default {
     like() {},
 
     gotoUser() {
-      this.$router.push("user/" + this.user.id);
+      this.$router.push("users/" + this.user.id);
     },
 
     userLiked() {}
@@ -192,108 +192,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@import "../scss/variables";
-
-.post {
-  display: flex;
-  flex-direction: column;
-  padding: 1.65rem 1rem;
-  border-bottom: 1px solid $color-white;
-
-  .header {
-    display: flex;
-    margin-bottom: 1rem;
-
-    .author-image {
-      cursor: pointer;
-      flex: 0 0 auto;
-      width: 40px;
-      height: 40px;
-      margin: 0 0.5rem;
-
-      img {
-        width: 100%;
-        border: 1px solid $color-blue;
-        border-radius: 50%;
-      }
-    }
-
-    .author-details {
-      flex: 2;
-      margin: 0 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 300;
-      p {
-        font-size: inherit;
-        margin-bottom: 3px;
-        small {
-          font-size: 0.91em;
-          font-weight: 100;
-          margin-left: 1rem;
-        }
-      }
-    }
-
-    .author-actions {
-      cursor: not-allowed;
-      flex: 1;
-      text-align: right;
-      .icon {
-        width: 0.8rem;
-        height: 0.8rem;
-      }
-    }
-  }
-
-  .body {
-    margin-bottom: 0.5rem;
-    line-height: 2rem;
-
-    .text {
-      margin-bottom: 1rem;
-      width: 90%;
-    }
-
-    img {
-      max-height: 200px;
-    }
-  }
-
-  .footer {
-    display: flex;
-    padding: 0.5rem;
-
-    .like,
-    .comment,
-    .share {
-      flex: 1;
-      color: $color-black;
-      margin: 0 0.3rem;
-
-      .icon {
-        height: 1rem;
-        width: 1rem;
-        color: inherit;
-        vertical-align: middle;
-      }
-
-      span {
-        margin-left: 0.5rem;
-      }
-
-      &:hover {
-        cursor: pointer;
-        color: $color-blue;
-      }
-    }
-
-    .like.liked {
-      .icon {
-        color: $color-blue;
-      }
-    }
-  }
-}
-</style>
