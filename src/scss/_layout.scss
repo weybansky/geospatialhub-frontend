@@ -23,6 +23,7 @@
     border-right: 4px solid $color-white;
     padding: 50px 1px 10px;
     text-align: center;
+    background-color: inherit;
 
     @import "aside-left";
   }
@@ -32,6 +33,7 @@
     max-width: 992px;
     overflow-y: auto;
     padding: 1rem;
+    background-color: inherit;
 
     @import "home-page";
     @import "courses-page";
@@ -46,17 +48,17 @@
     flex: 0 1 25%;
     min-width: 300px;
     overflow-y: auto;
-    // display: none;
+    background-color: inherit;
   }
 }
 
-@media (max-width: $device-mobile) {
+@media (max-width: $device-tablet) {
   .layout {
     .aside-left {
       width: 100%;
       border: 0;
       padding: 0;
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
@@ -65,6 +67,36 @@
       background: inherit;
       display: flex;
       max-height: 50px;
+    }
+
+    .main {
+      padding-bottom: 60px;
+      max-width: none;
+      min-width: 500px;
+      flex: 1 1 auto;
+    }
+
+    .aside-right {
+      padding: 1rem;
+      padding-bottom: 60px;
+      flex: 0 1 30%;
+      min-width: 265px;
+      max-width: 350px;
+    }
+  }
+}
+
+@media (max-width: $device-mobile) {
+  .layout {
+    flex-direction: column;
+
+    .main {
+      overflow-y: visible;
+      border: 0;
+    }
+    .aside-right {
+      overflow-y: visible;
+      border: 0;
     }
   }
 }

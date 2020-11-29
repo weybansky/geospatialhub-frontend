@@ -1,13 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
-import "./registerServiceWorker";
+// import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
 import axios from "axios";
-
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 if (process.env.NODE_ENV === "production") {
