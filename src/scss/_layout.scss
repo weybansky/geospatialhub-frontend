@@ -93,10 +93,16 @@
     .main {
       overflow-y: visible;
       border: 0;
+      min-width: auto;
+      width: 100%;
     }
+
     .aside-right {
       overflow-y: visible;
       border: 0;
+      min-width: auto;
+      width: 100%;
+      max-width: none;
     }
   }
 }

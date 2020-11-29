@@ -127,6 +127,11 @@
       padding: 1.65rem 1rem;
       border-bottom: 1px solid $color-white;
 
+      &:hover {
+        transition: box-shadow 0.5s;
+        box-shadow: 0 0 10px 5px $color-white;
+      }
+
       .header {
         display: flex;
         margin-bottom: 1rem;
@@ -217,6 +222,59 @@
         .like.liked {
           .icon {
             color: $color-blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $device-tablet) {
+  .home-page {
+    .new-post {
+      .profile-image {
+        display: none;
+      }
+      .input {
+        margin: 0;
+        border-radius: 10px;
+
+        &:focus {
+          flex: 100%;
+          margin: 0;
+        }
+      }
+    }
+
+    .posts {
+      .post {
+        padding: 0.75rem;
+
+        .header {
+          .author-image {
+            margin: 0;
+          }
+          .author-details {
+            flex: 3;
+          }
+        }
+
+        .footer {
+          .like {
+            flex: 2;
+          }
+          .comment {
+            flex: 3;
+          }
+          .share {
+            text-align: center;
+          }
+
+          .like,
+          .comment,
+          .share {
+            text-align: left;
+            margin: 0 0.5rem;
           }
         }
       }
