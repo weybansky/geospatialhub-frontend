@@ -28,13 +28,13 @@ export default {
   actions: {
     async getCourses({ commit }) {
       return await axios.get("/v1/courses/").then(({ data }) => {
-        commit("setCourses", data);
+        commit("setCourses", data.results);
       });
     },
 
     async getCategories({ commit }) {
       return await axios.get("/v1/courses/categories/").then(({ data }) => {
-        commit("setCategories", data);
+        commit("setCategories", data.results);
       });
     }
   },
