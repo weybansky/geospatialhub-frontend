@@ -4,13 +4,13 @@
       <img class="logo" src="../assets/logo.png" alt="Logo" />
     </div>
 
-    <div class="user">
+    <router-link to="profile" tag="a" style="display:bloack;" class="user">
       <img class="image" :src="profileImage" alt="Profile Image" />
       <h3 class="user-name">
         {{ fullName }}
       </h3>
       <p class="user-title">@{{ username }}</p>
-    </div>
+    </router-link>
 
     <navigation></navigation>
   </aside>

@@ -5,16 +5,6 @@
   background-color: darken($color-white, 8%);
   height: 100vh;
 
-  .aside-left {
-    flex: 0 1 20%;
-    min-width: 250px;
-    border-right: 4px solid $color-white;
-    padding: 50px 1px 10px;
-    text-align: center;
-
-    @import "aside-left";
-  }
-
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -25,6 +15,16 @@
 
   ::-webkit-scrollbar-track {
     background: $color-white;
+  }
+
+  .aside-left {
+    flex: 0 1 20%;
+    min-width: 250px;
+    border-right: 4px solid $color-white;
+    padding: 50px 1px 10px;
+    text-align: center;
+
+    @import "aside-left";
   }
 
   .main {
@@ -47,5 +47,24 @@
     min-width: 300px;
     overflow-y: auto;
     // display: none;
+  }
+}
+
+@media (max-width: $device-mobile) {
+  .layout {
+    .aside-left {
+      width: 100%;
+      border: 0;
+      padding: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      border-top: 1px solid $color-blue;
+      background: inherit;
+      display: flex;
+      max-height: 50px;
+    }
   }
 }

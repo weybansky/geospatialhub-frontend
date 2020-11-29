@@ -70,6 +70,11 @@ $color-white: #ffffff;
   background-color: $color-white;
 }
 
+// Devices
+$device-tablet: 991px;
+// $device-mobile: 768px;
+$device-mobile: 991px;
+
 // tags
 a {
   text-decoration: none;
