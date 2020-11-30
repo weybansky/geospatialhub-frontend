@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="header">
-      <div class="author-image" @click="gotoUser">
+      <div class="author-image" @click="$router.push('/users/' + user.id)">
         <img :src="user.image || 'user.png'" alt="Profile Image" />
       </div>
       <div class="author-details">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="body">
+    <div class="body" @click="viewPost">
       <p class="text" v-html="post.text"></p>
       <img v-if="post.image" :src="post.image" alt="Post Image" />
     </div>
@@ -200,10 +200,6 @@ export default {
       });
     },
 
-    gotoUser() {
-      this.$router.push("users/" + this.user.id);
-    },
-
     // userLiked() {},
 
     deletePost() {
@@ -211,6 +207,10 @@ export default {
       this.$store.dispatch("post/deletePost", this.post.id).finally(() => {
         this.loading = false;
       });
+    },
+
+    viewPost() {
+      console.log(this.post.id);
     }
   },
 
