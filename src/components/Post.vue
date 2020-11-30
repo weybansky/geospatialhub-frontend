@@ -14,6 +14,7 @@
       <div class="author-actions">
         <svg
           class="icon"
+          @click="showActions = !showActions"
           width="42"
           height="25"
           viewBox="0 0 42 25"
@@ -25,6 +26,12 @@
             fill="currentColor"
           />
         </svg>
+
+        <ul class="actions" v-if="showActions">
+          <li class="action bg-red text-white" @click="deletePost">
+            Delete
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -34,7 +41,7 @@
     </div>
 
     <div class="footer">
-      <div class="like" @click="like" :class="{ liked: liked }">
+      <div class="like" @click="likePost" :class="{ liked: liked }">
         <svg
           class="icon"
           width="71"
@@ -103,18 +110,27 @@
         </svg>
       </div>
     </div>
+
+    <LoadSpinner :loading="loading" />
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import LoadSpinner from "@/components/LoadSpinner";
 
 export default {
   name: "Post",
 
+  components: {
+    LoadSpinner
+  },
+
   data() {
     return {
-      liked: false
+      liked: false,
+      showActions: false,
+      loading: false
     };
   },
 
@@ -178,17 +194,28 @@ export default {
   },
 
   methods: {
-    like() {},
+    likePost() {
+      this.$store.dispatch("post/likePost", this.post.id).then(() => {
+        this.liked = !this.liked;
+      });
+    },
 
     gotoUser() {
       this.$router.push("users/" + this.user.id);
     },
 
-    userLiked() {}
+    // userLiked() {},
+
+    deletePost() {
+      this.loading = true;
+      this.$store.dispatch("post/deletePost", this.post.id).finally(() => {
+        this.loading = false;
+      });
+    }
   },
 
   mounted() {
-    this.userLiked;
+    // this.userLiked;
   }
 };
 </script>

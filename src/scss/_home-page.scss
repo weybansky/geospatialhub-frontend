@@ -136,6 +136,7 @@
       flex-direction: column;
       padding: 1.65rem 1rem;
       border-bottom: 1px solid $color-white;
+      position: relative;
 
       &:hover {
         transition: box-shadow 0.5s;
@@ -177,12 +178,41 @@
         }
 
         .author-actions {
-          cursor: not-allowed;
           flex: 1;
           text-align: right;
           .icon {
+            cursor: pointer;
             width: 0.8rem;
             height: 0.8rem;
+          }
+
+          position: relative;
+          .actions {
+            position: absolute;
+            top: 80%;
+            right: 0;
+            z-index: 10;
+            min-width: 150px;
+            width: 100%;
+            background-color: darken($color-white, 10%);
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+            .action {
+              cursor: pointer;
+              text-align: center;
+              width: 100%;
+              padding: 0.3rem;
+              margin: 0 0 2px 0;
+              border-bottom: 1px solid $color-white;
+
+              &:hover {
+                border: 0;
+                color: $color-black;
+                background-color: darken($color-white, 5%);
+              }
+            }
           }
         }
       }
@@ -230,9 +260,7 @@
         }
 
         .like.liked {
-          .icon {
-            color: $color-blue;
-          }
+          color: $color-blue;
         }
       }
     }

@@ -20,11 +20,23 @@ export default {
     },
 
     setComments(state, comments) {
-      state.comments = comments || null;
+      state.comments = comments || [];
     },
 
     addPostToPosts(state, post) {
       state.posts.unshift(post);
+    },
+
+    removePostFromPosts(state, postId) {
+      state.posts = state.posts.filter(post => post.id != postId);
+    },
+
+    updatePostLikes(state, data) {
+      state.posts.map(post => {
+        if (post.id == data.postId) {
+          post.likes_count = data.likesCount;
+        }
+      });
     }
   },
 
@@ -62,6 +74,13 @@ export default {
       });
     },
 
+    // Delete post
+    async deletePost({ commit }, postId) {
+      return await axios.delete("/v1/users/post/" + postId + "/").then(() => {
+        commit("removePostFromPosts", postId);
+      });
+    },
+
     // Create a new comment
     async postComment({ state, commit }, postId, formData) {
       // text & image
@@ -75,19 +94,15 @@ export default {
     },
 
     // Like/Un-like a post
-    async likePost({ state, commit }, postId) {
+    async likePost({ commit }, postId) {
       return await axios
-        .post("/v1/users/post/rate/" + postId + "", { liked: true })
+        .post("/v1/users/post/rate/" + postId + "/", { liked: true })
         .then(({ data }) => {
           // update the likes_count on post with total_likes
-          commit(
-            "setPosts",
-            state.posts.map(post => {
-              if (post.id == postId) {
-                post.like_count = data.total_likes;
-              }
-            })
-          );
+          commit("updatePostLikes", {
+            postId: postId,
+            likesCount: data.total_likes
+          });
         });
     }
   },
