@@ -21,6 +21,10 @@ export default {
 
     setComments(state, comments) {
       state.comments = comments || null;
+    },
+
+    addPostToPosts(state, post) {
+      state.posts.unshift(post);
     }
   },
 
@@ -54,7 +58,7 @@ export default {
       // text & image
       return await axios.post("/v1/users/post/", formData).then(({ data }) => {
         commit("setPost", data);
-        return data;
+        commit("addPostToPosts", data);
       });
     },
 

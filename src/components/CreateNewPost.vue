@@ -3,15 +3,17 @@
     <textarea
       type="text"
       class="input"
-      v-model="newPostText"
+      v-model="text"
       placeholder="Share your thoughts here..."
+      :disabled="loading"
+      required
     ></textarea>
 
     <img
       :src="profileImage"
       alt="Profile Image"
       class="profile-image"
-      @click="router.push('profile')"
+      @click="$router.push('profile')"
     />
 
     <label
@@ -48,14 +50,19 @@
       <input
         type="file"
         id="post-image"
-        ref="newPostImage"
-        style="display:none;"
+        ref="image"
+        style="display: none"
         accept="image/*"
         @change="fileSelect"
       />
     </label>
 
-    <button title="Create" class="send-button" @click="createPost">
+    <button
+      title="Create"
+      class="send-button"
+      @click="createPost"
+      :disabled="loading"
+    >
       <svg
         class="icon"
         width="38"
@@ -70,17 +77,30 @@
         />
       </svg>
     </button>
+
+    <span class="error" v-if="errors.text">{{ errors.text[0] }}</span>
+    <span class="error" v-if="errors.image">{{ errors.image[0] }}</span>
+
+    <LoadSpinner :loading="loading" />
   </div>
 </template>
 
 <script>
+import LoadSpinner from "@/components/LoadSpinner";
+
 export default {
   name: "CreateNewPost",
 
+  components: {
+    LoadSpinner
+  },
+
   data() {
     return {
-      newPostText: "",
-      fileSelected: false
+      text: "",
+      fileSelected: false,
+      errors: {},
+      loading: false
     };
   },
 
@@ -91,7 +111,29 @@ export default {
   },
 
   methods: {
-    createPost() {},
+    createPost() {
+      let formData = new FormData();
+      formData.append("text", this.text);
+      if (this.$refs.image.files.length) {
+        formData.append("image", this.$refs.image.files[0]);
+      }
+      this.loading = true;
+      this.$store
+        .dispatch("post/createPost", formData)
+        .then(() => {
+          this.text = "";
+          this.$refs.image.value = "";
+        })
+        .catch(({ response }) => {
+          this.errors = response.data;
+          if (this.$refs.image.files.length) {
+            this.errors.text = ["A description of the image would be nice."];
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
 
     fileSelect(e) {
       this.fileSelected = e.target.files.length ? true : false;
@@ -101,3 +143,14 @@ export default {
   mounted() {}
 };
 </script>
+
+<style lang="scss" scoped>
+.error {
+  order: 10;
+  font-size: 14px;
+  color: red;
+  padding: 7px 1rem;
+  flex: 100%;
+  text-align: center;
+}
+</style>
