@@ -5,6 +5,11 @@
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+  background: url(../assets/bg_triangles.svg), url(../assets/bg_circles.svg),
+    $color-blue;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: top left, top right, center;
+  background-size: 25%, 15%, cover;
 
   .main {
     flex: 0 1 40%;
@@ -18,8 +23,8 @@
     }
 
     .greeting {
-      font-size: 3rem;
-      margin: 2.3rem 0;
+      font-size: 2.65rem;
+      margin: 2rem 0;
       font-weight: 300;
     }
 
@@ -27,7 +32,7 @@
       width: 100%;
 
       .form-group {
-        margin: 2.3rem 0;
+        margin: 2rem 0;
 
         &.form-alert {
           text-align: center;
@@ -116,12 +121,11 @@
           align-items: center;
           padding: 0 1rem;
           text-align: center;
-          
+
           hr {
             flex: 0 0 20%;
             height: 1px;
             border-color: $color-white;
-
           }
           a {
             flex: 1 0 auto;
@@ -130,6 +134,41 @@
             &:hover {
               color: $color-black;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $device-tablet) {
+  .login-page {
+    background-size: 45%, 25%, cover;
+
+    .main {
+      flex: 1;
+      padding: 1.2rem;
+
+      .logo {
+        margin-top: 2rem;
+      }
+
+      .greeting {
+        font-size: 2rem;
+        margin: 1.8rem 0;
+      }
+
+      .login-form {
+        .form-group {
+          margin: 1.6rem 0;
+
+          .form-input {
+            padding: 18px;
+            border-radius: 0.5rem;
+          }
+
+          .submit-btn {
+            border-radius: 0.5rem;
           }
         }
       }
