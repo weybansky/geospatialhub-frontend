@@ -89,3 +89,38 @@
     }
   }
 }
+
+@media (max-width: $device-tablet) {
+  .courses-page {
+    padding-top: 30px;
+
+    .page-title {
+      padding: 0;
+
+      .title {
+        font-size: 2.25rem;
+      }
+    }
+
+    .categories {
+      // display: block;
+      // width: 100%;
+      // height: 40px;
+      // direction: ltr;
+      // overflow-x: hidden;
+
+      .category {
+        // padding:7px;
+      }
+    }
+
+    .courses {
+      margin: 0;
+      .course {
+        flex: 1 1 100%;
+        margin: 0 0 1.2rem 0;
+        padding: 0.3rem;
+      }
+    }
+  }
+}
