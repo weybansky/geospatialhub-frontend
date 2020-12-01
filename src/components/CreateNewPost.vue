@@ -123,6 +123,7 @@ export default {
         .then(() => {
           this.text = "";
           this.$refs.image.value = "";
+          this.errors = {};
         })
         .catch(({ response }) => {
           this.errors = response.data;

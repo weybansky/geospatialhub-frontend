@@ -28,7 +28,11 @@
         </svg>
 
         <ul class="actions" v-if="showActions">
-          <li class="action bg-red text-white" @click="deletePost">
+          <li
+            class="action bg-red text-white"
+            v-if="postBelongsToUser"
+            @click="deletePost"
+          >
             Delete
           </li>
         </ul>
@@ -155,13 +159,18 @@ export default {
   },
 
   computed: {
+    postBelongsToUser() {
+      return this.post.post_belongs_to_authenticated_user;
+    },
+
     user() {
       if (this.post.post_belongs_to_authenticated_user) {
         const user = this.$store.state.auth.user;
         return {
           id: user.id,
           username: user.username,
-          name: user.profile.first_name + " " + user.profile.last_name,
+          first_name: user.profile.first_name,
+          last_name: user.profile.last_name,
           image: user.profile.profile_pic
         };
       }
@@ -169,7 +178,8 @@ export default {
       return {
         id: this.post.posted_by.id,
         username: this.post.posted_by.username,
-        name: this.post.posted_by.name,
+        first_name: this.post.posted_by.first_name,
+        last_name: this.post.posted_by.last_name,
         image: this.post.posted_by.profile_pic
       };
     },
@@ -210,7 +220,7 @@ export default {
     },
 
     viewPost() {
-      console.log(this.post.id);
+      // console.log(this.post.id);
     }
   },
 
