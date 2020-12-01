@@ -7,12 +7,12 @@
         alt="Geospatial Hub Logo"
       />
 
-      <h3 class="greeting">Welcome , Login</h3>
+      <h3 class="greeting">Reset your Password</h3>
 
       <form
         class="login-form"
         method="POST"
-        @submit.prevent="login"
+        @submit.prevent="resetPassword"
         @keydown="handleFormError($event.target.name)"
       >
         <div
@@ -26,46 +26,28 @@
         <div class="form-group input-group">
           <input
             class="form-input"
-            type="text"
-            name="username"
-            v-model="username"
-            placeholder="Email or Username"
+            type="email"
+            name="email"
+            v-model="email"
+            placeholder="Email"
             required
           />
-          <small class="form-input-error" v-if="errors.username">
-            {{ errors.username[0] }}
-          </small>
-        </div>
-
-        <div class="form-group input-group">
-          <input
-            class="form-input"
-            type="password"
-            name="password"
-            v-model="password"
-            placeholder="Password"
-            required
-          />
-          <small class="form-input-error" v-if="errors.password">
-            {{ errors.password[0] }}
+          <small class="form-input-error" v-if="errors.email">
+            {{ errors.email[0] }}
           </small>
         </div>
 
         <div class="form-group submit">
           <button class="submit-btn" type="submit" :disabled="loading">
             <div class="loader" v-if="loading"></div>
-            <template>Login</template>
+            <template>Reset</template>
           </button>
         </div>
 
         <div class="form-group forgot-password-link">
           <hr />
-          <a href="password/reset">forgot your password ?</a>
+          <a href="/login">Go back to login</a>
           <hr />
-        </div>
-
-        <div class="form-group submit">
-          <a class="submit-btn" href="/register">Register</a>
         </div>
       </form>
     </main>
@@ -74,12 +56,11 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "PasswordForgot",
 
   data() {
     return {
-      username: "",
-      password: "",
+      email: "",
       errors: {},
       loading: false
     };
@@ -100,23 +81,25 @@ export default {
   },
 
   methods: {
-    login() {
+    resetPassword() {
       this.loading = true;
       this.$store
-        .dispatch("auth/login", {
-          username: this.username,
-          password: this.password
+        .dispatch("auth/forgotPassword", {
+          email: this.email
+        })
+        .then(() => {
+          this.errors = {};
         })
         .catch(({ response }) => {
           this.errors = response.data || {};
-          this.errors.username = response.data.username || null;
-          this.errors.password = response.data.password || null;
+          this.errors.email = response.data.email || null;
+
           if (response.data.non_field_errors != null) {
-            this.errors.username = response.data.non_field_errors;
+            this.errors.email = response.data.non_field_errors;
           }
 
           this.$store.commit("showAlert", {
-            message: response.data.message || "Login Failed",
+            message: response.data.message || "Failed",
             status: "error"
           });
         })

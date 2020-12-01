@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 // Views
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import PasswordForgot from "../views/PasswordForgot.vue";
+import PasswordChange from "../views/PasswordChange.vue";
 import NotFound from "../views/NotFound.vue";
 import Home from "../views/Home.vue";
 import Courses from "../views/Courses.vue";
@@ -28,6 +30,22 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/password/reset",
+    name: "PasswordForgot",
+    component: PasswordForgot,
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/password/change",
+    name: "PasswordChange",
+    component: PasswordChange,
     meta: {
       guest: true
     }

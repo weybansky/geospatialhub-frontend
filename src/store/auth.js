@@ -160,6 +160,14 @@ export default {
       return await axios.get("/v1/users/notification/").then(({ data }) => {
         commit("setNotifications", data);
       });
+    },
+
+    async forgotPassword() {
+      // return await axios.post()
+    },
+
+    async changePassword() {
+      // return await axios.post()
     }
   },
 
