@@ -9,6 +9,7 @@ import Courses from "../views/Courses.vue";
 import Notifications from "../views/Notifications.vue";
 import About from "../views/About.vue";
 import Contact from "../views/Contact.vue";
+import MyCourses from "../views/MyCourses.vue";
 
 import store from "../store";
 
@@ -79,7 +80,7 @@ const routes = [
       {
         path: "/mycourses",
         name: "MyCourses",
-        component: Courses,
+        component: MyCourses,
         meta: {
           requiresAuth: true
         }

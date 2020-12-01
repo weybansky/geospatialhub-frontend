@@ -9,6 +9,13 @@
       font-size: 2.85rem;
       margin-bottom: 1rem;
       color: lighten($color-black, 25%);
+
+      a {
+        color: $color-blue;
+        &:hover {
+          color: $color-black;
+        }
+      }
     }
 
     .feature {
@@ -43,7 +50,7 @@
 
   .courses {
     margin: 1rem 0;
-    padding: 1rem;
+    padding: 0.5rem 0;
     display: flex;
     flex-wrap: wrap;
 
@@ -51,7 +58,7 @@
       flex: 0 1 45%;
       margin: 0.65rem;
       margin-bottom: 30px;
-      padding: 0.3rem 0.6rem;
+      padding: 0.3rem 0.5rem;
       cursor: pointer;
 
       &:hover {
@@ -61,11 +68,11 @@
 
       .banner {
         .image {
-          width: 100%;
+          max-width: 100%;
           border-radius: 5px;
         }
       }
-      
+
       .details {
         padding: 10px 0;
         .course-title {

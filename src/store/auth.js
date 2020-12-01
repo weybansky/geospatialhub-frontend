@@ -1,5 +1,4 @@
 import axios from "axios";
-// import router from "../router";
 
 export default {
   namespaced: true,
@@ -13,7 +12,7 @@ export default {
 
   mutations: {
     setUser(state, user) {
-      state.user = user;
+      state.user = user || null;
       if (user == null) {
         localStorage.setItem("user", null);
       } else {
@@ -21,16 +20,16 @@ export default {
       }
     },
 
-    setCourses(state, courses) {
-      state.courses = courses;
+    setUserCourses(state, courses) {
+      state.courses = courses || [];
     },
 
     setPosts(state, posts) {
-      state.posts = posts;
+      state.posts = posts || [];
     },
 
     setNotifications(state, notifications) {
-      state.notications = notifications;
+      state.notications = notifications || [];
     }
   },
 
@@ -132,10 +131,17 @@ export default {
         });
     },
 
-    async getUserCourses({ commit }) {
-      return await axios.get("/v1/courses/enrolled/").then(({ data }) => {
-        commit("setCourses", data.courses);
-      });
+    async getUserCourses({ commit, rootState }) {
+      const courses = rootState.course.courses.filter(
+        course => course.is_user_enrolled
+      );
+      if (courses.length) {
+        commit("setUserCourses", courses);
+      } else {
+        await axios.get("/v1/courses/enrolled/").then(({ data }) => {
+          commit("setUserCourses", data.results);
+        });
+      }
     },
 
     async getUserPosts({ commit }) {

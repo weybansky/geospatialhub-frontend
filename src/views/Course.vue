@@ -1,9 +1,7 @@
 <template>
   <section class="courses-page">
     <div class="page-title">
-      <h1 class="title">
-        Courses <router-link to="mycourses">My Courses</router-link>
-      </h1>
+      <h1 class="title">Courses</h1>
 
       <p class="feature">
         <svg
