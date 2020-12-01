@@ -125,10 +125,6 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.state.auth.user == null) {
-      store.commit("showAlert", {
-        status: "error",
-        message: "Please Login"
-      });
       next({
         path: "/login",
         params: { nextUrl: to.fullPath }
