@@ -19,6 +19,25 @@
       <span class="text">Home</span>
     </router-link>
 
+    <router-link to="/profile" class="nav-link hidden-mobile">
+      <div class="nav-link-icon">
+        <svg
+          class="icon"
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M47.5 17.5H60V22.5H47.5V17.5ZM42.5 30H60V35H42.5V30ZM50 42.5H60V47.5H50V42.5ZM5 55C5 49.6957 7.10714 44.6086 10.8579 40.8579C14.6086 37.1071 19.6957 35 25 35C30.3043 35 35.3914 37.1071 39.1421 40.8579C42.8929 44.6086 45 49.6957 45 55H40C40 51.0218 38.4196 47.2064 35.6066 44.3934C32.7936 41.5803 28.9782 40 25 40C21.0218 40 17.2064 41.5803 14.3934 44.3934C11.5804 47.2064 10 51.0218 10 55H5ZM25 32.5C16.7125 32.5 10 25.7875 10 17.5C10 9.2125 16.7125 2.5 25 2.5C33.2875 2.5 40 9.2125 40 17.5C40 25.7875 33.2875 32.5 25 32.5ZM25 27.5C30.525 27.5 35 23.025 35 17.5C35 11.975 30.525 7.5 25 7.5C19.475 7.5 15 11.975 15 17.5C15 23.025 19.475 27.5 25 27.5Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <span class="text">Profile</span>
+    </router-link>
+
     <router-link to="/mycourses" class="nav-link">
       <div class="nav-link-icon">
         <svg
@@ -36,6 +55,25 @@
         </svg>
       </div>
       <span class="text">MyCourses</span>
+    </router-link>
+
+    <router-link to="/courses" class="nav-link hidden-mobile">
+      <div class="nav-link-icon">
+        <svg
+          class="icon"
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M45 56.25H15C14.0057 56.249 13.0525 55.8536 12.3494 55.1506C11.6464 54.4475 11.251 53.4943 11.25 52.5V7.5C11.251 6.50574 11.6464 5.55249 12.3494 4.84945C13.0525 4.1464 14.0057 3.75099 15 3.75H45C45.9943 3.75099 46.9475 4.1464 47.6506 4.84945C48.3536 5.55249 48.749 6.50574 48.75 7.5V38.6587L39.375 33.9713L30 38.6587V7.5H15V52.5H45V45H48.75V52.5C48.7485 53.4941 48.3529 54.4471 47.65 55.15C46.9471 55.8529 45.9941 56.2485 45 56.25ZM39.375 29.7787L45 32.5912V7.5H33.75V32.5912L39.375 29.7787Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <span class="text">Courses</span>
     </router-link>
 
     <router-link to="/notifications" class="nav-link" exact>
