@@ -92,7 +92,7 @@
       flex-wrap: wrap;
 
       // logout link
-      &:last-child {
+      &.hidden-mobile {
         display: none;
       }
 
