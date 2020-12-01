@@ -17,6 +17,7 @@
     padding: 0.3rem;
     margin-bottom: 3px;
     align-items: center;
+    cursor: pointer;
 
     .image {
       flex: 0 1 30px;
@@ -38,6 +39,9 @@
       font-weight: 300;
     }
 
+    &:hover {
+      background: $color-white;
+    }
     // &.unread {}
   }
 }

@@ -7,7 +7,10 @@ export default {
     user: null,
     courses: [],
     posts: [],
-    notifications: []
+    notifications: {
+      unread_message_count: 0,
+      new_follower: []
+    }
   }),
 
   mutations: {
@@ -29,7 +32,10 @@ export default {
     },
 
     setNotifications(state, notifications) {
-      state.notications = notifications || [];
+      state.notications = notifications || {
+        unread_message_count: 0,
+        new_follower: []
+      };
     }
   },
 
@@ -151,7 +157,7 @@ export default {
     },
 
     async getNotifications({ commit }) {
-      return await axios.get("/v1/users/notifications/").then(({ data }) => {
+      return await axios.get("/v1/users/notification/").then(({ data }) => {
         commit("setNotifications", data);
       });
     }
@@ -169,6 +175,11 @@ export default {
     fullname(state) {
       const userProfile = state.user.profile;
       return userProfile.first_name + " " + userProfile.last_name;
+    },
+
+    sortNotifications(state) {
+      // TODO
+      return state.notications;
     }
   },
 

@@ -1,15 +1,19 @@
 <template>
+  <!-- @click="$router.push('/users/' + notification.id)" -->
   <div class="notification" :class="{ unread: unread }">
     <div class="image">
-      <img src="user.png" alt="Profile Picture" />
+      <img
+        :src="notification.profile_pic || 'user.png'"
+        alt="Profile Picture"
+      />
     </div>
-    <div class="text">Lara has invited you to the group called geonation</div>
-    <div class="time">2minutes ago</div>
+    <div class="text">@{{ notification.username }} followed you</div>
+    <div class="time">{{ postedAt }}</div>
   </div>
 </template>
 
 <script>
-// import moment from "moment";
+import moment from "moment";
 
 export default {
   name: "Notification",
@@ -26,24 +30,21 @@ export default {
       required: true,
       default: () => {
         return {
-          // id: 5,
-          //
-          // type:"",
-          // text: "New Post from weybansky on Nov. 8",
-          // image: null,
-          // pub_date: "2020-11-08T10:34:00.270289Z",
-          // user:"",
-          // message: "",
-          // post:"",
+          id: 3,
+          username: "thor04",
+          first_name: "",
+          last_name: "",
+          profile_pic: null,
+          created: "2020-11-29T19:07:51.834493Z"
         };
       }
     }
   },
 
   computed: {
-    // postedAt() {
-    //   return moment(this.post.pub_date).fromNow();
-    // }
+    postedAt() {
+      return moment(this.notification.created).fromNow();
+    }
   },
 
   methods: {},

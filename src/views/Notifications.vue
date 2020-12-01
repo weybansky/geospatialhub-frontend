@@ -13,7 +13,9 @@
     </div>
 
     <div class="notifications" v-else>
-      <div class="notification"></div>
+      <div class="notification">
+        <div class="text text-center">0 Notifications</div>
+      </div>
     </div>
   </section>
 </template>
@@ -30,14 +32,7 @@ export default {
 
   computed: {
     notifications() {
-      return [
-        {
-          id: 1
-          // text: "Lara has invited you to the group called geonation",
-          // pubdate: "2020-11-08T10:34:00.270289Z"
-        }
-      ];
-      // return this.$store.state.auth.notifications;
+      return this.$store.state.auth.notifications.new_follower || [];
     }
   },
 
