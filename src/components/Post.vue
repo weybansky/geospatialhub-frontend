@@ -6,7 +6,7 @@
       </div>
       <div class="author-details">
         <p class="name">
-          {{ user.name || "Dummy name" }}
+          {{ user.name }}
           <small class="datetime">{{ postedAt }}</small>
         </p>
         <p class="username">@{{ user.username }}</p>
@@ -164,24 +164,16 @@ export default {
     },
 
     user() {
-      if (this.post.post_belongs_to_authenticated_user) {
-        const user = this.$store.state.auth.user;
-        return {
-          id: user.id,
-          username: user.username,
-          first_name: user.profile.first_name,
-          last_name: user.profile.last_name,
-          image: user.profile.profile_pic
-        };
-      }
-
-      return {
+      let user = {
         id: this.post.posted_by.id,
         username: this.post.posted_by.username,
-        first_name: this.post.posted_by.first_name,
-        last_name: this.post.posted_by.last_name,
-        image: this.post.posted_by.profile_pic
+        first_name: this.post.posted_by.first_name || "",
+        last_name: this.post.posted_by.last_name || "",
+        image: this.post.posted_by.profile_pic || null
       };
+      user.name =
+        (user.first_name + " " + user.last_name).trim() || user.username;
+      return user;
     },
 
     postedAt() {
