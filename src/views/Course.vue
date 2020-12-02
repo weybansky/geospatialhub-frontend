@@ -1,7 +1,9 @@
 <template>
   <section class="courses-page">
     <div class="page-title">
-      <h1 class="title">Courses</h1>
+      <h1 class="title">
+        Courses <router-link to="mycourses">My Courses</router-link>
+      </h1>
 
       <p class="feature">
         <svg
@@ -53,52 +55,40 @@
       </p>
     </div>
 
-    <ul class="categories">
-      <!-- <li class="category" @click="$router.push('mycourses')">
-        Enrolled
-      </li> -->
-      <li
-        class="category"
-        :class="{ active: !$route.query.category }"
-        @click="filterCourseByCategory(null)"
-      >
-        All
-      </li>
-
-      <li
-        v-for="category in categories"
-        :key="category.id"
-        class="category"
-        :class="{ active: $route.query.category == category.id }"
-        @click="filterCourseByCategory(category.id)"
-      >
-        {{ category.title }}
-      </li>
-    </ul>
-
-    <div class="courses" v-if="courses.length">
-      <div
-        class="course"
-        v-for="course in courses"
-        :key="course.id"
-        @click="$router.push({ path: 'courses/' + course.id })"
-      >
+    <div class="courses" v-if="course">
+      <div class="course">
         <div class="banner">
-          <img class="image" :src="course.course_pic || 'course_image.png'" />
+          <img class="image" :src="course.course_pic || '/course_image.png'" />
         </div>
         <div class="details">
           <h4 class="course-title">{{ course.title }}</h4>
-          <p class="course-info">{{ course.module_count }} module(s)</p>
-          <!-- <p class="rating">-----------</p> -->
+          <p class="overview" v-html="course.overview.slice(1, 100)"></p>
+          <p class="course-info">
+            <svg
+              class="icon"
+              width="60"
+              height="60"
+              viewBox="0 0 60 60"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M30 3.75C15.5039 3.75 3.75 15.5039 3.75 30C3.75 44.4961 15.5039 56.25 30 56.25C44.4961 56.25 56.25 44.4961 56.25 30C56.25 15.5039 44.4961 3.75 30 3.75ZM30 51.7969C17.9648 51.7969 8.20312 42.0352 8.20312 30C8.20312 17.9648 17.9648 8.20312 30 8.20312C42.0352 8.20312 51.7969 17.9648 51.7969 30C51.7969 42.0352 42.0352 51.7969 30 51.7969Z"
+                fill="currentColor"
+              />
+              <path
+                d="M27.1875 19.6875C27.1875 20.4334 27.4838 21.1488 28.0113 21.6762C28.5387 22.2037 29.2541 22.5 30 22.5C30.7459 22.5 31.4613 22.2037 31.9887 21.6762C32.5162 21.1488 32.8125 20.4334 32.8125 19.6875C32.8125 18.9416 32.5162 18.2262 31.9887 17.6988C31.4613 17.1713 30.7459 16.875 30 16.875C29.2541 16.875 28.5387 17.1713 28.0113 17.6988C27.4838 18.2262 27.1875 18.9416 27.1875 19.6875ZM31.4062 26.25H28.5938C28.3359 26.25 28.125 26.4609 28.125 26.7188V42.6562C28.125 42.9141 28.3359 43.125 28.5938 43.125H31.4062C31.6641 43.125 31.875 42.9141 31.875 42.6562V26.7188C31.875 26.4609 31.6641 26.25 31.4062 26.25Z"
+                fill="currentColor"
+              />
+            </svg>
+            <small>{{ course.module_count }} module(s)</small>
+          </p>
+          <p class="course-info" v-if="course.author.first_name">
+            Author:
+            {{ course.author.first_name + " " + course.author.last_name }}
+          </p>
         </div>
-      </div>
-    </div>
-
-    <div class="courses" v-else>
-      <div class="course">
-        <div class="details">
-          <h4 class="course-title">No Course Found</h4>
-        </div>
+        <div class="price">₦{{ course.price }}</div>
       </div>
     </div>
   </section>
@@ -106,56 +96,30 @@
 
 <script>
 export default {
-  name: "Courses",
+  name: "Course",
 
   data() {
-    return {
-      courses: []
-    };
-  },
-
-  watch: {
-    "$route.query.category": function(category) {
-      if (category) {
-        this.courses = this.allCourses.filter(course => {
-          return course.category.id == category;
-        });
-      } else {
-        this.courses = this.allCourses;
-      }
-    }
+    return {};
   },
 
   computed: {
-    allCourses() {
-      return this.$store.state.course.courses;
-    },
-
-    categories() {
-      return this.$store.state.course.categories;
+    course() {
+      return this.$store.state.course.course;
     }
   },
 
-  methods: {
-    filterCourseByCategory(value) {
-      const queryCategory = this.$route.query.category;
-      if (queryCategory != value) {
-        return this.$router.push({
-          path: "/courses",
-          query: { category: value }
-        });
-      }
-    }
-  },
+  methods: {},
 
   async mounted() {
-    if (this.$store.state.course.categories.length < 1) {
-      await this.$store.dispatch("course/getCategories");
+    await this.$store.dispatch("course/getCourse", this.$route.params.course);
+    if (!this.course) {
+      await this.$store.dispatch(
+        "course/getCourseModules",
+        this.$route.params.course
+      );
+      // fetch module
+      // console.log("Failed");
     }
-    if (this.$store.state.course.courses.length < 1) {
-      await this.$store.dispatch("course/getCourses");
-    }
-    this.courses = this.$store.state.course.courses.slice();
   }
 };
 </script>

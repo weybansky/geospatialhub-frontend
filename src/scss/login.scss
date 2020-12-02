@@ -5,8 +5,9 @@
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(../assets/svg/bg_triangles.svg), url(../assets/svg/bg_circles.svg),
-    url(../assets/svg/bg_man_on_stairs.svg), $color-blue;
+  background: url(../assets/svg/bg_triangles.svg),
+    url(../assets/svg/bg_circles.svg), url(../assets/svg/bg_man_on_stairs.svg),
+    $color-blue;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-position: top left, top right, bottom left, center;
   background-size: 25%, 15%, 20%, cover;
@@ -144,7 +145,7 @@
 
 @media (max-width: $device-tablet) {
   .login-page {
-    background-size: 45%, 25%, cover;
+    background-size: 45%, 25%, 0%, cover;
 
     .main {
       flex: 1;
