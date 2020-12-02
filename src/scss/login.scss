@@ -5,11 +5,11 @@
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url(../assets/bg_triangles.svg), url(../assets/bg_circles.svg),
-    $color-blue;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: top left, top right, center;
-  background-size: 25%, 15%, cover;
+  background: url(../assets/svg/bg_triangles.svg), url(../assets/svg/bg_circles.svg),
+    url(../assets/svg/bg_man_on_stairs.svg), $color-blue;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: top left, top right, bottom left, center;
+  background-size: 25%, 15%, 20%, cover;
 
   .main {
     flex: 0 1 40%;
