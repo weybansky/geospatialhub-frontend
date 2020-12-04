@@ -1,11 +1,13 @@
 <template>
   <div class="login-page bg-blue text-white">
     <main class="main">
-      <img
-        class="logo"
-        src="@/assets/logo/transparent_white.png"
-        alt="Geospatial Hub Logo"
-      />
+      <router-link class="brand" to="/">
+        <img
+          class="logo"
+          src="@/assets/logo/transparent_white.png"
+          alt="Geospatial Hub Logo"
+        />
+      </router-link>
 
       <h3 class="greeting">Welcome , Register</h3>
 

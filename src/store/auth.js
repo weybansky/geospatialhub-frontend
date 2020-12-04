@@ -80,7 +80,7 @@ export default {
             },
             { root: true }
           );
-          window.location.href = "/";
+          window.location.href = "/home";
         });
     },
 

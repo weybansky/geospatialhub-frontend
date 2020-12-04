@@ -1,6 +1,6 @@
 <template>
   <nav class="navigation">
-    <router-link to="/" class="nav-link" exact>
+    <router-link to="/home" class="nav-link" exact>
       <div class="nav-link-icon">
         <svg
           class="icon"

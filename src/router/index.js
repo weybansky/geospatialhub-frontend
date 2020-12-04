@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // Views
+import Welcome from "../views/Welcome.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import PasswordForgot from "../views/PasswordForgot.vue";
@@ -19,6 +20,11 @@ import store from "../store";
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/",
+    name: "Welcome",
+    component: Welcome
+  },
   {
     path: "/login",
     name: "Login",
@@ -52,12 +58,12 @@ const routes = [
     }
   },
   {
-    path: "/",
+    path: "",
     component: () =>
       import(/* webpackChunkName: "layout" */ "../views/Layout.vue"),
     children: [
       {
-        path: "",
+        path: "/home",
         name: "Home",
         component: Home,
         meta: {
@@ -163,7 +169,7 @@ router.beforeEach((to, from, next) => {
     if (store.state.auth.user == null) {
       next();
     } else {
-      next({ path: "/" });
+      next({ path: "/home" });
     }
   } else {
     next();

@@ -1,0 +1,235 @@
+@import "variables";
+
+.welcome-page {
+  min-height: 100vh;
+  align-items: center;
+  background: url(../assets/svg/bg_triangles.svg), $color-white;
+  background-repeat: no-repeat, no-repeat;
+  background-position: top right, center;
+  background-size: 10%, cover;
+  color: $color-black;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: flex;
+    height: 60px;
+    padding: 0.4rem 1rem;
+    flex: 0 1 100%;
+    max-height: 60px;
+
+    .logo {
+      flex: 1;
+      img {
+        height: 100%;
+      }
+    }
+
+    .links {
+      flex: 2;
+      text-align: right;
+
+      .link {
+        display: inline-block;
+        border: 2px solid $color-blue;
+        border-radius: 4px;
+        padding: 0.5rem 0.8rem;
+        margin: 1rem;
+        outline: 0;
+      }
+      .blue {
+        background: $color-blue;
+        color: $color-white;
+      }
+      .white {
+        background: rgba($color-white, 0.5);
+        color: $color-blue;
+      }
+    }
+  }
+
+  main {
+    display: flex;
+    flex: 0 1 100%;
+    padding: 1rem;
+    min-height: 65vh;
+    max-height: 90vh;
+
+    .left {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      background: url(../assets/bg_home_left.jpg);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+
+      form {
+        height: 50px;
+        width: 75%;
+        flex: 1 1 75%;
+        position: relative;
+        text-align: center;
+        margin: 1rem 0;
+
+        .search-icon {
+          position: absolute;
+          z-index: 10;
+          height: 40px;
+          margin: 5px 0;
+          width: 1.5rem;
+          left: 1rem;
+        }
+
+        input {
+          height: 100%;
+          width: 100%;
+          border: 0;
+          outline: 0;
+          box-shadow: 0 0 10px 1px rgba($color-blue, 0.1);
+          padding: 0.5rem 6rem 0.5rem 3rem;
+          font-size: 1rem;
+
+          &:focus {
+            transition: all 0.3s ease-out;
+            transform: scale(1.01);
+            padding-left: 3rem;
+            padding-right: 6rem;
+          }
+        }
+
+        button {
+          border: 0;
+          outline: 0;
+          padding: 0 0.8rem;
+          font-size: 0.75rem;
+          position: absolute;
+          z-index: 10;
+          right: 0.6rem;
+          height: 40px;
+          margin: 5px 0;
+          cursor: pointer;
+          border-right: 5px;
+        }
+      }
+    }
+
+    .right {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .link {
+        border-radius: 5px;
+        outline: 0;
+        border: 0;
+        display: inline-block;
+        padding: 0.8rem 1rem;
+      }
+    }
+  }
+
+  footer {
+    flex: 0 1 100%;
+    min-height: 100px;
+    text-align: center;
+
+    h3 {
+      margin-top: 1rem;
+      font-size: 2rem;
+      color: $color-blue;
+      font-weight: 300;
+    }
+
+    .courses {
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgba($color-black, 0.1);
+
+      .course {
+        display: inline-block;
+        margin: 0 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: $device-tablet) {
+  .welcome-page {
+    padding-top: 1rem;
+
+    .container {
+      max-width: 991px;
+    }
+
+    nav {
+      display: flex;
+
+      .logo {
+        flex: 20%;
+        max-width: 20%;
+      }
+
+      .links {
+        flex: 80%;
+        max-width: 80%;
+
+        .link {
+          border-width: 1px;
+          padding: 10px 7px;
+          margin: 5px;
+        }
+      }
+    }
+
+    main {
+      flex-direction: column;
+      padding: 0;
+
+      .right {
+        h1 {
+          font-size: 2.6rem;
+          font-weight: 500;
+          margin-bottom: 1.5rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+          font-weight: 300;
+          margin-bottom: 1.2rem;
+        }
+      }
+    }
+
+    footer {
+      h3 {
+        font-size: 1.5rem;
+      }
+      .course {
+        font-size: 1rem;
+      }
+    }
+  }
+}
