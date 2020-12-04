@@ -14,6 +14,7 @@ import About from "../views/About.vue";
 import Contact from "../views/Contact.vue";
 import MyCourses from "../views/MyCourses.vue";
 import Course from "../views/Course.vue";
+import Profile from "../views/Profile.vue";
 
 import store from "../store";
 
@@ -90,6 +91,14 @@ const routes = [
         path: "/about",
         name: "About",
         component: About,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/Profile",
+        name: "Profile",
+        component: Profile,
         meta: {
           requiresAuth: true
         }
