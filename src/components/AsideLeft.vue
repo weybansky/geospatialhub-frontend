@@ -28,7 +28,7 @@ export default {
 
   computed: {
     profileImage() {
-      return this.$store.state.auth.user.profile.profile_pic || "user.png";
+      return this.$store.state.auth.user.profile.profile_pic || "/user.png";
     },
     user() {
       return this.$store.state.auth.user;

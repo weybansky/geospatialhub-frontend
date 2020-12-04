@@ -15,6 +15,7 @@ import Contact from "../views/Contact.vue";
 import MyCourses from "../views/MyCourses.vue";
 import Course from "../views/Course.vue";
 import Profile from "../views/Profile.vue";
+import PostPage from "../views/PostPage.vue";
 
 import store from "../store";
 
@@ -96,7 +97,7 @@ const routes = [
         }
       },
       {
-        path: "/Profile",
+        path: "/profile",
         name: "Profile",
         component: Profile,
         meta: {
@@ -126,15 +127,15 @@ const routes = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: "/posts/:post",
+        name: "PostPage",
+        component: PostPage,
+        meta: {
+          requiresAuth: true
+        }
       }
-      // {
-      //   path: "/profile",
-      //   name: "Profile",
-      //   // component: Profile,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // },
       // {
       //   path: "/user/:username",
       //   name: "User",

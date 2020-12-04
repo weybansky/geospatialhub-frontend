@@ -50,10 +50,10 @@ export default {
 
     // Get single post with id
     getPost({ state, commit }, postId) {
-      return commit(
-        "setPost",
-        state.posts.filter(post => post.id == postId)[0] || null
-      );
+      console.log(postId);
+      const post = state.posts.filter(post => post.id == postId)[0] || null;
+      console.log(post);
+      commit("setPost", post);
     },
 
     // Get Post comments

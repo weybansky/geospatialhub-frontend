@@ -2,7 +2,7 @@
   <div class="post">
     <div class="header">
       <div class="author-image" @click="$router.push('/users/' + user.id)">
-        <img :src="user.image || 'user.png'" alt="Profile Image" />
+        <img :src="user.image || '/user.png'" alt="Profile Image" />
       </div>
       <div class="author-details">
         <p class="name">
@@ -212,7 +212,7 @@ export default {
     },
 
     viewPost() {
-      // console.log(this.post.id);
+      this.$router.push("posts/" + this.post.id);
     }
   },
 
