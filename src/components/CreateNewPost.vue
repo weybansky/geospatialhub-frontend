@@ -14,6 +14,7 @@
       alt="Profile Image"
       class="profile-image"
       @click="$router.push('profile')"
+      v-if="!isComment"
     />
 
     <label
@@ -91,6 +92,19 @@ import LoadSpinner from "@/components/LoadSpinner";
 export default {
   name: "CreateNewPost",
 
+  props: {
+    isComment: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    postId: {
+      type: Number,
+      required: false,
+      default: null
+    }
+  },
+
   components: {
     LoadSpinner
   },
@@ -106,13 +120,18 @@ export default {
 
   computed: {
     profileImage() {
-      return this.$store.state.auth.user.profile.profile_pic || "user.png";
+      return this.$store.state.auth.user.profile.profile_pic || "/user.png";
     }
   },
 
   methods: {
     createPost() {
       let formData = new FormData();
+
+      if (this.isComment) {
+        formData.append("in_reply_to_post", this.postId);
+      }
+
       formData.append("text", this.text);
       if (this.$refs.image.files.length) {
         formData.append("image", this.$refs.image.files[0]);
@@ -125,11 +144,12 @@ export default {
           this.$refs.image.value = "";
           this.errors = {};
         })
-        .catch(({ response }) => {
-          this.errors = response.data;
-          if (this.$refs.image.files.length) {
-            this.errors.text = ["A description of the image would be nice."];
-          }
+        .catch(error => {
+          console.log(error);
+          // this.errors = response.data;
+          // if (this.$refs.image.files.length) {
+          //   this.errors.text = ["A description of the image would be nice."];
+          // }
         })
         .finally(() => {
           this.loading = false;

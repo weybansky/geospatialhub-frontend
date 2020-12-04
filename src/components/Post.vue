@@ -144,17 +144,24 @@ export default {
       required: true,
       default: () => {
         return {
-          // id: 5,
+          // id: null,
           // post_belongs_to_authenticated_user: false,
-          // posted_by: { id: "4", username: "weybansky" },
+          // posted_by: {
+          //   id: "4",username: "weybansky", profile_pic: null, first_name: "", last_name: ""
+          // },
           // pub_date: "2020-11-08T10:34:00.270289Z",
-          // text: "New Post from weybansky on Nov. 8",
+          // text: "",
           // image: null,
           // in_reply_to_post: null,
           // likes_count: 0,
-          // comments_count: 3
+          // comments_count: 0
         };
       }
+    },
+    isComment: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -206,13 +213,18 @@ export default {
 
     deletePost() {
       this.loading = true;
-      this.$store.dispatch("post/deletePost", this.post.id).finally(() => {
-        this.loading = false;
-      });
+      this.$store
+        .dispatch("post/deletePost", {
+          postId: this.post.id,
+          isComment: this.isComment
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
 
     viewPost() {
-      this.$router.push("posts/" + this.post.id);
+      this.$router.push("/posts/" + this.post.id);
     }
   },
 

@@ -31,6 +31,16 @@ export default {
       state.posts = state.posts.filter(post => post.id != postId);
     },
 
+    addCommentToComments(state, comment) {
+      state.comments.unshift(comment);
+    },
+
+    removeCommentFromComments(state, commentId) {
+      state.comments = state.comments.filter(
+        comment => comment.id != commentId
+      );
+    },
+
     updatePostLikes(state, data) {
       state.posts.map(post => {
         if (post.id == data.postId) {
@@ -50,10 +60,16 @@ export default {
 
     // Get single post with id
     getPost({ state, commit }, postId) {
-      console.log(postId);
-      const post = state.posts.filter(post => post.id == postId)[0] || null;
-      console.log(post);
-      commit("setPost", post);
+      if (state.posts.length) {
+        const post = state.posts.filter(post => post.id == postId)[0] || null;
+        if (post) {
+          return commit("setPost", post);
+        }
+      }
+      return axios.get("/v1/users/post/" + postId + "/").then(({ data }) => {
+        commit("setPost", data);
+        commit("addPostToPosts", data);
+      });
     },
 
     // Get Post comments
@@ -69,16 +85,29 @@ export default {
     async createPost({ commit }, formData) {
       // text & image
       return await axios.post("/v1/users/post/", formData).then(({ data }) => {
-        commit("setPost", data);
-        commit("addPostToPosts", data);
+        if (formData.get("in_reply_to_post")) {
+          // comment
+          commit("addCommentToComments", data);
+        } else {
+          // new post
+          commit("setPost", data);
+          commit("addPostToPosts", data);
+        }
       });
     },
 
     // Delete post
-    async deletePost({ commit }, postId) {
-      return await axios.delete("/v1/users/post/" + postId + "/").then(() => {
-        commit("removePostFromPosts", postId);
-      });
+    async deletePost({ commit }, data) {
+      // console.log(data.postId, data.isComment);
+      return await axios
+        .delete("/v1/users/post/" + data.postId + "/")
+        .then(() => {
+          if (data.isComment) {
+            commit("removeCommentFromComments", data.postId);
+          } else {
+            commit("removePostFromPosts", data.postId);
+          }
+        });
     },
 
     // Create a new comment
