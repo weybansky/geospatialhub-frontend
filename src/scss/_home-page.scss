@@ -1,4 +1,7 @@
 .home-page {
+  position: relative;
+  min-height: 100vh;
+
   .search {
     position: relative;
     text-align: center;
@@ -132,7 +135,6 @@
   }
 
   .posts {
-    //
     .post {
       display: flex;
       flex-direction: column;
@@ -224,7 +226,7 @@
         line-height: 2rem;
         text-align: center;
         cursor: pointer;
-        
+
         .text {
           margin-bottom: 1rem;
           width: 90%;

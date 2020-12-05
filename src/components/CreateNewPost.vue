@@ -7,6 +7,7 @@
       placeholder="Share your thoughts here..."
       :disabled="loading"
       required
+      @focus="errors = {}"
     ></textarea>
 
     <img
@@ -139,17 +140,19 @@ export default {
       this.loading = true;
       this.$store
         .dispatch("post/createPost", formData)
-        .then(() => {
+        .then(({ data }) => {
+          // For User Posts Page
+          this.$emit("postCreated", data);
+          //
           this.text = "";
           this.$refs.image.value = "";
           this.errors = {};
         })
         .catch(error => {
-          console.log(error);
-          // this.errors = response.data;
-          // if (this.$refs.image.files.length) {
-          //   this.errors.text = ["A description of the image would be nice."];
-          // }
+          this.errors = error.response.data;
+          if (this.$refs.image.files.length) {
+            this.errors.text = ["A description of the image would be nice."];
+          }
         })
         .finally(() => {
           this.loading = false;

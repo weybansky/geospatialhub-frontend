@@ -17,6 +17,7 @@ import Course from "../views/Course.vue";
 import Profile from "../views/Profile.vue";
 import UserProfile from "../views/UserProfile.vue";
 import PostPage from "../views/PostPage.vue";
+import UserPosts from "../views/UserPosts.vue";
 
 import store from "../store";
 
@@ -113,15 +114,14 @@ const routes = [
           requiresAuth: true
         }
       },
-
-      // {
-      //   path: "/users/:userId/posts",
-      //   name: "UserPosts",
-      //   component: UserPosts,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // },
+      {
+        path: "/users/:userId/posts",
+        name: "UserPosts",
+        component: UserPosts,
+        meta: {
+          requiresAuth: true
+        }
+      },
       // {
       //   path: "/users/:userId/followers",
       //   name: "UserFollowers",

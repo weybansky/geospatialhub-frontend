@@ -221,7 +221,6 @@ export default {
       this.$store
         .dispatch("auth/followUser", { userId: this.user.id })
         .then(({ data }) => {
-          console.log(data);
           if (data.status == "Followed") {
             this.isFollowing = true;
           } else {

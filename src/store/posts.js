@@ -84,15 +84,16 @@ export default {
     // Create a new post
     async createPost({ commit }, formData) {
       // text & image
-      return await axios.post("/v1/users/post/", formData).then(({ data }) => {
+      return await axios.post("/v1/users/post/", formData).then(response => {
         if (formData.get("in_reply_to_post")) {
           // comment
-          commit("addCommentToComments", data);
+          commit("addCommentToComments", response.data);
         } else {
           // new post
-          commit("setPost", data);
-          commit("addPostToPosts", data);
+          commit("setPost", response.data);
+          commit("addPostToPosts", response.data);
         }
+        return response;
       });
     },
 
