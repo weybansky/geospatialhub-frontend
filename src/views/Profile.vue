@@ -35,7 +35,7 @@
       </router-link>
       <router-link :to="'/users/' + user.id + '/following'" class="stat">
         <p class="stat-value text-blue">{{ followingCount }}</p>
-        <p class="stat-title">Follwoing</p>
+        <p class="stat-title">Following</p>
       </router-link>
     </section>
 
