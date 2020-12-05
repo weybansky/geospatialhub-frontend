@@ -15,6 +15,7 @@ import Contact from "../views/Contact.vue";
 import MyCourses from "../views/MyCourses.vue";
 import Course from "../views/Course.vue";
 import Profile from "../views/Profile.vue";
+import UserProfile from "../views/UserProfile.vue";
 import PostPage from "../views/PostPage.vue";
 
 import store from "../store";
@@ -106,8 +107,8 @@ const routes = [
       },
       {
         path: "/users/:userId",
-        name: "User",
-        component: Profile,
+        name: "UserProfile",
+        component: UserProfile,
         meta: {
           requiresAuth: true
         }

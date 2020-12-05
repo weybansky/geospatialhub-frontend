@@ -3,6 +3,7 @@
   padding: 0.5rem;
   margin: -0.8rem;
   min-height: 100%;
+  position: relative;
 
   header {
     background: url(../../public/course_image.png);
@@ -141,6 +142,7 @@
     .activities {
       display: flex;
       flex-wrap: wrap;
+      position: relative;
       
       .activity {
         flex: 0 1 30%;

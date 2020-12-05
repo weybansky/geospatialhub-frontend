@@ -4,12 +4,42 @@ export default {
   namespaced: true,
 
   state: () => ({
-    users: []
+    users: [],
+
+    user: {
+      id: 0,
+      username: "",
+      email: "",
+      profile: {
+        first_name: "",
+        last_name: "",
+        phone: null,
+        profile_pic: null,
+        bio: "",
+        date_of_birth: null,
+        location_city: "",
+        location_state: "",
+        location_country: "",
+        organisation: "",
+        institution: "",
+        occupation: "",
+        follower_count: 0,
+        following_count: 0,
+        follow_status: "Follow",
+        unread_count: 0,
+        post_count: 9,
+        enrolled_for: []
+      }
+    }
   }),
 
   mutations: {
     setUsers(state, users) {
       state.users = users;
+    },
+
+    setUser(state, user) {
+      state.user = user;
     }
   },
 
@@ -20,13 +50,15 @@ export default {
       });
     },
 
-    getUser(context, id) {
-      return axios.post("/v1/users/" + id);
+    async getUser({ commit }, userId) {
+      return await axios.get("/v1/users/" + userId).then(({ data }) => {
+        commit("setUser", data);
+      });
     },
 
     getUserPosts(context, data) {
-      // no endpoint
       console.log(data);
+      // no endpoint
       // return axios.post("/v1/users/posts/" + data.id + "/").then(({ data }) => {
       //   return data;
       // });
