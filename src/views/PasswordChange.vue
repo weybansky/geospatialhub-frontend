@@ -31,13 +31,14 @@
           <input
             class="form-input"
             type="password"
-            name="password1"
-            v-model="password1"
+            name="new_password1"
+            v-model="new_password1"
             placeholder="Password"
             required
+            @focus="clearAlert"
           />
-          <small class="form-input-error" v-if="errors.password1">
-            {{ errors.password1[0] }}
+          <small class="form-input-error" v-if="errors.new_password1">
+            {{ errors.new_password1[0] }}
           </small>
         </div>
 
@@ -45,13 +46,14 @@
           <input
             class="form-input"
             type="password"
-            name="password2"
-            v-model="password2"
+            name="new_password2"
+            v-model="new_password2"
             placeholder="Re-type Password"
             required
+            @focus="clearAlert"
           />
-          <small class="form-input-error" v-if="errors.password2">
-            {{ errors.password2[0] }}
+          <small class="form-input-error" v-if="errors.new_password2">
+            {{ errors.new_password2[0] }}
           </small>
         </div>
 
@@ -78,8 +80,8 @@ export default {
 
   data() {
     return {
-      password1: "",
-      password2: "",
+      new_password1: "GeoHub1234",
+      new_password2: "GeoHub1234",
       errors: {},
       loading: false
     };
@@ -96,42 +98,64 @@ export default {
     },
     alertMessage() {
       return this.$store.state.alert.message || "";
+    },
+    token() {
+      return this.$route.params.token;
+    },
+    uid() {
+      return this.$route.params.uid;
     }
   },
 
   methods: {
     resetPassword() {
-      if (this.password1 !== this.password2) {
-        this.errors.password2 = ["Password must be the same"];
-        return false;
-      }
-
-      this.loading = true;
-      this.$store
-        .dispatch("auth/changePassword", {
-          password1: this.password1,
-          password2: this.password2
-        })
-        .then(() => {
-          this.errors = {};
-        })
-        .catch(({ response }) => {
-          this.errors = response.data || {};
-          this.errors.password1 = response.data.password1 || null;
-          this.errors.password2 = response.data.password2 || null;
-
-          if (response.data.non_field_errors != null) {
-            this.errors.password1 = response.data.non_field_errors;
-          }
-
-          this.$store.commit("showAlert", {
-            message: response.data.message || "Failed",
-            status: "error"
-          });
-        })
-        .finally(() => {
-          this.loading = false;
+      if (this.new_password1 !== this.new_password2) {
+        this.errors.new_password1 = ["Password must be the same"];
+        this.errors.new_password2 = ["Password must be the same"];
+        this.$store.commit("showAlert", {
+          message: "Password does not match",
+          status: "error"
         });
+      } else {
+        this.loading = true;
+        this.$store
+          .dispatch("auth/changePassword", {
+            new_password1: this.new_password1,
+            new_password2: this.new_password2,
+            uid: this.uid,
+            token: this.token
+          })
+          .then(() => {
+            this.errors = {};
+            this.new_password1 = this.new_password2 = "";
+            this.$store.commit("showAlert", {
+              message: "Password Changed",
+              status: "success"
+            });
+          })
+          .catch(({ response }) => {
+            let message = "Failed";
+            this.errors = response.data || {};
+            this.errors.new_password1 = response.data.new_password1 || null;
+            this.errors.new_password2 = response.data.new_password2 || null;
+
+            if (
+              response.data.token != null ||
+              response.data.non_field_errors != null
+            ) {
+              message =
+                "Invalid/Expired reset link. You should request a new one";
+            }
+
+            this.$store.commit("showAlert", {
+              message: response.data.message || message,
+              status: "error"
+            });
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
     },
 
     verifyLink() {
@@ -140,6 +164,12 @@ export default {
 
     handleFormError(field) {
       delete this.errors[field];
+    },
+
+    clearAlert() {
+      if (this.alertShow) {
+        this.$store.commit("showAlert", null);
+      }
     }
   },
 

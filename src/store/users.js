@@ -16,7 +16,7 @@ export default {
   actions: {
     async getUsers({ commit }) {
       return await axios.get("/v1/users/").then(({ data }) => {
-        commit("setUsers", data);
+        commit("setUsers", data.results);
       });
     },
 
@@ -29,6 +29,14 @@ export default {
         .catch(() => {
           throw "Failed to get user";
         });
+    },
+
+    getFollowers(context, data) {
+      return axios.get("/v1/users/followers/" + data.userId, data);
+    },
+
+    getFollowing(context, data) {
+      return axios.get("/v1/users/following/" + data.userId, data);
     }
   },
 

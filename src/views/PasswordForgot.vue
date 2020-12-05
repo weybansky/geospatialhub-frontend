@@ -33,6 +33,7 @@
             v-model="email"
             placeholder="Email"
             required
+            @focus="clearAlert"
           />
           <small class="form-input-error" v-if="errors.email">
             {{ errors.email[0] }}
@@ -86,15 +87,18 @@ export default {
     resetPassword() {
       this.loading = true;
       this.$store
-        .dispatch("auth/forgotPassword", {
-          email: this.email
-        })
+        .dispatch("auth/sendResetEmail", { email: this.email })
         .then(() => {
+          this.email = "";
           this.errors = {};
+          this.$store.commit("showAlert", {
+            message: "Please check your email for the reset link",
+            status: "success"
+          });
         })
         .catch(({ response }) => {
           this.errors = response.data || {};
-          this.errors.email = response.data.email || null;
+          this.errors.email = response.data.email || "Something went wrong";
 
           if (response.data.non_field_errors != null) {
             this.errors.email = response.data.non_field_errors;
@@ -112,6 +116,12 @@ export default {
 
     handleFormError(field) {
       delete this.errors[field];
+    },
+
+    clearAlert() {
+      if (this.alertShow) {
+        this.$store.commit("showAlert", null);
+      }
     }
   }
 };

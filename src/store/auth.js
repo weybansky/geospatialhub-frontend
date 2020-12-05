@@ -10,7 +10,9 @@ export default {
     notifications: {
       unread_message_count: 0,
       new_follower: []
-    }
+    },
+    followers: [],
+    following: []
   }),
 
   mutations: {
@@ -36,6 +38,22 @@ export default {
         unread_message_count: 0,
         new_follower: []
       };
+    },
+
+    setFollowers(state, followers) {
+      state.followers = followers || [];
+    },
+
+    addFollowerToFollowers(state, follower) {
+      state.followers.unshift(follower);
+    },
+
+    setFollowing(state, following) {
+      state.following = following || [];
+    },
+
+    addFollowToFollowing(state, follow) {
+      state.following.unshift(follow);
     }
   },
 
@@ -162,12 +180,38 @@ export default {
       });
     },
 
-    async forgotPassword() {
-      // return await axios.post()
+    sendResetEmail(context, data) {
+      axios.defaults.headers.common["Authorization"] = null;
+      return axios.post("/v1/rest-auth/password/reset/", data);
     },
 
-    async changePassword() {
-      // return await axios.post()
+    changePassword(context, data) {
+      axios.defaults.headers.common["Authorization"] = null;
+      return axios.post("/v1/rest-auth/password/reset/confirm/", data);
+    },
+
+    async followUser({ commit }, userId) {
+      return await axios.get("/v1/users/follow/" + userId).then(({ data }) => {
+        commit("addToFollowers", data);
+      });
+    },
+
+    async getFollowers({ state, commit, dispatch }, data) {
+      data.userId = state.user.id;
+      return await dispatch("user/getFollowers", data, { root: true }).then(
+        ({ data }) => {
+          commit("setFollowers", data.results);
+        }
+      );
+    },
+
+    async getFollowing({ state, commit, dispatch }, data) {
+      data.userId = state.user.id;
+      return await dispatch("user/getFollowing", data, { root: true }).then(
+        ({ data }) => {
+          commit("setFollowing", data.results);
+        }
+      );
     }
   },
 
