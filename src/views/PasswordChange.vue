@@ -80,8 +80,8 @@ export default {
 
   data() {
     return {
-      new_password1: "GeoHub1234",
-      new_password2: "GeoHub1234",
+      new_password1: "",
+      new_password2: "",
       errors: {},
       loading: false
     };
