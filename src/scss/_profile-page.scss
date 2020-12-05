@@ -155,7 +155,7 @@
         background-position: center center;
         position: relative;
         cursor: pointer;
-        
+
         &:hover{
           box-shadow: 0 0 3px 3px rgba($color-black, 0.1);
         }
@@ -237,9 +237,8 @@
 
       .activities {
         .activity {
-          margin: 0.5rem 0;
-          flex: 0 1 48%;
-          padding: 0.4rem;
+          margin: 0.8rem 0.5rem;
+          flex: 0 1 45%;
         }
       }
     }

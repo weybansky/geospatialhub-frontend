@@ -87,10 +87,7 @@
           @click="$router.push('/posts/' + post.id)"
           :style="{ 'background-image': post.background }"
         >
-          <div class="text" v-html="post.text">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-            error?
-          </div>
+          <div class="text" v-html="post.text.slice(0, 100)"></div>
         </div>
       </div>
     </section>
