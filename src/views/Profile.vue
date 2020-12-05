@@ -1,6 +1,6 @@
 <template>
   <div class="profile-page">
-    <header>
+    <header :style="{ 'background-image': bannerImage }">
       <main>
         <div class="image">
           <img :src="profileImage" alt="" />
@@ -110,6 +110,10 @@ export default {
     },
     profileImage() {
       return this.user.profile.profile_pic || "/user.png";
+    },
+    bannerImage() {
+      const image = this.user.profile.banner_pic || null;
+      return `url(${image})`;
     },
     fullName() {
       const firstname = this.user.profile.first_name || "Your";

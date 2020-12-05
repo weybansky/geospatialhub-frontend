@@ -168,8 +168,12 @@ export default {
       }
     },
 
-    async getUserPosts({ commit }) {
-      return await axios.get("/v1/users/post/").then(({ data }) => {
+    async getUserPosts({ state, commit, dispatch }) {
+      return await dispatch(
+        "user/getUserPosts",
+        { userId: state.user.id },
+        { root: true }
+      ).then(({ data }) => {
         commit("setPosts", data.results);
       });
     },

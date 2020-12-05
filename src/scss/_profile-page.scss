@@ -6,7 +6,7 @@
   position: relative;
 
   header {
-    background: url(../../public/course_image.png);
+    background-color: darken($color-white, 8%);
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
@@ -34,15 +34,19 @@
 
       .title {
         flex: 7;
-        padding: 0.5rem;
+        padding: 0.4rem;
 
         h3 {
           font-weight: 500;
           font-size: 1.5rem;
         }
         p {
-          font-weight: 0.8rem;
+          font-size: 0.9rem;
           font-weight: 300;
+          margin: 0 0 0.2rem 0;
+          small {
+            font-size: 0.7rem;
+          }
         }
       }
 
@@ -131,19 +135,19 @@
 
   section.activities-section {
     padding: 1rem 0.5rem;
-    
+
     h3 {
       padding: 0 1rem;
       font-size: 1.5rem;
       font-weight: 500;
       color: rgba($color-black, 0.9);
     }
-    
+
     .activities {
       display: flex;
       flex-wrap: wrap;
       position: relative;
-      
+
       .activity {
         flex: 0 1 30%;
         margin: 1rem 0.5rem;
@@ -157,21 +161,23 @@
         background-position: center center;
         position: relative;
         cursor: pointer;
+        border-radius: 3px;
 
-        &:hover{
+        &:hover {
           box-shadow: 0 0 3px 3px rgba($color-black, 0.1);
         }
-        
+
         .text {
           position: absolute;
           bottom: 0;
           width: 100%;
           min-height: 50px;
-          border-top: 1px solid $color-white;
           padding: 0.4rem;
           background-color: rgba($color-white, 0.75);
           font-size: inherit;
           color: inherit;
+          border: 1px solid darken($color-white, 10%);
+          border-top-color: $color-white;
         }
       }
     }
@@ -223,14 +229,14 @@
 
     section.about {
       padding: 1rem 0.5rem;
-      
+
       p {
         font-size: 1rem;
         font-weight: 300;
       }
     }
 
-    section.activities-section{
+    section.activities-section {
       padding: 0.5rem;
 
       h3 {

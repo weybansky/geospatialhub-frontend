@@ -4,7 +4,7 @@
       <img class="logo" src="../assets/logo.png" alt="Logo" />
     </div>
 
-    <router-link to="profile" tag="a" style="display:bloack;" class="user">
+    <router-link to="/profile" tag="a" style="display:bloack;" class="user">
       <img class="image" :src="profileImage" alt="Profile Image" />
       <h3 class="user-name">
         {{ fullName }}

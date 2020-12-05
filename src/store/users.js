@@ -57,11 +57,7 @@ export default {
     },
 
     getUserPosts(context, data) {
-      console.log(data);
-      // no endpoint
-      // return axios.post("/v1/users/posts/" + data.id + "/").then(({ data }) => {
-      //   return data;
-      // });
+      return axios.get("/v1/users/" + data.userId + "/post/");
     },
 
     getFollowers(context, data) {

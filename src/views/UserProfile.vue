@@ -1,12 +1,15 @@
 <template>
   <div class="profile-page">
-    <header>
+    <header :style="{ 'background-image': bannerImage }">
       <main>
         <div class="image">
           <img :src="profileImage" alt="" />
         </div>
         <div class="title">
           <h3>{{ fullName }}</h3>
+          <p>
+            <small>@{{ user.username }}</small>
+          </p>
           <p>{{ profession }}</p>
         </div>
         <div class="actions">
@@ -122,9 +125,13 @@ export default {
     profileImage() {
       return this.user.profile.profile_pic || "/user.png";
     },
+    bannerImage() {
+      const image = this.user.profile.banner_pic || null;
+      return `url(${image})`;
+    },
     fullName() {
-      const firstname = this.user.profile.first_name || "Your";
-      const lastname = this.user.profile.last_name || "Name";
+      const firstname = this.user.profile.first_name || this.user.username;
+      const lastname = this.user.profile.last_name || "";
       return firstname + " " + lastname;
     },
     profession() {
@@ -170,8 +177,12 @@ export default {
 
   beforeRouteUpdate(to, from, next) {
     const userId = to.params.userId;
-    this.laodProfile(userId);
-    next();
+    if (this.$store.state.auth.user.id == userId) {
+      next("/profile");
+    } else {
+      this.laodProfile(userId);
+      next();
+    }
   },
 
   methods: {
@@ -180,24 +191,26 @@ export default {
       await this.$store.dispatch("user/getUser", userId).finally(() => {
         this.loading = false;
       });
+      // Posts
       this.loadingPosts = true;
       await this.$store
         .dispatch("user/getUserPosts", { userId })
+        .then(({ data }) => {
+          console.log(data.results);
+          this.userPosts = data.results;
+        })
         .finally(() => {
           this.loadingPosts = false;
         });
     }
   },
 
-  mounted() {
-    const userId = this.$route.params.userId;
-    this.laodProfile(userId);
-  },
-
   created() {
     const userId = this.$route.params.userId;
     if (this.$store.state.auth.user.id == userId) {
       this.$router.push("/profile");
+    } else {
+      this.laodProfile(userId);
     }
   }
 };
