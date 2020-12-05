@@ -13,7 +13,6 @@
         <router-link class="link blue" to="/home">
           Home
         </router-link>
-        <button type="button" class="link white" @click="logout">Logout</button>
       </div>
     </nav>
 
