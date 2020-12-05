@@ -60,9 +60,10 @@
           outline: 0;
           border: 0;
           border-radius: 5px;
-          padding: 0.75rem 0.5rem;
-          font-size: 0.75rem;
+          padding: 0.7rem 0.5rem;
+          font-size: 0.9rem;
           cursor: pointer;
+          border: 1px solid $color-blue;
         }
       }
     }
@@ -154,7 +155,7 @@
         border-radius: 5px;
         color: rgba($color-black, 0.86);
         font-size: 0.9rem;
-        min-height: 150px;
+        min-height: 180px;
         background-color: darken($color-white, 10%);
         background-size: cover;
         background-repeat: no-repeat;
@@ -247,6 +248,7 @@
         .activity {
           margin: 0.8rem 0.5rem;
           flex: 0 1 45%;
+          min-height: 150px;
         }
       }
     }

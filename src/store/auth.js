@@ -194,10 +194,8 @@ export default {
       return await axios.post("/v1/rest-auth/password/reset/confirm/", data);
     },
 
-    async followUser({ commit }, userId) {
-      return await axios.get("/v1/users/follow/" + userId).then(({ data }) => {
-        commit("addToFollowers", data);
-      });
+    async followUser(context, user) {
+      return await axios.get("/v1/users/follow/" + user.userId);
     },
 
     async getFollowers({ state, commit, dispatch }, data) {

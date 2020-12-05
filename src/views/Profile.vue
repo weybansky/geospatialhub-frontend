@@ -7,6 +7,9 @@
         </div>
         <div class="title">
           <h3>{{ fullName }}</h3>
+          <p>
+            <small>@{{ user.username }}</small>
+          </p>
           <p>{{ profession }}</p>
         </div>
         <div class="actions">
@@ -116,8 +119,8 @@ export default {
       return `url(${image})`;
     },
     fullName() {
-      const firstname = this.user.profile.first_name || "Your";
-      const lastname = this.user.profile.last_name || "Name";
+      const firstname = this.user.profile.first_name || this.user.username;
+      const lastname = this.user.profile.last_name || "";
       return firstname + " " + lastname;
     },
     profession() {

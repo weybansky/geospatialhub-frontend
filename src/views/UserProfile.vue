@@ -14,11 +14,14 @@
         </div>
         <div class="actions">
           <button
-            @click="$router.push('/profile/edit')"
+            @click="followUser"
             type="button"
-            class="bg-blue text-white"
+            :class="{
+              'bg-blue text-white': isFollowing,
+              'bg-white text-blue': !isFollowing
+            }"
           >
-            Edit Profile
+            {{ isFollowing ? "Following" : "Follow" }}
           </button>
         </div>
       </main>
@@ -114,7 +117,8 @@ export default {
       showContactInfo: false,
       userPosts: [],
       loading: false,
-      loadingPosts: false
+      loadingPosts: false,
+      isFollowing: false
     };
   },
 
@@ -188,24 +192,46 @@ export default {
   methods: {
     async laodProfile(userId) {
       this.loading = true;
-      await this.$store.dispatch("user/getUser", userId).finally(() => {
-        this.loading = false;
-      });
+      await this.$store
+        .dispatch("user/getUser", userId)
+        .then(({ data }) => {
+          if (data.profile.follow_status == "Following") {
+            this.isFollowing = true;
+          }
+          if (data.profile.follow_status == "Follow") {
+            this.isFollowing = false;
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
       // Posts
       this.loadingPosts = true;
       await this.$store
         .dispatch("user/getUserPosts", { userId })
         .then(({ data }) => {
-          console.log(data.results);
           this.userPosts = data.results;
         })
         .finally(() => {
           this.loadingPosts = false;
         });
+    },
+
+    followUser() {
+      this.$store
+        .dispatch("auth/followUser", { userId: this.user.id })
+        .then(({ data }) => {
+          console.log(data);
+          if (data.status == "Followed") {
+            this.isFollowing = true;
+          } else {
+            this.isFollowing = false;
+          }
+        });
     }
   },
 
-  created() {
+  mounted() {
     const userId = this.$route.params.userId;
     if (this.$store.state.auth.user.id == userId) {
       this.$router.push("/profile");
