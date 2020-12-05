@@ -18,6 +18,8 @@ import Profile from "../views/Profile.vue";
 import UserProfile from "../views/UserProfile.vue";
 import PostPage from "../views/PostPage.vue";
 import UserPosts from "../views/UserPosts.vue";
+import UserFollowing from "../views/UserFollowing.vue";
+import UserFollowers from "../views/UserFollowers.vue";
 
 import store from "../store";
 
@@ -122,23 +124,22 @@ const routes = [
           requiresAuth: true
         }
       },
-      // {
-      //   path: "/users/:userId/followers",
-      //   name: "UserFollowers",
-      //   component: UserFollowers,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // },
-      // {
-      //   path: "/users/:userId/following",
-      //   name: "UserFollowing",
-      //   component: UserFollowing,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // },
-
+      {
+        path: "/users/:userId/following",
+        name: "UserFollowing",
+        component: UserFollowing,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/users/:userId/followers",
+        name: "UserFollowers",
+        component: UserFollowers,
+        meta: {
+          requiresAuth: true
+        }
+      },
       {
         path: "/contact",
         name: "Contact",

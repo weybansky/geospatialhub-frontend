@@ -198,6 +198,9 @@ export default {
       if (this.post.likes_count < 1) {
         return "Like";
       }
+      if (this.post.likes_count == 1) {
+        return `${this.post.likes_count} like`;
+      }
       return `${this.post.likes_count} likes`;
     }
   },

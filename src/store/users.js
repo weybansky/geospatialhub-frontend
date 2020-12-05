@@ -27,7 +27,7 @@ export default {
         following_count: 0,
         follow_status: "Follow",
         unread_count: 0,
-        post_count: 9,
+        post_count: 0,
         enrolled_for: []
       }
     }
@@ -62,11 +62,11 @@ export default {
     },
 
     getFollowers(context, data) {
-      return axios.get("/v1/users/followers/" + data.userId, data);
+      return axios.get("/v1/users/followers/" + data.userId + "/", data);
     },
 
     getFollowing(context, data) {
-      return axios.get("/v1/users/following/" + data.userId, data);
+      return axios.get("/v1/users/following/" + data.userId + "/", data);
     }
   },
 
