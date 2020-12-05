@@ -170,7 +170,7 @@ export default {
 
     async getUserPosts({ commit }) {
       return await axios.get("/v1/users/post/").then(({ data }) => {
-        commit("setPosts", data);
+        commit("setPosts", data.results);
       });
     },
 
@@ -180,14 +180,14 @@ export default {
       });
     },
 
-    sendResetEmail(context, data) {
+    async sendResetEmail(context, data) {
       axios.defaults.headers.common["Authorization"] = null;
-      return axios.post("/v1/rest-auth/password/reset/", data);
+      return await axios.post("/v1/rest-auth/password/reset/", data);
     },
 
-    changePassword(context, data) {
+    async changePassword(context, data) {
       axios.defaults.headers.common["Authorization"] = null;
-      return axios.post("/v1/rest-auth/password/reset/confirm/", data);
+      return await axios.post("/v1/rest-auth/password/reset/confirm/", data);
     },
 
     async followUser({ commit }, userId) {

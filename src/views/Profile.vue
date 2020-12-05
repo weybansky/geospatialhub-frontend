@@ -3,96 +3,94 @@
     <header>
       <main>
         <div class="image">
-          <img src="user.png" alt="" />
+          <img :src="profileImage" alt="" />
         </div>
         <div class="title">
-          <h3>{{ "Full Name" }}</h3>
-          <p>Professional Geoscientist</p>
+          <h3>{{ fullName }}</h3>
+          <p>{{ profession }}</p>
         </div>
         <div class="actions">
-          <button type="button" class="bg-blue text-white">Edit Profile</button>
+          <button
+            @click="$router.push('/profile/edit')"
+            type="button"
+            class="bg-blue text-white"
+          >
+            Edit Profile
+          </button>
         </div>
       </main>
     </header>
 
     <section class="stats">
-      <div class="stat">
-        <p class="stat-value text-blue">250</p>
+      <router-link :to="'/users/' + user.id + '/posts'" class="stat">
+        <p class="stat-value text-blue">{{ postsCount }}</p>
         <p class="stat-title">Posts</p>
-      </div>
-      <div class="stat">
-        <p class="stat-value text-blue">14.1k</p>
-        <p class="stat-title">Follower</p>
-      </div>
-      <div class="stat">
-        <p class="stat-value text-blue">349</p>
+      </router-link>
+      <router-link :to="'/users/' + user.id + '/followers'" class="stat">
+        <p class="stat-value text-blue">{{ followersCount }}</p>
+        <p class="stat-title">Followers</p>
+      </router-link>
+      <router-link :to="'/users/' + user.id + '/following'" class="stat">
+        <p class="stat-value text-blue">{{ followingCount }}</p>
         <p class="stat-title">Follwoing</p>
-      </div>
+      </router-link>
     </section>
 
     <section class="info">
       <div class="bio">
         <p class="title">Works at</p>
-        <p class="content">AIT Tv</p>
+        <p class="content">{{ work }}</p>
       </div>
       <div class="bio">
         <p class="title">Studied at</p>
-        <p class="content">Cranford University</p>
+        <p class="content">{{ study }}</p>
       </div>
-      <div class="bio">
-        <p class="title">Martital Status</p>
-        <p class="content">Divorced</p>
-      </div>
+      <!-- <div class="bio"> -->
+      <!-- <p class="title">Martital Status</p> -->
+      <!-- <p class="content">Divorced</p> -->
+      <!-- </div> -->
       <div class="bio">
         <p class="title">See</p>
-        <p class="content">Conatct info</p>
+        <p
+          class="content text-blue"
+          @click="showContactInfo = !showContactInfo"
+          style="cursor:pointer;"
+        >
+          Conatct info
+        </p>
+      </div>
+    </section>
+
+    <section class="info contact" v-if="showContactInfo">
+      <div class="bio">
+        <p class="title">Email</p>
+        <p class="content">{{ user.email }}</p>
+      </div>
+      <div class="bio">
+        <p class="title">Phone</p>
+        <p class="content">{{ phone }}</p>
       </div>
     </section>
 
     <section class="about">
       <h3>About</h3>
-      <p>
-        Some time ago I worked on a new feature: sending images in the app’s
-        internal chat. The feature itself was big and included multiple Some
-        time ago I worked on a new feature: sending images in the app’s internal
-        chat. The feature itself was big and included multipleSome time ago I
-        worked on a new feature: sending images in the app’s internal chat. The
-        feature itself was big and included multiple
-      </p>
+      <div class="bio" v-html="about"></div>
     </section>
 
     <section class="activities-section">
       <h3>Activities</h3>
       <div class="activities">
-        <div class="activity">
-          <p>
+        <div
+          class="activity"
+          v-for="post in posts"
+          :key="post.id"
+          @click="$router.push('/posts/' + post.id)"
+          :style="{ 'background-image': post.background }"
+        >
+          <div class="text" v-html="post.text">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
             error?
-          </p>
-        </div>
-        <div class="activity">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-            error?
-          </p>
-        </div>
-        <div class="activity">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-            error?
-          </p>
-        </div>
-        <div class="activity">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-            error?
-          </p>
-        </div>
-        <div class="activity">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-            error?
-          </p>
+          </div>
         </div>
       </div>
     </section>
@@ -103,21 +101,69 @@
 export default {
   name: "Profile",
 
+  data() {
+    return {
+      showContactInfo: false
+    };
+  },
+
   computed: {
     user() {
       return this.$store.state.auth.user;
     },
+    profileImage() {
+      return this.user.profile.profile_pic || "/user.png";
+    },
+    fullName() {
+      const firstname = this.user.profile.first_name || "Your";
+      const lastname = this.user.profile.last_name || "Name";
+      return firstname + " " + lastname;
+    },
+    profession() {
+      return this.user.profile.occupation || "";
+    },
+    //
+    postsCount() {
+      return this.user.profile.post_count || 0;
+    },
+    followersCount() {
+      return this.user.profile.follower_count || 0;
+    },
+    followingCount() {
+      return this.user.profile.following_count || 0;
+    },
+    //
+    work() {
+      return this.user.profile.organization || "Work?";
+    },
+    study() {
+      return this.user.profile.institution || "Institution?";
+    },
+    //
+    phone() {
+      return this.user.profile.phone || "- -";
+    },
+    about() {
+      return this.user.profile.bio || "Write something about yourself ...";
+    },
     posts() {
-      return [];
-    },
-    follower() {
-      return [];
-    },
-    following() {
-      return [];
+      return (
+        this.$store.state.auth.posts.slice(0, 9).map(post => {
+          if (post.image) {
+            post.background = `url(${post.image})`;
+          } else {
+            post.background = null;
+          }
+          return post;
+        }) || []
+      );
     }
   },
 
-  methods: {}
+  async mounted() {
+    if (this.$store.state.auth.posts.length < 1) {
+      await this.$store.dispatch("auth/getUserPosts");
+    }
+  }
 };
 </script>

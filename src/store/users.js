@@ -20,15 +20,16 @@ export default {
       });
     },
 
-    async getUser(context, id) {
-      axios
-        .post("/v1/users/" + id + "/")
-        .then(({ data }) => {
-          return data;
-        })
-        .catch(() => {
-          throw "Failed to get user";
-        });
+    getUser(context, id) {
+      return axios.post("/v1/users/" + id);
+    },
+
+    getUserPosts(context, data) {
+      // no endpoint
+      console.log(data);
+      // return axios.post("/v1/users/posts/" + data.id + "/").then(({ data }) => {
+      //   return data;
+      // });
     },
 
     getFollowers(context, data) {

@@ -105,6 +105,40 @@ const routes = [
         }
       },
       {
+        path: "/users/:userId",
+        name: "User",
+        component: Profile,
+        meta: {
+          requiresAuth: true
+        }
+      },
+
+      // {
+      //   path: "/users/:userId/posts",
+      //   name: "UserPosts",
+      //   component: UserPosts,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
+      // {
+      //   path: "/users/:userId/followers",
+      //   name: "UserFollowers",
+      //   component: UserFollowers,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
+      // {
+      //   path: "/users/:userId/following",
+      //   name: "UserFollowing",
+      //   component: UserFollowing,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
+
+      {
         path: "/contact",
         name: "Contact",
         component: Contact,
@@ -136,14 +170,6 @@ const routes = [
           requiresAuth: true
         }
       }
-      // {
-      //   path: "/user/:username",
-      //   name: "User",
-      //   // component: User,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // }
     ]
   },
   {
