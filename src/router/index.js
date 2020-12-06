@@ -21,6 +21,7 @@ import UserPosts from "../views/UserPosts.vue";
 import UserFollowing from "../views/UserFollowing.vue";
 import UserFollowers from "../views/UserFollowers.vue";
 import SearchPage from "../views/SearchPage.vue";
+import Users from "../views/Users.vue";
 
 import store from "../store";
 
@@ -105,6 +106,14 @@ const routes = [
         path: "/profile",
         name: "Profile",
         component: Profile,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/users",
+        name: "Users",
+        component: Users,
         meta: {
           requiresAuth: true
         }
