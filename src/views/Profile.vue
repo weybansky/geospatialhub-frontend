@@ -168,6 +168,7 @@ export default {
     if (this.$store.state.auth.posts.length < 1) {
       await this.$store.dispatch("auth/getUserPosts");
     }
+    this.$store.dispatch("auth/getUser");
   }
 };
 </script>

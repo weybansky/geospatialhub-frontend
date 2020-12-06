@@ -50,6 +50,7 @@
       .action {
         flex: 1 0 100%;
         button {
+          outline: 0;
           cursor: pointer;
           min-width: 90px;
           border: 1px solid $color-blue;

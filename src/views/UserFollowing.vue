@@ -5,7 +5,6 @@
         v-for="follow in following"
         :key="follow.id"
         :follow="follow"
-        :following="true"
       />
     </div>
     <LoadSpinner :loading="loading" />

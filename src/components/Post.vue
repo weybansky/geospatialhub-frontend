@@ -212,8 +212,6 @@ export default {
       });
     },
 
-    // userLiked() {},
-
     deletePost() {
       this.loading = true;
       this.$store
@@ -232,7 +230,7 @@ export default {
   },
 
   mounted() {
-    // this.userLiked;
+    this.liked = this.post.authenticated_user_like_status;
   }
 };
 </script>

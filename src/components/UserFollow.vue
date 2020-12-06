@@ -41,11 +41,6 @@ export default {
           created: null
         };
       }
-    },
-    following: {
-      type: Boolean,
-      required: true,
-      default: true
     }
   },
 
@@ -79,7 +74,8 @@ export default {
   },
 
   mounted() {
-    this.isFollowing = this.following;
+    this.isFollowing =
+      this.follow.is_followed_by.id == this.$store.state.auth.user.id;
   }
 };
 </script>

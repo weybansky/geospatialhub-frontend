@@ -76,7 +76,7 @@ export default {
             },
             { root: true }
           );
-          window.location.href = "/";
+          window.location.href = "/home";
         });
     },
 
@@ -119,6 +119,14 @@ export default {
             { root: true }
           );
           window.location.href = "/";
+        });
+    },
+
+    async getUser({ state, commit }) {
+      return await axios
+        .get("/v1/users/" + state.user.id + "/")
+        .then(response => {
+          commit("setUser", response.data);
         });
     },
 
@@ -195,7 +203,7 @@ export default {
     },
 
     async followUser(context, user) {
-      return await axios.get("/v1/users/follow/" + user.userId);
+      return await axios.get("/v1/users/follow/" + user.userId + "/");
     },
 
     async getFollowers({ state, commit, dispatch }, data) {
