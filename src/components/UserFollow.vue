@@ -41,17 +41,27 @@ export default {
           created: null
         };
       }
+    },
+    page: {
+      type: String,
+      required: false,
+      default: "following"
     }
   },
 
   computed: {
     user() {
+      let userData = this.follow.user;
+      if (this.page == "followers") {
+        userData = this.follow.is_followed_by;
+      }
+
       let user = {
-        id: this.follow.user.id,
-        username: this.follow.user.username,
-        first_name: this.follow.user.first_name || "",
-        last_name: this.follow.user.last_name || "",
-        image: this.follow.user.profile_pic || "/user.png"
+        id: userData.id,
+        username: userData.username,
+        first_name: userData.first_name || "",
+        last_name: userData.last_name || "",
+        image: userData.profile_pic || "/user.png"
       };
       user.name =
         (user.first_name + " " + user.last_name).trim() || user.username;
