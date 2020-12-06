@@ -14,7 +14,7 @@
 
     <div class="notifications" v-else>
       <div class="notification">
-        <div class="text text-center">0 Notifications</div>
+        <div class="text text-center">0 New Notifications</div>
       </div>
     </div>
   </section>

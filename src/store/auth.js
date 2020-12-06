@@ -34,7 +34,7 @@ export default {
     },
 
     setNotifications(state, notifications) {
-      state.notications = notifications || {
+      state.notifications = notifications || {
         unread_message_count: 0,
         new_follower: []
       };
