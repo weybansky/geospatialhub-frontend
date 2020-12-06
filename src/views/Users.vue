@@ -1,6 +1,6 @@
 <template>
   <div class="home-page user-follow-page">
-    <Search :placeholder="query" />
+    <Search />
 
     <div class="users">
       <UserCard

@@ -73,6 +73,7 @@
     }
 
     .main {
+      padding: 0.5rem;
       padding-bottom: 60px;
       max-width: none;
       min-width: 500px;
@@ -94,6 +95,8 @@
     flex-direction: column;
 
     .main {
+      padding: 0.3rem;
+      padding-bottom: 50px;
       overflow-y: visible;
       border: 0;
       min-width: auto;

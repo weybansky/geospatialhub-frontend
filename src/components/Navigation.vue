@@ -38,7 +38,7 @@
       <span class="text">Profile</span>
     </router-link>
 
-    <router-link to="/users" class="nav-link hidden-mobile">
+    <router-link to="/users" class="nav-link">
       <div class="nav-link-icon">
         <svg
           class="icon"
@@ -220,7 +220,7 @@
       </ul>
     </router-link>
 
-    <a class="nav-link" @click="logout">
+    <a class="nav-link hidden-mobile" @click="logout">
       <div class="nav-link-icon">
         <svg
           class="icon"
