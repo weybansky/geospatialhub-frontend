@@ -30,6 +30,15 @@ export default {
         post_count: 0,
         enrolled_for: []
       }
+    },
+
+    search: {
+      count: 0,
+      page: 1,
+      users: [],
+      //
+      previous: null,
+      next: null
     }
   }),
 
@@ -40,6 +49,17 @@ export default {
 
     setUser(state, user) {
       state.user = user;
+    },
+
+    setSearchConfig(state, data) {
+      state.search.page = data.page;
+      state.search.count = data.count;
+    },
+    setSearchUsers(state, users) {
+      state.search.users = users || [];
+    },
+    addToSearchUsers(state, users) {
+      state.search.push(users);
     }
   },
 
@@ -67,6 +87,27 @@ export default {
 
     getFollowing(context, data) {
       return axios.get("/v1/users/following/" + data.userId + "/", data);
+    },
+
+    async searchUsers({ commit }, query) {
+      let orderWithColumn = 1;
+      let page = 1;
+      return await axios
+        .get("/v1/users/list-all/", {
+          params: {
+            search: query,
+            ordering: orderWithColumn,
+            page: page
+          }
+        })
+        .then(response => {
+          commit("setSearchConfig", {
+            page: page,
+            count: response.data.results || []
+          });
+          commit("setSearchUsers", response.data.results || []);
+          return response;
+        });
     }
   },
 

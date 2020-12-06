@@ -51,12 +51,17 @@
         flex: 1 0 100%;
         button {
           outline: 0;
-          cursor: pointer;
           min-width: 90px;
           border: 1px solid $color-blue;
           font-size: 0.9rem;
           border-radius: 4px;
           padding: 0.55rem 0.8rem;
+          cursor: pointer;
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
         }
       }
     }

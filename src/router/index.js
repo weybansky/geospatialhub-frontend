@@ -20,6 +20,7 @@ import PostPage from "../views/PostPage.vue";
 import UserPosts from "../views/UserPosts.vue";
 import UserFollowing from "../views/UserFollowing.vue";
 import UserFollowers from "../views/UserFollowers.vue";
+import SearchPage from "../views/SearchPage.vue";
 
 import store from "../store";
 
@@ -168,6 +169,14 @@ const routes = [
         path: "/posts/:post",
         name: "PostPage",
         component: PostPage,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/search",
+        name: "SearchPage",
+        component: SearchPage,
         meta: {
           requiresAuth: true
         }

@@ -7,7 +7,16 @@ export default {
     posts: [],
 
     post: null,
-    comments: []
+    comments: [],
+
+    search: {
+      count: 0,
+      page: 1,
+      posts: [],
+      //
+      previous: null,
+      next: null
+    }
   }),
 
   mutations: {
@@ -47,6 +56,17 @@ export default {
           post.likes_count = data.likesCount;
         }
       });
+    },
+
+    setSearchConfig(state, data) {
+      state.search.page = data.page;
+      state.search.count = data.count;
+    },
+    setSearchPosts(state, posts) {
+      state.search.posts = posts || [];
+    },
+    addToSearchPosts(state, posts) {
+      state.search.push(posts);
     }
   },
 
@@ -133,6 +153,27 @@ export default {
             postId: postId,
             likesCount: data.total_likes
           });
+        });
+    },
+
+    async searchPosts({ commit }, query) {
+      let orderWithColumn = 1;
+      let page = 1;
+      return await axios
+        .get("/v1/users/post/", {
+          params: {
+            search: query,
+            ordering: orderWithColumn,
+            page: page
+          }
+        })
+        .then(response => {
+          commit("setSearchConfig", {
+            page: page,
+            count: response.data.results || []
+          });
+          commit("setSearchPosts", response.data.results || []);
+          return response;
         });
     }
   },

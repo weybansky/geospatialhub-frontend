@@ -21,13 +21,27 @@
         fill="currentColor"
       />
     </svg>
-    <input type="text" name="search" v-model="query" placeholder="SEARCH" />
+    <input
+      type="text"
+      name="search"
+      v-model="query"
+      :placeholder="placeholder"
+      required
+    />
   </form>
 </template>
 
 <script>
 export default {
   name: "Search",
+
+  props: {
+    placeholder: {
+      type: String,
+      required: false,
+      default: "SEARCH"
+    }
+  },
 
   data() {
     return {
@@ -37,7 +51,7 @@ export default {
 
   methods: {
     search() {
-      this.$router.push("search?query=" + this.query);
+      this.$router.push("/search?q=" + this.query);
     }
   }
 };
