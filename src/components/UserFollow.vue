@@ -9,6 +9,7 @@
     </div>
     <div class="action">
       <button
+        :disabled="isAuthenticatedUser"
         @click="followUser"
         type="button"
         :class="{
@@ -66,6 +67,11 @@ export default {
       user.name =
         (user.first_name + " " + user.last_name).trim() || user.username;
       return user;
+    },
+    isAuthenticatedUser() {
+      const userId = this.user.id;
+      const authUserId = this.$store.state.auth.user.id;
+      return userId == authUserId;
     }
   },
 
