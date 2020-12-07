@@ -1,7 +1,7 @@
 <template>
   <div class="profile-page edit-profile-page">
     <header :style="{ 'background-image': bannerImage }">
-      <label for="banner-image" class="edit-image">
+      <label for="banner_image" class="edit-image">
         <svg
           aria-hidden="true"
           focusable="false"
@@ -20,16 +20,17 @@
         <input
           class="input"
           type="file"
-          ref="banner-image"
-          id="banner-image"
-          name="banner-image"
+          ref="banner_image"
+          id="banner_image"
+          name="banner_image"
           accept="image/*"
+          @change="previewImage('banner_image')"
         />
       </label>
       <main>
         <div class="image">
           <img :src="profileImage" alt="" />
-          <label for="profile-image" class="edit-image">
+          <label for="profile_image" class="edit-image">
             <svg
               aria-hidden="true"
               focusable="false"
@@ -48,10 +49,11 @@
             <input
               class="input"
               type="file"
-              ref="profile-image"
-              id="profile-image"
-              name="profile-image"
+              ref="profile_image"
+              id="profile_image"
+              name="profile_image"
               accept="image/*"
+              @change="previewImage('profile_image')"
             />
           </label>
         </div>
@@ -72,11 +74,15 @@
 
     <div class="show-image" v-if="showImage">
       <div class="card">
+        <LoadSpinner :loading="loadingUploading" />
         <div class="header">
           <p class="title">{{ newImage.title }}</p>
         </div>
         <div class="body">
-          <img src="/course_image.png" alt="" />
+          <p v-if="showUploadError" style="color:red">
+            Failed!. Try again
+          </p>
+          <img :src="newImage.image" :alt="newImage.title" />
         </div>
         <div class="footer">
           <button
@@ -141,7 +147,7 @@
         </div>
 
         <div class="form-group">
-          <label for="date_of_birth">DOB</label>
+          <label for="date_of_birth">Date Of Birth</label>
           <input
             class="input"
             type="text"
@@ -163,7 +169,7 @@
         </div>
 
         <div class="form-group">
-          <label for="location">Loaction</label>
+          <label for="location">Location</label>
           <div class="input-group">
             <input
               class="input"
@@ -267,6 +273,8 @@ export default {
         institution: ""
       },
       loading: false,
+      loadingUploading: false,
+      showUploadError: false,
       errors: {}
     };
   },
@@ -308,19 +316,68 @@ export default {
       this.loading = true;
       this.$store
         .dispatch("auth/updateUser", this.data)
-        .then(() => {
-          alert("success");
-        })
         .catch(() => {
           alert("Failed");
         })
         .finally(() => {
-          alert("Done");
           this.loading = false;
         });
     },
-    cancelUpload() {},
-    uploadImage() {}
+    previewImage(title) {
+      this.showImage = true;
+      let input = null;
+
+      if (title == "profile_image") {
+        this.newImage.title = "Profile Image";
+        input = this.$refs.profile_image;
+      } else {
+        this.newImage.title = "Banner Image";
+        input = this.$refs.banner_image;
+      }
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        const vue = this;
+        reader.onload = function(e) {
+          vue.newImage.image = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    cancelUpload() {
+      this.showImage = false;
+    },
+    uploadImage() {
+      let formData = new FormData();
+
+      if (this.newImage.title == "Profile Image") {
+        const profile_pic = this.$refs.profile_image;
+        if (profile_pic.files.length) {
+          formData.append("profile_pic", profile_pic.files[0]);
+        }
+      } else {
+        const banner_pic = this.$refs.banner_image;
+        if (banner_pic.files.length) {
+          formData.append("banner_pic", banner_pic.files[0]);
+        }
+      }
+
+      this.loadingUploading = true;
+      this.$store
+        .dispatch("auth/updateUserImage", formData)
+        .catch(() => {
+          this.showUploadError = true;
+        })
+        .finally(() => {
+          this.showUploadError = false;
+          this.$refs.profile_image.value = "";
+          this.$refs.banner_image.value = "";
+          this.loadingUploading = false;
+          this.newImage.title = "";
+          this.newImage.image = null;
+          this.showImage = false;
+        });
+    }
   }
 };
 </script>

@@ -134,18 +134,19 @@ export default {
     async updateUser({ state, dispatch }, user) {
       return await axios
         .patch("/v1/users/profile/" + state.user.id + "/", user)
-        .then(({ data }) => {
-          dispatch("getUser", data);
-        })
-        .catch();
+        .then(response => {
+          dispatch("getUser", null);
+          return response;
+        });
     },
 
     async updateUserImage({ state, dispatch }, formData) {
       // formData must contain profile_pic and banner_pic
       return await axios
         .post("/v1/users/profile/" + state.user.id + "/", formData)
-        .then(({ data }) => {
-          dispatch("getUser", data);
+        .then(response => {
+          dispatch("getUser", null);
+          return response;
         });
     },
 
