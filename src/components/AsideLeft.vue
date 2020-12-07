@@ -5,7 +5,9 @@
     </div>
 
     <router-link to="/profile" tag="a" style="display:bloack;" class="user">
-      <img class="image" :src="profileImage" alt="Profile Image" />
+      <div class="image">
+        <img :src="profileImage" alt="Profile Image" />
+      </div>
       <h3 class="user-name">
         {{ fullName }}
       </h3>

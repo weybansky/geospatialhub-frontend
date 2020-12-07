@@ -6,6 +6,7 @@
 
     <div class="posts">
       <Post v-for="post in posts" :key="post.id" :post="post" />
+      <LoadSpinner :loading="loading" />
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 import Search from "../components/Search";
 import CreateNewPost from "../components/CreateNewPost";
 import Post from "../components/Post";
+import LoadSpinner from "../components/LoadSpinner.vue";
 
 export default {
   name: "Home",
@@ -21,11 +23,14 @@ export default {
   components: {
     CreateNewPost,
     Post,
-    Search
+    Search,
+    LoadSpinner
   },
 
   data() {
-    return {};
+    return {
+      loading: false
+    };
   },
 
   computed: {
@@ -39,7 +44,9 @@ export default {
   },
 
   async mounted() {
+    this.loading = true;
     await this.$store.dispatch("post/getPosts");
+    this.loading = false;
   }
 };
 </script>
