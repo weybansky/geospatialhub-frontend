@@ -221,6 +221,7 @@ export default {
       this.$store
         .dispatch("auth/followUser", { userId: this.user.id })
         .then(({ data }) => {
+          this.laodProfile(this.user.id);
           if (data.status == "Followed") {
             this.isFollowing = true;
           } else {
