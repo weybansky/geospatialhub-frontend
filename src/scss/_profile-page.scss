@@ -12,7 +12,7 @@
     min-height: 250px;
 
     main {
-      background: $color-white;
+      background: rgba($color-white, 0.7);
       position: absolute;
       bottom: 0;
       right: 0;
@@ -23,11 +23,11 @@
 
       .image {
         flex: 2;
+        margin-top: -60px;
         img {
           border-radius: 50%;
           width: 100px;
           height: 100px;
-          margin-top: -60px;
         }
       }
 
@@ -40,11 +40,10 @@
           font-size: 1.5rem;
         }
         p {
-          font-size: 0.9rem;
-          font-weight: 300;
+          font-size: 0.95rem;
           margin: 0 0 0.2rem 0;
           small {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
           }
         }
       }
@@ -184,6 +183,140 @@
   }
 }
 
+.edit-profile-page {
+  header {
+    position: relative;
+
+    .edit-image {
+      background: rgba($color-black, 0.7);
+      position: absolute;
+      z-index: 10;
+      top: 10px;
+      right: 10px;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      padding: 0.5rem;
+      .icon {
+        color: lighten($color-black, 70%);
+        width: 100%;
+        height: 100%;
+      }
+      .input {
+        display: none;
+      }
+      &:hover {
+        background-color: rgba($color-black, 0.65);
+        .icon {
+          color: $color-white;
+        }
+      }
+    }
+
+    main {
+      .image {
+        position: relative;
+        .edit-image {
+          top: 35px;
+          left: 30px;
+        }
+      }
+    }
+  }
+
+  position: static;
+  .show-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    background: rgba($color-black, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      text-align: center;
+      background: $color-white;
+      margin: 0.5rem;
+      max-width: 350px;
+      border-radius: 7px;
+
+      .header {
+        padding: 0.5rem;
+        border-bottom: 2px solid rgba($color-black, 0.2);
+        .title {
+          padding: 0.8rem 0;
+          font-size: 1.2rem;
+        }
+      }
+
+      .body {
+        padding: 1rem 0.5rem;
+        img {
+          width: 80%;
+        }
+      }
+
+      .footer {
+        padding: 0.5rem;
+        border-top: 2px solid rgba($color-black, 0.2);
+
+        button {
+          border: 1px solid $color-blue;
+          border-radius: 5px;
+          padding: 0.5rem 0.75rem;
+          margin: 0 0.5rem;
+        }
+      }
+    }
+  }
+
+  .about {
+    .form {
+      position: relative;
+      .form-group {
+        margin: 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 0.75rem;
+        }
+
+        .input {
+          padding: 0.75rem 1rem;
+          border-radius: 5px;
+          font-size: 1rem;
+          outline-color: $color-blue;
+          border: 1px solid lighten($color-black, 50%);
+          resize: none;
+        }
+
+        .input-group {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+
+          .input {
+            flex: 1 1 48%;
+            margin: 0 0.25rem 0.5rem 0.25rem;
+          }
+        }
+
+        button.input {
+          outline: 0;
+          border: 1px solid $color-blue;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $device-tablet) {
   .profile-page {
     header {
@@ -193,9 +326,7 @@
         .image {
           flex: 35%;
           margin-bottom: 1rem;
-          img {
-            margin-top: -45px;
-          }
+          margin-top: -45px;
         }
         .title {
           flex: 65%;
@@ -251,5 +382,9 @@
         }
       }
     }
+  }
+
+  .edit-profile-page {
+    //
   }
 }

@@ -127,39 +127,25 @@ export default {
         .get("/v1/users/" + state.user.id + "/")
         .then(response => {
           commit("setUser", response.data);
+          return response;
         });
     },
 
-    async updateUser({ state, commit }, data) {
-      // {
-      //   "username": "weybansky",
-      //   "profile": {
-      //         "first_name": "Abdulwahab",
-      //         "last_name": "Nasir",
-      //         "phone": null,
-      //         "profile_pic": null,
-      //         "bio": "",
-      //         "date_of_birth": null,
-      //         "location_city": "",
-      //         "location_state": "",
-      //         "location_country": "",
-      //         "company": ""
-      //     }
-      // }
+    async updateUser({ state, dispatch }, user) {
       return await axios
-        .put("/v1/users/" + state.user.id + "/", data)
+        .patch("/v1/users/profile/" + state.user.id + "/", user)
         .then(({ data }) => {
-          commit("setUser", data);
+          dispatch("getUser", data);
         })
         .catch();
     },
 
-    async updateUserProfilePicture({ state, commit }, formData) {
-      // formData must contain profile_pic
+    async updateUserImage({ state, dispatch }, formData) {
+      // formData must contain profile_pic and banner_pic
       return await axios
-        .put("/v1/users/" + state.user.id + "/profile/", formData)
+        .post("/v1/users/profile/" + state.user.id + "/", formData)
         .then(({ data }) => {
-          commit("setUser", data);
+          dispatch("getUser", data);
         });
     },
 

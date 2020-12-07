@@ -22,6 +22,9 @@ import UserFollowing from "../views/UserFollowing.vue";
 import UserFollowers from "../views/UserFollowers.vue";
 import SearchPage from "../views/SearchPage.vue";
 import Users from "../views/Users.vue";
+import EditProfile from "../views/EditProfile.vue";
+import UserChat from "../views/Profile.vue";
+// import UserChat from "../views/UserChat.vue";
 
 import store from "../store";
 
@@ -111,6 +114,14 @@ const routes = [
         }
       },
       {
+        path: "/profile/edit",
+        name: "EditProfile",
+        component: EditProfile,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: "/users",
         name: "Users",
         component: Users,
@@ -146,6 +157,14 @@ const routes = [
         path: "/users/:userId/followers",
         name: "UserFollowers",
         component: UserFollowers,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/users/:userId/chat",
+        name: "UserChat",
+        component: UserChat,
         meta: {
           requiresAuth: true
         }
