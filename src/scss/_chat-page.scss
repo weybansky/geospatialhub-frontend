@@ -4,7 +4,49 @@
   max-height: 100%;
 
   header.mobile-menu {
-    display: none;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    border-bottom: 1px solid $color-white;
+    background: darken($color-white, 8%);
+    padding: 5px 0;
+
+    .back {
+      display: none;
+    }
+
+    .user {
+      flex: 1 1 auto;
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .image {
+        width: 45px;
+        height: 45px;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          border: 1px solid $color-blue;
+        }
+      }
+      .details {
+        padding: 0 5px;
+        .name {
+          font-size: 0.8rem;
+        }
+        .username {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .to-chat {
+      display: none;
+    }
   }
 
   .messages {
@@ -105,6 +147,31 @@
   .chat-page {
     header.mobile-menu {
       display: none;
+      background: rgba($color-white, 0.9);
+
+      .back {
+        flex: 0 1 50px;
+        text-align: center;
+        padding: 10px 0;
+        .icon {
+          color: lighten($color-black, 40%);
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+        }
+
+        .to-chat {
+          flex: 0 1 50px;
+          text-align: center;
+          padding: 10px 0;
+          .icon {
+            color: lighten($color-black, 40%);
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+          }
+        }
+      }
     }
 
     .messages {
@@ -135,64 +202,6 @@
   .chat-page {
     header.mobile-menu {
       position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      display: flex;
-      border-bottom: 1px solid $color-white;
-      background: rgba($color-white, 0.9);
-      padding: 5px 0;
-
-      .back {
-        flex: 0 1 50px;
-        text-align: center;
-        padding: 10px 0;
-        .icon {
-          color: lighten($color-black, 40%);
-          width: 30px;
-          height: 30px;
-          vertical-align: middle;
-        }
-      }
-
-      .user {
-        flex: 1 1 auto;
-        padding: 0 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .image {
-          width: 45px;
-          height: 45px;
-          img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid $color-blue;
-          }
-        }
-        .details {
-          padding: 0 5px;
-          .name {
-            font-size: 0.8rem;
-          }
-          .username {
-            font-size: 0.8rem;
-          }
-        }
-      }
-
-      .to-chat {
-        flex: 0 1 50px;
-        text-align: center;
-        padding: 10px 0;
-        .icon {
-          color: lighten($color-black, 40%);
-          width: 30px;
-          height: 30px;
-          vertical-align: middle;
-        }
-      }
     }
 
     .messages {

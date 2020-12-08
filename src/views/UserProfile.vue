@@ -23,6 +23,17 @@
           >
             {{ isFollowing ? "Following" : "Follow" }}
           </button>
+
+          <button
+            @click="followUser"
+            type="button"
+            :class="{
+              'bg-blue text-white': isFollowing,
+              'bg-white text-blue': !isFollowing
+            }"
+          >
+            {{ isFollowing ? "Following" : "Follow" }}
+          </button>
         </div>
       </main>
     </header>
