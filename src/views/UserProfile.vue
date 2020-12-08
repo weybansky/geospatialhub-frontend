@@ -24,7 +24,7 @@
             {{ isFollowing ? "Following" : "Follow" }}
           </button>
 
-          <button
+          <!-- <button
             @click="followUser"
             type="button"
             :class="{
@@ -33,7 +33,7 @@
             }"
           >
             {{ isFollowing ? "Following" : "Follow" }}
-          </button>
+          </button> -->
         </div>
       </main>
     </header>

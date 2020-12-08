@@ -146,10 +146,10 @@
 @media (max-width: $device-tablet) {
   .chat-page {
     header.mobile-menu {
-      display: none;
       background: rgba($color-white, 0.9);
 
       .back {
+        display: block;
         flex: 0 1 50px;
         text-align: center;
         padding: 10px 0;
@@ -159,17 +159,17 @@
           height: 30px;
           vertical-align: middle;
         }
-
-        .to-chat {
-          flex: 0 1 50px;
-          text-align: center;
-          padding: 10px 0;
-          .icon {
-            color: lighten($color-black, 40%);
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-          }
+      }
+      .to-chat {
+        display: block;
+        flex: 0 1 50px;
+        text-align: center;
+        padding: 10px 0;
+        .icon {
+          color: lighten($color-black, 40%);
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
         }
       }
     }
