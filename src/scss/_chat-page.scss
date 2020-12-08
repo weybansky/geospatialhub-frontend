@@ -1,0 +1,209 @@
+.chat-page {
+  position: relative;
+  min-height: 100%;
+  max-height: 100%;
+
+  header.mobile-menu {
+    display: none;
+  }
+
+  .messages {
+    .message {
+      text-align: right;
+      margin: 1rem 0 1rem auto;
+      width: 75%;
+
+      .text {
+        background: $color-blue;
+        color: $color-white;
+        font-size: 0.9rem;
+        padding: 1rem;
+        border-radius: 1rem 1rem 0 1rem;
+      }
+
+      .date-time {
+        font-weight: 300;
+        font-size: 0.7rem;
+        background: transparent;
+        color: lighten($color-black, 10%);
+        padding: 5px 1rem;
+      }
+
+      &.received {
+        text-align: left;
+        margin: 1rem auto 1rem 0;
+
+        .text {
+          background: $color-white;
+          color: $color-black;
+          border-radius: 0 1rem 1rem 1rem;
+        }
+      }
+    }
+  }
+
+  .message-box {
+    background: rgba($color-white, 0.5);
+    padding: 0.3rem 0;
+    position: sticky;
+    bottom: 2px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+
+    form {
+      display: flex;
+      width: 100%;
+      height: 100%;
+
+      input,
+      button {
+        height: 45px;
+        border-radius: 5px;
+      }
+
+      input {
+        flex: 1 1 auto;
+        outline-color: $color-blue;
+        border: 1px solid darken($color-white, 30%);
+        background-color: darken($color-white, 10%);
+        padding: 0.75rem;
+
+        &:focus {
+          background-color: $color-white;
+          outline-color: $color-blue;
+        }
+      }
+      button {
+        cursor: pointer;
+        outline: 0;
+        flex: 0 1 100px;
+        min-width: 100px;
+        border: 1px solid $color-blue;
+        background: $color-blue;
+        color: $color-white;
+        margin-left: 0.5rem;
+
+        .icon {
+          display: none;
+        }
+
+        &:disabled {
+          opacity: 0.75;
+          cursor: not-allowed;
+        }
+        &.sending {
+          cursor: wait;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $device-tablet) {
+  .chat-page {
+    header.mobile-menu {
+      display: none;
+    }
+
+    .messages {
+    }
+
+    .message-box {
+      form {
+        button {
+          flex: 0 1 75px;
+          min-width: 75px;
+          .icon {
+            height: 1.15rem;
+            width: 1.1rem;
+            vertical-align: middle;
+            margin-right: 0.3rem;
+            display: inline-block;
+          }
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $device-mobile) {
+  .chat-page {
+    header.mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      display: flex;
+      border-bottom: 1px solid $color-white;
+      background: rgba($color-white, 0.9);
+      padding: 5px 0;
+
+      .back {
+        flex: 0 1 50px;
+        text-align: center;
+        padding: 10px 0;
+        .icon {
+          color: lighten($color-black, 40%);
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+        }
+      }
+
+      .user {
+        flex: 1 1 auto;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .image {
+          width: 45px;
+          height: 45px;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid $color-blue;
+          }
+        }
+        .details {
+          padding: 0 5px;
+          .name {
+            font-size: 0.8rem;
+          }
+          .username {
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      .to-chat {
+        flex: 0 1 50px;
+        text-align: center;
+        padding: 10px 0;
+        .icon {
+          color: lighten($color-black, 40%);
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .messages {
+    }
+
+    .message-box {
+      position: fixed;
+      z-index: 20;
+      background: rgba($color-white, 0.9);
+      bottom: 0;
+      padding-bottom: 0.5rem 0.3rem 1rem 0.3rem;
+    }
+  }
+}

@@ -23,8 +23,8 @@ import UserFollowers from "../views/UserFollowers.vue";
 import SearchPage from "../views/SearchPage.vue";
 import Users from "../views/Users.vue";
 import EditProfile from "../views/EditProfile.vue";
-import UserChat from "../views/Profile.vue";
-// import UserChat from "../views/UserChat.vue";
+import UserChat from "../views/UserChat.vue";
+// import UserChat from "../views/Profile.vue";
 
 import store from "../store";
 

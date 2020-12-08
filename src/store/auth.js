@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 
 export default {
   namespaced: true,
@@ -12,7 +13,13 @@ export default {
       new_follower: []
     },
     followers: [],
-    following: []
+    following: [],
+
+    chats: [],
+    chat: {
+      receiver: null,
+      messages: []
+    }
   }),
 
   mutations: {
@@ -54,6 +61,24 @@ export default {
 
     addFollowToFollowing(state, follow) {
       state.following.unshift(follow);
+    },
+
+    setChatConfig(state, data) {
+      state.chat.page = data.page || 1;
+      state.chat.count = data.count || 0;
+    },
+    setChatReceiver(state, receiver) {
+      state.chat.receiver = receiver || null;
+    },
+    setChatMessages(state, messages) {
+      state.chat.messages = messages || [];
+    },
+    addMessageToMessages(state, message) {
+      state.chat.messages.push(message);
+    },
+
+    setChat(state, chats) {
+      state.chats = chats || [];
     }
   },
 
@@ -209,6 +234,34 @@ export default {
           commit("setFollowing", data.results);
         }
       );
+    },
+
+    async getChats({ commit }) {
+      return await axios.get("/v1/users/chats/").then(response => {
+        commit("setChat", response.data.results);
+        return response;
+      });
+    },
+
+    async getChat({ commit }, data) {
+      return await axios
+        .get("/v1/users/chats/" + data.userId + "/")
+        .then(response => {
+          commit("setChatMessages", response.data.results);
+          return response;
+        });
+    },
+
+    async sendMessage({ dispatch }, data) {
+      return await axios
+        .post("/v1/users/chats/" + data.userId + "/", {
+          text: data.text
+        })
+        .then(response => {
+          // "addMessageToMessages"
+          dispatch("getChat", data);
+          return response;
+        });
     }
   },
 
@@ -229,6 +282,34 @@ export default {
     sortNotifications(state) {
       // TODO
       return state.notications;
+    },
+
+    sortMessages(state) {
+      // TODO
+      return state.chat.messages.slice().sort((m1, m2) => {
+        const date1 = moment(m1.created);
+        const date2 = moment(m2.created);
+        if (date1.isAfter(date2)) {
+          return 1;
+        } else if (date2.isAfter(date1)) {
+          return -1;
+        }
+        return 0;
+      });
+    },
+
+    sortChats(state) {
+      // TODO
+      return state.chats.slice().sort((m1, m2) => {
+        const date1 = moment(m1.created);
+        const date2 = moment(m2.created);
+        if (date1.isAfter(date2)) {
+          return -1;
+        } else if (date2.isAfter(date1)) {
+          return 1;
+        }
+        return 0;
+      });
     }
   },
 
