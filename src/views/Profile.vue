@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page">
+  <div class="profile-page page">
     <header :style="{ 'background-image': bannerImage }">
       <main>
         <div class="image">

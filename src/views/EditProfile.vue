@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page edit-profile-page">
+  <div class="profile-page edit-profile-page page">
     <header :style="{ 'background-image': bannerImage }">
       <label for="banner_image" class="edit-image">
         <svg

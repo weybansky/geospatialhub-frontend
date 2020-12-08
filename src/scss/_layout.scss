@@ -21,7 +21,8 @@
     flex: 0 1 20%;
     min-width: 250px;
     border-right: 4px solid $color-white;
-    padding: 50px 1px 10px;
+    padding: 40px 1px 15px;
+    overflow-y: auto;
     text-align: center;
     background-color: inherit;
 
@@ -32,18 +33,24 @@
     flex: 1 1 auto;
     max-width: 992px;
     overflow-y: auto;
-    padding: 0.8rem;
     background-color: inherit;
+    min-height: 100vh;
+
+    .page {
+      padding: 0.8rem;
+      min-height: 100%;
+    }
 
     @import "home-page";
+    @import "profile-page";
+    @import "user-follow-page";
+    @import "chat-page";
+    // 
     @import "courses-page";
     @import "notifications-page";
     @import "about-page";
     @import "contact-page";
-    @import "profile-page";
-    @import "user-follow-page";
     @import "search-page";
-    @import "chat-page";
   }
 
   .aside-right {
@@ -74,16 +81,19 @@
     }
 
     .main {
-      padding: 0.5rem;
-      padding-bottom: 60px;
       max-width: none;
       min-width: 500px;
       flex: 1 1 auto;
+
+      .page {
+        padding: 0.4rem;
+        padding-bottom: 45px;
+        min-height: 100%;
+      }
     }
 
     .aside-right {
-      padding: 1rem;
-      padding-bottom: 60px;
+      padding: 0.4rem;
       flex: 0 1 30%;
       min-width: 265px;
       max-width: 350px;
@@ -96,16 +106,20 @@
     flex-direction: column;
 
     .main {
-      padding: 0.3rem;
-      padding-bottom: 50px;
-      overflow-y: visible;
+      // overflow-y: visible;
       border: 0;
       min-width: auto;
       width: 100%;
+
+      .page {
+        padding: 0.25rem;
+        padding-bottom: 45px;
+        min-height: 100%;
+      }
     }
 
     .aside-right {
-      overflow-y: visible;
+      // overflow-y: visible;
       border: 0;
       min-width: auto;
       width: 100%;

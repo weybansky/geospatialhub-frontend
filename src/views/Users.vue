@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page user-follow-page">
+  <div class="home-page user-follow-page page">
     <Search />
 
     <div class="users">

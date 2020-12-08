@@ -24,7 +24,7 @@ import SearchPage from "../views/SearchPage.vue";
 import Users from "../views/Users.vue";
 import EditProfile from "../views/EditProfile.vue";
 import UserChat from "../views/UserChat.vue";
-// import UserChat from "../views/Profile.vue";
+import UserChats from "../views/UserChats.vue";
 
 import store from "../store";
 
@@ -162,7 +162,15 @@ const routes = [
         }
       },
       {
-        path: "/users/:userId/chat",
+        path: "/chats/",
+        name: "UserChats",
+        component: UserChats,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/chats/:userId",
         name: "UserChat",
         component: UserChat,
         meta: {

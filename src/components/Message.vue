@@ -1,6 +1,6 @@
 <template>
   <div class="message" :class="{ received }" ref="message">
-    <p class="text" v-html="this.message.text"></p>
+    <p class="text" v-html="message.text"></p>
     <p class="date-time">{{ dateTime }}</p>
   </div>
 </template>

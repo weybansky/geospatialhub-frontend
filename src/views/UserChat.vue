@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-page">
+  <div class="chat-page page">
     <header class="mobile-menu">
       <div class="back" @click="$router.back()">
         <svg
@@ -101,7 +101,8 @@ export default {
   data() {
     return {
       loading: false,
-      text: ""
+      text: "",
+      getChatTimer: null
     };
   },
 
@@ -111,35 +112,50 @@ export default {
       // return this.$store.state.auth.chat.messages;
     },
     sender() {
-      return this.$store.state.auth.user || { profile: {} };
+      return (
+        this.$store.state.auth.user || {
+          id: null,
+          username: "",
+          profile: { first_name: "", last_name: "" }
+        }
+      );
     },
     receiver() {
-      return this.$store.state.auth.chat.receiver || { profile: {} };
+      return (
+        this.$store.state.auth.chat.receiver || {
+          id: null,
+          username: "",
+          profile: { first_name: "", last_name: "" }
+        }
+      );
     },
     noInput() {
       return !this.text.length;
     }
   },
 
-  beforeRouteUpdate(to, from, next) {
+  async beforeRouteUpdate(to, from, next) {
     const userId = to.params.userId;
     if (this.$store.state.auth.user.id == userId) {
       next("/chats");
     } else {
+      await clearInterval(this.getChatTimer);
       this.loadChat(userId);
       next();
     }
   },
 
+  async beforeRouteLeave(to, from, next) {
+    await clearInterval(this.getChatTimer);
+    next();
+  },
+
   mounted() {
     const userId = this.$route.params.userId;
     this.loadChat(userId);
-    setInterval(() => {
+    this.getChatTimer = setInterval(() => {
       this.$store.dispatch("auth/getChat", { userId });
-    }, 3000);
-    setInterval(() => {
-      this.$store.dispatch("auth/getChats");
-    }, 7000);
+    }, 3500);
   },
 
   methods: {
