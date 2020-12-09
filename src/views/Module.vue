@@ -45,8 +45,7 @@
             </svg>
             <span>{{ estimatedTime }} minutes</span>
           </p>
-
-          <div class="price" v-if="!enrolled">
+          <div class="price">
             <span class="strikethrough"
               >₦{{ course.price_before_discount }}</span
             >
@@ -54,16 +53,7 @@
             <button type="button" class="bg-blue text-white" @click="payNow()">
               Buy Now
             </button>
-            <p v-if="paymentError" class="text-red">
-              Failed to initialize payment
-            </p>
           </div>
-          <div class="price" v-if="enrolled">
-            <p>
-              14-day money-back guarantee
-            </p>
-          </div>
-
           <p class="overview" v-html="course.overview"></p>
           <p class="author" v-if="course.author.first_name">
             Author:
@@ -71,25 +61,14 @@
           </p>
         </div>
       </div>
-
-      <LoadSpinner :loading="loading || loadingPayment" />
-
-      <div class="modules" v-if="!loading">
+      <LoadSpinner :loading="loading" />
+      <div class="modules">
         <div class="module" v-for="(mod, index) in modules" :key="mod.id">
           <div class="title">
             <span class="number">{{ twoDigits(++index) }}</span>
             {{ mod.title }}
           </div>
-          <div class="details">
-            <div class="description" v-html="mod.description"></div>
-            <button
-              type="button"
-              class="bg-blue text-white"
-              @click="goToModule(mod.id)"
-            >
-              View
-            </button>
-          </div>
+          <div class="details" v-html="mod.description"></div>
         </div>
       </div>
     </div>
@@ -99,24 +78,21 @@
 <script>
 import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
-  name: "Course",
+  name: "Module",
   components: { LoadSpinner },
 
   data() {
     return {
-      loading: false,
-      loadingPayment: false,
-      paymentError: false
+      loading: false
     };
   },
 
   computed: {
     course() {
-      return this.$store.state.course.course || null;
+      return this.$store.state.course.course;
     },
     modules() {
-      if (!this.course) return [];
-      return this.course.modules;
+      return this.course.modules || [];
     },
     author() {
       // TODO
@@ -147,25 +123,8 @@ export default {
     twoDigits(value) {
       if (value < 10) return `0${value}`;
     },
-
-    async payNow() {
-      this.paymentError = false;
-      const courseId = this.$route.params.courseId;
-      this.loadingPayment = true;
-      await this.$store
-        .dispatch("course/payForCourse", courseId)
-        .catch(() => {
-          this.paymentError = true;
-        })
-        .finally(() => {
-          this.loadingPayment = false;
-        });
-    },
-
-    goToModule(moduleId) {
-      const courseId = this.$route.params.courseId;
-      return this.$router.push(`/courses/${courseId}/modules/${moduleId}`);
-    }
+    payNow() {},
+    enroll() {}
   },
 
   async created() {

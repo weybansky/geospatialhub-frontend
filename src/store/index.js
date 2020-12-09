@@ -15,6 +15,8 @@ export default new Vuex.Store({
     appName: "GeoSpatial Hub",
     alert: null,
 
+    frontEndURL: "https://geospatialhub.netlify.app",
+
     site: {
       email: "geospatialhub@gmail.com",
       phone: "08012345678"
@@ -23,9 +25,7 @@ export default new Vuex.Store({
     layout: {
       sidebarEnabled: true,
       components: ["messaging", "users", "courses"]
-    },
-
-    PAYSTACK_PUBLIC_KEY: null
+    }
   },
 
   mutations: {

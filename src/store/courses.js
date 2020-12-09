@@ -58,19 +58,45 @@ export default {
       });
     },
 
-    async getCourse({ state, commit }, courseId) {
-      if (state.courses.length) {
-        let course = state.courses.filter(course => course.id == courseId);
-        if (course.length == 1) {
-          commit("setCourse", course[0]);
-          return course[0];
-        }
-      }
+    async getCourse({ commit }, courseId) {
+      return await axios.get("/v1/courses/" + courseId + "/").then(response => {
+        commit("setCourse", response.data);
+        return response;
+      });
+    },
 
+    getModule({ state, commit, dispatch }, data) {
+      if (state.course.modules && state.course.modules.length) {
+        let mod = state.courses.modules.filter(mod => mod.id == data.moduleId);
+        if (mod) {
+          commit("setModule", mod);
+          return mod;
+        }
+      } else {
+        dispatch("getCourse", data.courseId).then(() => {
+          return dispatch("getModule", data);
+        });
+      }
+    },
+
+    async payForCourse({ rootState }, courseId) {
       return await axios
-        .get("/v1/courses/" + courseId + "/")
-        .then(({ data }) => {
-          commit("setCourse", data);
+        .get("/v1/courses/" + courseId + "/pay/", {
+          params: {
+            callback_url: `${rootState.frontEndURL}/courses/${courseId}/payment/`
+          }
+        })
+        .then(response => {
+          window.location.href = response.data.authorization_url;
+          return response;
+        });
+    },
+
+    async confirmPayment(context, courseId) {
+      return await axios
+        .get("/v1/courses/" + courseId + "/pay/confirm/")
+        .then(response => {
+          return response;
         });
     },
 

@@ -14,6 +14,8 @@ import About from "../views/About.vue";
 import Contact from "../views/Contact.vue";
 import MyCourses from "../views/MyCourses.vue";
 import Course from "../views/Course.vue";
+import CoursePayment from "../views/CoursePayment.vue";
+import Module from "../views/Module.vue";
 import Profile from "../views/Profile.vue";
 import UserProfile from "../views/UserProfile.vue";
 import PostPage from "../views/PostPage.vue";
@@ -194,9 +196,25 @@ const routes = [
         }
       },
       {
-        path: "/courses/:course",
+        path: "/courses/:courseId",
         name: "Course",
         component: Course,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/courses/:courseId/payment",
+        name: "CoursePayment",
+        component: CoursePayment,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/courses/:courseId/modules/:moduleId",
+        name: "Module",
+        component: Module,
         meta: {
           requiresAuth: true
         }
