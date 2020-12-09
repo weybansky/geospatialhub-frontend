@@ -1,8 +1,10 @@
 <template>
   <aside class="aside-left">
-    <div class="branding">
-      <img class="logo" src="../assets/logo.png" alt="Logo" />
-    </div>
+    <router-link tag="div" to="/" class="branding">
+      <a>
+        <img class="logo" src="../assets/logo.png" alt="Logo" />
+      </a>
+    </router-link>
 
     <router-link to="/profile" tag="a" style="display:bloack;" class="user">
       <div class="image">

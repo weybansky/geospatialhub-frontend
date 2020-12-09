@@ -95,7 +95,7 @@ export default {
 
   methods: {
     search() {
-      console.log("SEARCHING!!!");
+      // console.log("SEARCHING!!!");
     },
 
     logout() {

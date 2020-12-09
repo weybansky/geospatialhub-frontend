@@ -4,19 +4,29 @@
       <h1 class="title">Chats</h1>
     </div>
 
-    <div class="chats">
+    <div class="chats" style="position:relative">
       <Chat v-for="(chat, index) in chats" :chat="chat" :key="index" />
+
+      <LoadSpinner :loading="loading" />
+
+      <div class="chat" v-if="!chats.length">
+        <div class="details">
+          <p class="username">No Chats Found</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Chat from "../components/Chat.vue";
+import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
   name: "UserChats",
 
   components: {
-    Chat
+    Chat,
+    LoadSpinner
   },
 
   data() {
@@ -36,12 +46,15 @@ export default {
   },
 
   async beforeRouteLeave(to, from, next) {
-    await clearInterval(this.getChatTimer);
+    await clearInterval(this.getChatsTimer);
     next();
   },
 
   mounted() {
-    this.loadChats();
+    this.loading = true;
+    this.loadChats().finally(() => {
+      this.loading = false;
+    });
     this.getChatsTimer = setInterval(() => {
       this.$store.dispatch("auth/getChats");
     }, 10000);
