@@ -7,13 +7,12 @@
     >
       <h3 class="title">Chats</h3>
       <div class="chats">
-        <div v-for="chat in chats" :key="chat.id">
-          <!-- {{ chat }} -->
-        </div>
+        <Chat v-for="(chat, index) in chats" :chat="chat" :key="index" />
       </div>
       <router-link to="/chats" class="footer">
         See all chats...
       </router-link>
+      <load-spinner :loading="loadingChats" />
     </div>
 
     <div
@@ -33,6 +32,7 @@
       <router-link to="/users" class="footer">
         See all people...
       </router-link>
+      <load-spinner :loading="loadingUsers" />
     </div>
 
     <div
@@ -49,18 +49,29 @@
       <router-link to="/courses" class="footer">
         See all Courses...
       </router-link>
+      <load-spinner :loading="loadingCourses" />
     </div>
   </aside>
 </template>
 
 <script>
-import UserCard from "./UserCard.vue";
+import Chat from "../components/Chat";
+import UserCard from "../components/UserCard";
+import LoadSpinner from "./LoadSpinner.vue";
 // import courses from "../components/SideBarCourses";
 
 export default {
   name: "AsideRight",
 
-  components: { UserCard },
+  components: { UserCard, Chat, LoadSpinner },
+
+  data() {
+    return {
+      loadingChats: false,
+      loadingUsers: false,
+      loadingCourses: false
+    };
+  },
 
   computed: {
     layoutOrder() {
