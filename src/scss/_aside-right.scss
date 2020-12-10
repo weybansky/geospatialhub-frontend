@@ -1,0 +1,85 @@
+.chats-component,
+.users-component,
+.courses-component {
+  padding: 1rem 0.6rem;
+  .title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding: 1rem 0;
+    color: rgba($color-black, 0.75);
+  }
+  .footer {
+    color: rgba($color-black, 0.75);
+
+    &:hover {
+      color: $color-blue;
+      margin: 1rem 0;
+    }
+  }
+}
+
+.chats-component {
+}
+.users-component {
+  .users {
+    .user {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid $color-white;
+      padding: 0.4rem 0;
+      margin: 0.3rem 0;
+
+      .image {
+        flex: 0 1 50px;
+        cursor: pointer;
+        margin: 0 auto;
+        img {
+          width: 40px;
+          height: 40px;
+          border: 1px solid rgba($color-blue, 0.4);
+          border-radius: 50%;
+        }
+      }
+
+      .details {
+        flex: 1 1 100%;
+        padding: 0 5px;
+        cursor: pointer;
+        line-break: anywhere;
+        overflow-wrap: anywhere;
+        word-wrap: break-word;
+
+        .name {
+          font-size: 1rem;
+          font-weight: 500;
+          text-transform: capitalize;
+          margin-bottom: 5px;
+        }
+        .username {
+          font-size: 0.8rem;
+          font-weight: 300;
+        }
+      }
+      
+      .action {
+        flex: 0 1 100px;
+        button {
+          outline: 0;
+          width: 80px;
+          border: 1px solid $color-blue;
+          font-size: 0.9rem;
+          border-radius: 4px;
+          padding: 0.5rem 0.3rem;
+          cursor: pointer;
+
+          &:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}
+.courses-component {
+}

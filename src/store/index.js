@@ -24,7 +24,8 @@ export default new Vuex.Store({
 
     layout: {
       sidebarEnabled: true,
-      components: ["messaging", "users", "courses"]
+      components: ["users", "chats", "courses"]
+      // components: ["chats", "users", "courses"]
     }
   },
 
@@ -33,6 +34,12 @@ export default new Vuex.Store({
       state.alert = alert;
       if (state.alert != null && state.alert.status == "error")
         state.alert.status = "danger";
+    },
+    disableSideBar(state) {
+      state.layout.sidebarEnabled = false;
+    },
+    enableSideBar(state) {
+      state.layout.sidebarEnabled = true;
     }
   },
 
