@@ -51,6 +51,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit("setSidebarComponents", ["users"]);
     this.loading = true;
     this.loadChats().finally(() => {
       this.loading = false;

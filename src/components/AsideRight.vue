@@ -7,11 +7,13 @@
     >
       <h3 class="title">Chats</h3>
       <div class="chats">
-        <Chat v-for="(chat, index) in chats" :chat="chat" :key="index" />
+        <Chat
+          v-for="(chat, index) in chats"
+          :chat="modifyChat(chat)"
+          :key="index"
+        />
       </div>
-      <router-link to="/chats" class="footer">
-        See all chats...
-      </router-link>
+      <router-link to="/chats" class="footer"> See all chats... </router-link>
       <load-spinner :loading="loadingChats" />
     </div>
 
@@ -29,9 +31,7 @@
           :user="user"
         />
       </div>
-      <router-link to="/users" class="footer">
-        See all people...
-      </router-link>
+      <router-link to="/users" class="footer"> See all people... </router-link>
       <load-spinner :loading="loadingUsers" />
     </div>
 
@@ -58,7 +58,6 @@
 import Chat from "../components/Chat";
 import UserCard from "../components/UserCard";
 import LoadSpinner from "./LoadSpinner.vue";
-// import courses from "../components/SideBarCourses";
 
 export default {
   name: "AsideRight",
@@ -84,10 +83,14 @@ export default {
       return this.$store.getters["auth/sortChats"];
     },
     users() {
-      return this.$store.state.user.search.users || [];
+      return this.$store.state.layout.user.users.slice(0, 10) || [];
     },
     courses() {
-      return this.$store.state.course.courses;
+      return (
+        this.$store.state.course.courses
+          .filter(course => !course.is_user_enrolled)
+          .slice(1, 10) || []
+      );
     }
   },
 
@@ -97,6 +100,30 @@ export default {
     },
     order(component) {
       return this.layoutOrder.indexOf(component) + 1;
+    },
+    modifyChat(chat) {
+      // return chat;
+      let chatClone = Object.assign({}, chat);
+      chatClone.text = chat.text.slice(0, 50) + "...";
+      return chatClone;
+    }
+  },
+
+  async mounted() {
+    if (this.isActive("users")) {
+      this.loadingUsers = true;
+      await this.$store.dispatch("getLayoutUsers");
+      this.loadingUsers = false;
+    }
+    if (this.isActive("chats")) {
+      this.loadingChats = true;
+      await this.$store.dispatch("auth/getChats");
+      this.loadingChats = false;
+    }
+    if (this.isActive("courses")) {
+      this.loadingCourses = true;
+      await this.$store.dispatch("getLayoutCourses");
+      this.loadingCourses = false;
     }
   }
 };

@@ -5,7 +5,7 @@
     </div>
     <div class="details">
       <p class="name">{{ fullName }}</p>
-      <p class="text" v-html="chat.text"></p>
+      <p class="text" v-html="lastMessageBy + chat.text"></p>
       <p class="date-time">{{ dateTime }}</p>
     </div>
   </div>
@@ -48,6 +48,13 @@ export default {
         return this.sender;
       }
       return this.receiver;
+    },
+    lastMessageBy() {
+      if (this.receiver.id == this.authUser.id) {
+        // return this.fullName
+        return "";
+      }
+      return "You: ";
     },
     fullName() {
       const first_name = this.user.first_name || "";

@@ -46,6 +46,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.commit("setSidebarComponents", ["chats", "users"]);
     this.loading = true;
     await this.$store.dispatch("auth/getUserCourses");
     this.loading = false;

@@ -57,6 +57,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.commit("setSidebarComponents", ["chats"]);
     this.loadReults(this.query);
   }
 };

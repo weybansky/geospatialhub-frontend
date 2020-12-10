@@ -161,6 +161,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit("setSidebarComponents", ["users"]);
     const userId = this.$route.params.userId;
     this.loadChat(userId);
     this.getChatTimer = setInterval(() => {

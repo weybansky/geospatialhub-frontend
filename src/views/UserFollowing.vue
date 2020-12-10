@@ -62,6 +62,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit("setSidebarComponents", ["chats"]);
     const userId = this.$route.params.userId;
     this.getFollowing(userId);
   }

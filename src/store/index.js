@@ -6,6 +6,8 @@ import courseModule from "./courses";
 import userModule from "./users";
 import postModule from "./posts";
 
+import axios from "axios";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -24,8 +26,24 @@ export default new Vuex.Store({
 
     layout: {
       sidebarEnabled: true,
-      components: ["users", "chats", "courses"]
-      // components: ["chats", "users", "courses"]
+      components: ["users", "chats"],
+      user: {
+        count: 0,
+        page: 1,
+        users: [],
+        //
+        previous: null,
+        next: null
+      },
+      // chat: {},//from auth
+      course: {
+        count: 0,
+        page: 1,
+        users: [],
+        //
+        previous: null,
+        next: null
+      }
     }
   },
 
@@ -40,10 +58,73 @@ export default new Vuex.Store({
     },
     enableSideBar(state) {
       state.layout.sidebarEnabled = true;
+    },
+    setSidebarComponents(state, components) {
+      state.layout.components = components || ["users", "chats"];
+    },
+
+    setSidebarUsersConfig(state, data) {
+      state.layout.user.page = data.page;
+      state.layout.user.count = data.count;
+    },
+    setSidebarUsers(state, users) {
+      state.layout.user.users = users || [];
+    },
+
+    setSidebarCourseConfig(state, data) {
+      state.layout.course.page = data.page;
+      state.layout.course.count = data.count;
+    },
+    setSidebarCourses(state, courses) {
+      state.layout.course.courses = courses || [];
     }
   },
 
-  actions: {},
+  actions: {
+    async getLayoutUsers({ commit }) {
+      let query = "";
+      let orderWithColumn = 1;
+      let page = 1;
+      return await axios
+        .get("/v1/users/list-all/", {
+          params: {
+            search: query,
+            ordering: orderWithColumn,
+            page: page
+          }
+        })
+        .then(response => {
+          commit("setSidebarUsersConfig", {
+            page: page,
+            count: response.data.results || []
+          });
+          commit("setSidebarUsers", response.data.results || []);
+          return response;
+        });
+    },
+
+    async getLayoutCourses({ commit }) {
+      let query = "";
+      let orderWithColumn = 1;
+      let page = 1;
+      return await axios
+        .get("/v1/courses/", {
+          params: {
+            search: query,
+            ordering: orderWithColumn,
+            page: page
+          }
+        })
+        .then(response => {
+          commit("setSidebarCourseConfig", {
+            page: page,
+            count: response.data.results || []
+          });
+          commit("setSidebarCourses", response.data.results || []);
+          return response;
+        });
+    }
+  },
 
   getters: {},
 
