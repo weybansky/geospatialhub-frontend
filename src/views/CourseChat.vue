@@ -1,7 +1,7 @@
 <template>
   <section class="courses-page course-page course-chat-page page">
-    <div class="course" v-if="!loading">
-      <h4 class="course-title">{{ course.title }}</h4>
+    <div class="course">
+      <h4 class="course-title">{{ course.title || "" }}</h4>
       <p>Discussion: Chat with other people taking the course</p>
     </div>
 
@@ -12,8 +12,11 @@
     </div>
 
     <form @submit.prevent="sendChat" class="post-chat">
+      <LoadSpinner :loading="loadingForm" />
       <input type="text" v-model="text" />
-      <button type="submit" class="bg-blue text-white">POST</button>
+      <button :disabled="loadingForm" type="submit" class="bg-blue text-white">
+        POST
+      </button>
     </form>
   </section>
 </template>
@@ -29,6 +32,7 @@ export default {
   data() {
     return {
       loading: false,
+      loadingForm: false,
       text: ""
     };
   },
@@ -59,7 +63,7 @@ export default {
 
   methods: {
     async sendChat() {
-      this.loading = true;
+      this.loadingForm = true;
       await this.$store
         .dispatch("course/postCourseChat", {
           courseId: this.course.id,
@@ -69,7 +73,7 @@ export default {
           this.text = "";
         })
         .finally(() => {
-          this.loading = false;
+          this.loadingForm = false;
         });
     }
   },
