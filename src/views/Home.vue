@@ -44,6 +44,9 @@ export default {
   },
 
   async mounted() {
+    if (window.screen.width < 768) {
+      this.$store.commit("disableSideBar");
+    }
     this.$store.commit("setSidebarComponents", ["users", "chats"]);
     this.loading = true;
     await this.$store.dispatch("post/getPosts");
