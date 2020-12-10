@@ -57,6 +57,7 @@
         :message="message"
         :key="index"
       />
+      <LoadSpinner :loading="loading" />
     </div>
 
     <div class="message-box">
@@ -91,11 +92,13 @@
 
 <script>
 import Message from "../components/Message.vue";
+import LoadSpinner from "../components/LoadSpinner";
 export default {
   name: "UserChat",
 
   components: {
-    Message
+    Message,
+    LoadSpinner
   },
 
   data() {
@@ -108,10 +111,17 @@ export default {
 
   computed: {
     messages() {
+      if (this.loading) return [];
       return this.$store.getters["auth/sortMessages"];
       // return this.$store.state.auth.chat.messages;
     },
     sender() {
+      if (this.loading)
+        return {
+          id: null,
+          username: "",
+          profile: { first_name: "", last_name: "" }
+        };
       return (
         this.$store.state.auth.user || {
           id: null,
@@ -135,11 +145,11 @@ export default {
   },
 
   async beforeRouteUpdate(to, from, next) {
+    await clearInterval(this.getChatTimer);
     const userId = to.params.userId;
     if (this.$store.state.auth.user.id == userId) {
       next("/chats");
     } else {
-      await clearInterval(this.getChatTimer);
       this.loadChat(userId);
       next();
     }
@@ -160,10 +170,12 @@ export default {
 
   methods: {
     async loadChat(userId) {
+      this.loading = true;
       await this.$store.dispatch("user/getUser", userId).then(({ data }) => {
         this.$store.commit("auth/setChatReceiver", data);
       });
       await this.$store.dispatch("auth/getChat", { userId });
+      this.loading = false;
     },
 
     async sendMessage() {

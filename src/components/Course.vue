@@ -43,10 +43,16 @@
         </svg>
         <span>{{ estimatedTime }} minutes</span>
       </p>
-      <div class="price">
+
+      <div class="price" v-if="!enrolled">
         <span class="strikethrough">₦{{ course.price_before_discount }}</span>
         <span>₦{{ course.price }}</span>
       </div>
+      <div class="price" v-else>
+        Enrolled
+        <small>14-day money-back</small>
+      </div>
+
       <p class="overview" v-html="course.overview.slice(1, 100) + '...'"></p>
       <p class="author" v-if="course.author.first_name">
         Author:
@@ -65,21 +71,7 @@ export default {
       type: Object,
       required: true,
       default: () => {
-        return {
-          id: 2,
-          author: { id: "2", first_name: "", last_name: "" },
-          category: { id: "2", title: "Vector data" },
-          title: "Second Course",
-          course_pic: null,
-          overview:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar, leo id rutrum pretium, magna neque tincidunt sem, a convallis.",
-          estimated_time: 60,
-          price: 0,
-          price_before_discount: 0,
-          created: "2020-10-18T03:27:26.595436Z",
-          module_count: 2,
-          is_user_enrolled: false
-        };
+        return {};
       }
     }
   },

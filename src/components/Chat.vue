@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="chat"
-    :class="{ read }"
-    @click="$router.push('/chats/' + user.id)"
-  >
+  <div class="chat" :class="{ read }" @click="goToChat">
     <div class="image">
       <img :src="user.profile_pic || '/user.png'" alt="Profile Pic" />
     </div>
@@ -66,6 +62,10 @@ export default {
     }
   },
 
-  mounted() {}
+  methods: {
+    goToChat() {
+      window.location.href = `/chats/${this.user.id}`;
+    }
+  }
 };
 </script>

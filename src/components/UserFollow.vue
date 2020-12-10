@@ -27,10 +27,6 @@
 export default {
   name: "UserFollow",
 
-  data() {
-    return { isFollowing: true };
-  },
-
   props: {
     follow: {
       type: Object,
@@ -50,6 +46,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      isFollowing: false
+    };
+  },
+
   computed: {
     user() {
       let userData = this.follow.user;
@@ -62,7 +64,8 @@ export default {
         username: userData.username,
         first_name: userData.first_name || "",
         last_name: userData.last_name || "",
-        image: userData.profile_pic || "/user.png"
+        image: userData.profile_pic || "/user.png",
+        follow_status: userData.follow_status
       };
       user.name =
         (user.first_name + " " + user.last_name).trim() || user.username;
@@ -89,9 +92,8 @@ export default {
     }
   },
 
-  mounted() {
-    this.isFollowing =
-      this.follow.is_followed_by.id == this.$store.state.auth.user.id;
+  created() {
+    this.isFollowing = this.user.follow_status == "Following";
   }
 };
 </script>

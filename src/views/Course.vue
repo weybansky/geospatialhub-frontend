@@ -59,9 +59,21 @@
             </p>
           </div>
           <div class="price" v-if="enrolled">
-            <p>
-              14-day money-back guarantee
+            <button
+              type="button"
+              @click="$router.push('/courses/' + course.id + '/chats/')"
+              class="bg-blue text-white"
+            >
+              Discussion
+            </button>
+            <button type="button" @click="unenroll" class="bg-red text-white">
+              Unenroll
+            </button>
+            <br />
+            <p class="unenroll-message" v-if="unenrollMessage">
+              {{ unenrollMessage }}
             </p>
+            <small v-else>14-day money-back guarantee</small>
           </div>
 
           <p class="overview" v-html="course.overview"></p>
@@ -106,7 +118,8 @@ export default {
     return {
       loading: false,
       loadingPayment: false,
-      paymentError: false
+      paymentError: false,
+      unenrollMessage: ""
     };
   },
 
@@ -165,6 +178,30 @@ export default {
     goToModule(moduleId) {
       const courseId = this.$route.params.courseId;
       return this.$router.push(`/courses/${courseId}/modules/${moduleId}`);
+    },
+
+    unenroll() {
+      this.loading = true;
+      this.$store
+        .dispatch("course/unenroll", this.course.id)
+        .then(({ data }) => {
+          if (data.unenroll_status) {
+            this.unenrollMessage = "You have been unenrolled from this course"; //sucess
+            if (data.refund_status) {
+              this.unenrollMessage =
+                "You have been unenrolled from this course. And refund is being processed";
+            } else {
+              this.unenrollMessage =
+                "You have been unenrolled from this course. No refund processed as you have exceeded the 14-day offer";
+            }
+            setTimeout(() => {
+              window.location.href = `/courses`;
+            }, 30000);
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
 

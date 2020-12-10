@@ -1,5 +1,5 @@
 <template>
-  <div class="user-follow-page">
+  <div class="user-follow-page page">
     <div class="users" v-if="followers.length">
       <UserFollow
         v-for="follow in followers"

@@ -106,6 +106,10 @@ export default {
         });
     },
 
+    async unenroll(context, courseId) {
+      return await axios.get("/v1/courses/" + courseId + "/unenroll/");
+    },
+
     async searchCourses({ commit }, query) {
       let orderWithColumn = 1;
       let page = 1;

@@ -46,11 +46,9 @@ export default {
   },
 
   async mounted() {
-    if (this.$store.state.auth.courses.length < 1) {
-      this.loading = true;
-      await this.$store.dispatch("auth/getUserCourses");
-      this.loading = false;
-    }
+    this.loading = true;
+    await this.$store.dispatch("auth/getUserCourses");
+    this.loading = false;
     if (this.$store.state.course.courses.length < 1) {
       await this.$store.dispatch("course/getCourses");
     }

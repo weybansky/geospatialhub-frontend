@@ -130,6 +130,23 @@
             text-decoration-color: red;
             margin-right: 0.85rem;
           }
+
+          button {
+            outline: 0;
+            border: 0;
+            margin: 0 0.8rem 0 0;
+            padding: 0.65rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 3px;
+          }
+          small {
+            font-size: 0.8rem;
+            font-weight: 300;
+          }
+          .unenroll-message {
+            font-weight: bold;
+            font-size: 1.5rem;
+          }
         }
 
         .overview {
