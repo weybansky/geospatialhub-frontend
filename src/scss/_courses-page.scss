@@ -235,6 +235,92 @@
   }
 }
 
+.course-chat-page {
+  display: flex;
+  max-height: 100vh;
+  overflow-y: scroll;
+  flex-direction: column;
+
+  .course {
+    flex: 0 1 auto;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $color-white;
+    h4 {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+
+  .chats {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    padding: 0.5rem 0.3rem;
+    .chat {
+      display: flex;
+      padding: 0.5rem;
+      align-items: center;
+      border-bottom: 1px solid $color-white;
+
+      .image {
+        flex: 0 1 auto;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1px solid $color-blue;
+        }
+      }
+      .details {
+        flex: 1 1 auto;
+        padding: 0 0 0 10px;
+        .name {
+          font-size: 1rem;
+          text-transform: capitalize;
+          margin-bottom: 5px;
+          small {
+            font-size: 0.86rem;
+          }
+        }
+        .text {
+          font-size: 0.9rem;
+          color: rgba($color-black, 0.75);
+        }
+        .date-time {
+          font-size: 0.78rem;
+          color: rgba($color-black, 0.5);
+        }
+      }
+    }
+  }
+
+  .post-chat {
+    flex: 0 1 auto;
+    height: 50px;
+    display: flex;
+    padding: 3px 0;
+    input,
+    button {
+      height: 45px;
+      border: 2px solid $color-blue;
+      border-radius: 5px;
+      padding: 3px 1rem;
+      outline: 0;
+    }
+    input {
+      flex: 1 1 auto;
+      margin-right: 7px;
+      background: darken($color-white, 8%);
+
+      &:focus {
+        background: $color-white;
+      }
+    }
+    button {
+      flex: 0 1 100px;
+    }
+  }
+}
+
 @media (max-width: $device-tablet) {
   .courses-page {
     padding-top: 30px;

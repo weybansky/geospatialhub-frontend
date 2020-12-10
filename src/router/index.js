@@ -213,7 +213,7 @@ const routes = [
         }
       },
       {
-        path: "/courses/:courseId/chat",
+        path: "/courses/:courseId/chats",
         name: "CourseChat",
         component: CourseChat,
         meta: {

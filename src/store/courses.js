@@ -1,10 +1,19 @@
 import axios from "axios";
+import moment from "moment";
 
 export default {
   namespaced: true,
   state: () => ({
     course: null,
     courseModule: null,
+    chat: {
+      count: 0,
+      page: 1,
+      chats: [],
+      //
+      previous: null,
+      next: null
+    },
     courses: [],
     categories: [],
 
@@ -47,6 +56,14 @@ export default {
     },
     addToSearchCourses(state, courses) {
       state.search.push(courses);
+    },
+
+    setCourseChatsConfig(state, data) {
+      state.chat.page = data.page;
+      state.chat.count = data.count;
+    },
+    setCourseChats(state, chats) {
+      state.chat.chats = chats || [];
     }
   },
 
@@ -131,24 +148,49 @@ export default {
         });
     },
 
-    async getCourseChats(context, courseId) {
+    async getCourseChats({ commit }, courseId) {
+      let page = 1;
       return await axios
-        .get("/v1/courses/" + courseId + "/chats/")
+        .get("/v1/courses/" + courseId + "/chats/", {
+          params: {
+            page: page
+          }
+        })
         .then(response => {
+          commit("setCourseChatsConfig", {
+            page: page,
+            count: response.data.results || []
+          });
+          commit("setCourseChats", response.data.results || []);
           return response;
         });
     },
 
-    async postCourseChat(context, courseId) {
+    async postCourseChat({ dispatch }, data) {
       return await axios
-        .post("/v1/courses/" + courseId + "/chats/")
+        .post("/v1/courses/" + data.courseId + "/chats/", { text: data.text })
         .then(response => {
+          dispatch("getCourseChats", data.courseId);
           return response;
         });
     }
   },
 
-  getters: {},
+  getters: {
+    sortChats(state) {
+      // TODO
+      return state.chat.chats.slice().sort((m1, m2) => {
+        const date1 = moment(m1.created);
+        const date2 = moment(m2.created);
+        if (date1.isAfter(date2)) {
+          return 1;
+        } else if (date2.isAfter(date1)) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+  },
 
   modules: {}
 };
