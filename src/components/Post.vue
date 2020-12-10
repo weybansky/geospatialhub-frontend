@@ -65,7 +65,10 @@
         </svg>
         <span v-html="likesCount">Like</span>
       </div>
-      <div class="comment">
+      <div
+        class="comment"
+        @click="$router.push('/posts/' + post.id + '?autofocus=true')"
+      >
         <svg
           class="icon"
           width="60"

@@ -7,7 +7,9 @@
       placeholder="Share your thoughts here..."
       :disabled="loading"
       required
-      @focus="errors = {}"
+      @keyup="errors = {}"
+      ref="input"
+      :autofocus="$route.query.autofocus"
     ></textarea>
 
     <img
@@ -162,9 +164,7 @@ export default {
     fileSelect(e) {
       this.fileSelected = e.target.files.length ? true : false;
     }
-  },
-
-  mounted() {}
+  }
 };
 </script>
 
