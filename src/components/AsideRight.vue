@@ -8,7 +8,7 @@
       <h3 class="title">Chats</h3>
       <div class="chats">
         <div v-for="chat in chats" :key="chat.id">
-          {{ chat }}
+          <!-- {{ chat }} -->
         </div>
       </div>
       <router-link to="/chats" class="footer">
@@ -43,7 +43,7 @@
       <h3 class="title">Courses</h3>
       <div class="courses">
         <div v-for="course in courses" :key="course.id">
-          {{ course }}
+          <!-- {{ course }} -->
         </div>
       </div>
       <router-link to="/courses" class="footer">
