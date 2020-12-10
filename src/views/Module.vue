@@ -1,82 +1,76 @@
 <template>
-  <section class="courses-page course-page page">
-    <div class="courses">
-      <div class="course" v-if="!loading">
-        <div class="banner">
-          <img class="image" :src="course.course_pic || '/course_image.png'" />
+  <section class="module-page page">
+    <div class="module">
+      <div class="module-title" v-if="!loading">
+        <div class="previous" @click="previous">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="arrow-left"
+            class="icon"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="currentColor"
+              d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+            ></path>
+          </svg>
         </div>
-        <div class="details">
-          <h4 class="course-title">{{ course.title }}</h4>
-          <p class="course-info">
-            <svg
-              class="icon"
-              width="60"
-              height="60"
-              viewBox="0 0 60 60"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+        <h3>{{ courseModule.title || "" }}</h3>
+        <div class="next" @click="next">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="arrow-right"
+            class="icon"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="currentColor"
+              d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="module-content">
+        <div class="video">
+          <youtube
+            :video-id="videoId"
+            :player-vars="{ start: 0, autoplay: 0 }"
+            :mute="false"
+            @ready="ready"
+          />
+        </div>
+        <div class="details" v-if="!loading">
+          <h3 class="title">{{ courseModule.title || "" }}</h3>
+          <div class="note" v-html="courseModule.note"></div>
+          <div class="download">
+            <button
+              @click="downloadPDF"
+              class="pdf"
+              type="button"
+              v-if="courseModule.pdf_file"
             >
-              <path
-                d="M30 3.75C15.5039 3.75 3.75 15.5039 3.75 30C3.75 44.4961 15.5039 56.25 30 56.25C44.4961 56.25 56.25 44.4961 56.25 30C56.25 15.5039 44.4961 3.75 30 3.75ZM30 51.7969C17.9648 51.7969 8.20312 42.0352 8.20312 30C8.20312 17.9648 17.9648 8.20312 30 8.20312C42.0352 8.20312 51.7969 17.9648 51.7969 30C51.7969 42.0352 42.0352 51.7969 30 51.7969Z"
-                fill="currentColor"
-              />
-              <path
-                d="M27.1875 19.6875C27.1875 20.4334 27.4838 21.1488 28.0113 21.6762C28.5387 22.2037 29.2541 22.5 30 22.5C30.7459 22.5 31.4613 22.2037 31.9887 21.6762C32.5162 21.1488 32.8125 20.4334 32.8125 19.6875C32.8125 18.9416 32.5162 18.2262 31.9887 17.6988C31.4613 17.1713 30.7459 16.875 30 16.875C29.2541 16.875 28.5387 17.1713 28.0113 17.6988C27.4838 18.2262 27.1875 18.9416 27.1875 19.6875ZM31.4062 26.25H28.5938C28.3359 26.25 28.125 26.4609 28.125 26.7188V42.6562C28.125 42.9141 28.3359 43.125 28.5938 43.125H31.4062C31.6641 43.125 31.875 42.9141 31.875 42.6562V26.7188C31.875 26.4609 31.6641 26.25 31.4062 26.25Z"
-                fill="currentColor"
-              />
-            </svg>
-            <span>{{ course.module_count }} modules</span>
-            <svg
-              class="icon"
-              width="60"
-              height="60"
-              viewBox="0 0 60 60"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M30 3.75C15.5039 3.75 3.75 15.5039 3.75 30C3.75 44.4961 15.5039 56.25 30 56.25C44.4961 56.25 56.25 44.4961 56.25 30C56.25 15.5039 44.4961 3.75 30 3.75ZM30 51.7969C17.9648 51.7969 8.20312 42.0352 8.20312 30C8.20312 17.9648 17.9648 8.20312 30 8.20312C42.0352 8.20312 51.7969 17.9648 51.7969 30C51.7969 42.0352 42.0352 51.7969 30 51.7969Z"
-                fill="currentColor"
-              />
-              <path
-                d="M27.1875 19.6875C27.1875 20.4334 27.4838 21.1488 28.0113 21.6762C28.5387 22.2037 29.2541 22.5 30 22.5C30.7459 22.5 31.4613 22.2037 31.9887 21.6762C32.5162 21.1488 32.8125 20.4334 32.8125 19.6875C32.8125 18.9416 32.5162 18.2262 31.9887 17.6988C31.4613 17.1713 30.7459 16.875 30 16.875C29.2541 16.875 28.5387 17.1713 28.0113 17.6988C27.4838 18.2262 27.1875 18.9416 27.1875 19.6875ZM31.4062 26.25H28.5938C28.3359 26.25 28.125 26.4609 28.125 26.7188V42.6562C28.125 42.9141 28.3359 43.125 28.5938 43.125H31.4062C31.6641 43.125 31.875 42.9141 31.875 42.6562V26.7188C31.875 26.4609 31.6641 26.25 31.4062 26.25Z"
-                fill="currentColor"
-              />
-            </svg>
-            <span>{{ estimatedTime }} minutes</span>
-          </p>
-          <div class="price">
-            <span class="strikethrough"
-              >₦{{ course.price_before_discount }}</span
-            >
-            <span>₦{{ course.price }}</span>
-            <button type="button" class="bg-blue text-white" @click="payNow()">
-              Buy Now
+              Dowload PDF
             </button>
           </div>
-          <p class="overview" v-html="course.overview"></p>
-          <p class="author" v-if="course.author.first_name">
-            Author:
-            {{ course.author.first_name + " " + course.author.last_name }}
-          </p>
         </div>
       </div>
       <LoadSpinner :loading="loading" />
-      <div class="modules">
-        <div class="module" v-for="(mod, index) in modules" :key="mod.id">
-          <div class="title">
-            <span class="number">{{ twoDigits(++index) }}</span>
-            {{ mod.title }}
-          </div>
-          <div class="details" v-html="mod.description"></div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
 
 <script>
 import LoadSpinner from "../components/LoadSpinner.vue";
+import { getIdFromURL } from "vue-youtube-embed";
+
 export default {
   name: "Module",
   components: { LoadSpinner },
@@ -89,50 +83,48 @@ export default {
 
   computed: {
     course() {
-      return this.$store.state.course.course;
+      return this.$store.state.course.course || null;
     },
-    modules() {
-      return this.course.modules || [];
+    courseModule() {
+      if (!this.course) return null;
+      return this.$store.state.course.courseModule || null;
     },
-    author() {
-      // TODO
-      return this.course.author;
-    },
-    category() {
-      return this.course.category;
-    },
-    enrolled() {
-      return this.course.is_user_enrolled;
-    },
-    discounted() {
-      return this.course.price_before_discount > this.course.price;
-    },
-    estimatedTime() {
-      // TODO: Convert to hours and minutes
-      return this.course.estimated_time;
+    videoId() {
+      return getIdFromURL(this.courseModule.video_url);
     }
   },
 
-  beforeRouteUpdate(to, from, next) {
-    const courseId = to.params.courseId;
-    this.$store.dispatch("course/getCourse", courseId);
-    next();
-  },
-
   methods: {
-    twoDigits(value) {
-      if (value < 10) return `0${value}`;
+    ready() {
+      // this.loadingVideo = false;
     },
-    payNow() {},
-    enroll() {}
+    previous() {},
+    next() {},
+    downloadPDF() {
+      window.location.href = this.courseModule.pdf_file;
+    }
   },
 
-  async created() {
+  // async beforeRouteUpdate(to, from, next) {
+  //   const courseId = to.params.courseId;
+  //   const moduleId = to.params.moduleId;
+  //   this.loading = true;
+  //   await this.$store.dispatch("course/getModule", {
+  //     courseId,
+  //     moduleId
+  //   });
+  //   next();
+  // },
+
+  async mounted() {
     const courseId = this.$route.params.courseId;
+    const moduleId = this.$route.params.moduleId;
     this.loading = true;
-    await this.$store.dispatch("course/getCourse", courseId).then(() => {
-      this.loading = false;
+    await this.$store.dispatch("course/getModule", {
+      courseId,
+      moduleId
     });
+    this.loading = false;
   }
 };
 </script>

@@ -8,13 +8,14 @@ import PasswordForgot from "../views/PasswordForgot.vue";
 import PasswordChange from "../views/PasswordChange.vue";
 import NotFound from "../views/NotFound.vue";
 import Home from "../views/Home.vue";
-import Courses from "../views/Courses.vue";
+import AllCourses from "../views/AllCourses.vue";
 import Notifications from "../views/Notifications.vue";
 import About from "../views/About.vue";
 import Contact from "../views/Contact.vue";
-import MyCourses from "../views/MyCourses.vue";
+import CoursesEnrolled from "../views/CoursesEnrolled.vue";
 import Course from "../views/Course.vue";
 import CoursePayment from "../views/CoursePayment.vue";
+import CourseChat from "../views/CourseChat.vue";
 import Module from "../views/Module.vue";
 import Profile from "../views/Profile.vue";
 import UserProfile from "../views/UserProfile.vue";
@@ -86,7 +87,7 @@ const routes = [
       {
         path: "/courses",
         name: "Courses",
-        component: Courses,
+        component: CoursesEnrolled,
         meta: {
           requiresAuth: true
         }
@@ -188,9 +189,9 @@ const routes = [
         }
       },
       {
-        path: "/mycourses",
-        name: "MyCourses",
-        component: MyCourses,
+        path: "/all-courses",
+        name: "AllCourses",
+        component: AllCourses,
         meta: {
           requiresAuth: true
         }
@@ -207,6 +208,14 @@ const routes = [
         path: "/courses/:courseId/payment",
         name: "CoursePayment",
         component: CoursePayment,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/courses/:courseId/chat",
+        name: "CourseChat",
+        component: CourseChat,
         meta: {
           requiresAuth: true
         }

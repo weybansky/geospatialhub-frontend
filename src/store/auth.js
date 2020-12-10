@@ -181,9 +181,11 @@ export default {
       );
       if (courses.length) {
         commit("setUserCourses", courses);
+        return courses;
       } else {
-        await axios.get("/v1/courses/enrolled/").then(({ data }) => {
-          commit("setUserCourses", data.results);
+        await axios.get("/v1/courses/enrolled/").then(response => {
+          commit("setUserCourses", response.data.results);
+          return response;
         });
       }
     },

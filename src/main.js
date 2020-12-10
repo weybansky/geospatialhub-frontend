@@ -6,6 +6,9 @@ import store from "./store";
 
 import axios from "axios";
 
+import VueYouTubeEmbed from "vue-youtube-embed";
+Vue.use(VueYouTubeEmbed, { global: true });
+
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 if (process.env.NODE_ENV === "production") {
   axios.defaults.baseURL = "https://geospatialhub.herokuapp.com/api/";

@@ -57,7 +57,7 @@
       <span class="text">People</span>
     </router-link>
 
-    <router-link to="/mycourses" class="nav-link" exact>
+    <router-link to="/courses" class="nav-link">
       <div class="nav-link-icon">
         <svg
           class="icon"
@@ -97,7 +97,11 @@
       <span class="text">Chats</span>
     </router-link>
 
-    <router-link to="/courses" class="nav-link hidden-tablet hidden-mobile">
+    <router-link
+      to="/all-courses"
+      class="nav-link hidden-tablet hidden-mobile"
+      exact
+    >
       <div class="nav-link-icon">
         <svg
           class="icon"

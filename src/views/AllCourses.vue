@@ -2,7 +2,7 @@
   <section class="courses-page page">
     <div class="page-title">
       <h1 class="title">
-        Courses <router-link to="mycourses">My Courses</router-link>
+        Courses <router-link to="courses">My Courses</router-link>
       </h1>
 
       <p class="feature">
@@ -78,10 +78,11 @@
       </li>
     </ul>
 
+    <LoadSpinner :loading="loading" />
+
     <div class="courses" v-if="courses.length">
       <Course v-for="course in courses" :key="course.id" :course="course" />
     </div>
-
     <div class="courses" v-else>
       <div class="course">
         <div class="details">
@@ -94,14 +95,16 @@
 
 <script>
 import Course from "../components/Course.vue";
+import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
-  name: "Courses",
+  name: "AllCourses",
 
-  components: { Course },
+  components: { Course, LoadSpinner },
 
   data() {
     return {
-      courses: []
+      courses: [],
+      loading: false
     };
   },
 
@@ -140,12 +143,14 @@ export default {
   },
 
   async mounted() {
+    this.loading = true;
     if (this.$store.state.course.categories.length < 1) {
       await this.$store.dispatch("course/getCategories");
     }
     if (this.$store.state.course.courses.length < 1) {
       await this.$store.dispatch("course/getCourses");
     }
+    this.loading = false;
     this.courses = this.$store.state.course.courses.slice();
   }
 };

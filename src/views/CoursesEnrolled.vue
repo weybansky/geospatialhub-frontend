@@ -2,27 +2,15 @@
   <section class="courses-page">
     <div class="page-title">
       <h1 class="title">
-        My Courses <router-link to="/courses">All Courses</router-link>
+        My Courses <router-link to="/all-courses">All Courses</router-link>
       </h1>
       <!-- Feature section can be used to shoe general progress -->
     </div>
 
-    <div class="courses" v-if="myCourses.length">
-      <div
-        class="course"
-        v-for="course in courses"
-        :key="course.id"
-        @click="$router.push({ path: 'courses/' + course.id })"
-      >
-        <div class="banner">
-          <img class="image" :src="course.course_pic || 'course_image.png'" />
-        </div>
-        <div class="details">
-          <h4 class="course-title">{{ course.title }}</h4>
-          <p class="course-info">{{ course.module_count }} module(s)</p>
-          <!-- <p class="rating">-----------</p> -->
-        </div>
-      </div>
+    <LoadSpinner :loading="loading" />
+
+    <div class="courses" v-if="courses.length">
+      <Course v-for="course in courses" :key="course.id" :course="course" />
     </div>
 
     <div class="courses" v-else>
@@ -40,22 +28,28 @@
 </template>
 
 <script>
+import Course from "../components/Course";
+import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
-  name: "MyCourses",
+  name: "CoursesEnrolled",
+
+  components: { Course, LoadSpinner },
 
   data() {
-    return {};
+    return { loading: false };
   },
 
   computed: {
-    myCourses() {
+    courses() {
       return this.$store.state.auth.courses;
     }
   },
 
   async mounted() {
     if (this.$store.state.auth.courses.length < 1) {
+      this.loading = true;
       await this.$store.dispatch("auth/getUserCourses");
+      this.loading = false;
     }
     if (this.$store.state.course.courses.length < 1) {
       await this.$store.dispatch("course/getCourses");

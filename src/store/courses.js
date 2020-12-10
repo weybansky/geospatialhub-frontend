@@ -4,6 +4,7 @@ export default {
   namespaced: true,
   state: () => ({
     course: null,
+    courseModule: null,
     courses: [],
     categories: [],
 
@@ -20,6 +21,10 @@ export default {
   mutations: {
     setCourse(state, course) {
       state.course = course || null;
+    },
+
+    setCourseModule(state, courseModule) {
+      state.courseModule = courseModule || null;
     },
 
     setCourses(state, courses) {
@@ -47,8 +52,9 @@ export default {
 
   actions: {
     async getCourses({ commit }) {
-      return await axios.get("/v1/courses/").then(({ data }) => {
-        commit("setCourses", data.results);
+      return await axios.get("/v1/courses/").then(response => {
+        commit("setCourses", response.data.results);
+        return response;
       });
     },
 
@@ -66,11 +72,11 @@ export default {
     },
 
     getModule({ state, commit, dispatch }, data) {
-      if (state.course.modules && state.course.modules.length) {
-        let mod = state.courses.modules.filter(mod => mod.id == data.moduleId);
+      if (state.course && state.course.modules.length) {
+        let mod = state.course.modules.filter(mod => mod.id == data.moduleId);
         if (mod) {
-          commit("setModule", mod);
-          return mod;
+          commit("setCourseModule", mod[0]);
+          return mod[0];
         }
       } else {
         dispatch("getCourse", data.courseId).then(() => {
@@ -117,6 +123,22 @@ export default {
             count: response.data.results || []
           });
           commit("setSearchCourses", response.data.results || []);
+          return response;
+        });
+    },
+
+    async getCourseChats(context, courseId) {
+      return await axios
+        .get("/v1/courses/" + courseId + "/chats/")
+        .then(response => {
+          return response;
+        });
+    },
+
+    async postCourseChat(context, courseId) {
+      return await axios
+        .post("/v1/courses/" + courseId + "/chats/")
+        .then(response => {
           return response;
         });
     }

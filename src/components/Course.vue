@@ -1,7 +1,7 @@
 <template>
   <div class="course" @click="$router.push('/courses/' + course.id)">
     <div class="banner">
-      <img class="image" :src="course.course_pic || 'course_image.png'" />
+      <img class="image" :src="course.course_pic || '/course_image.png'" />
     </div>
     <div class="details">
       <h4 class="course-title">{{ course.title }}</h4>

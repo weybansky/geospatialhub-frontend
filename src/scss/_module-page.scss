@@ -1,0 +1,92 @@
+.module-page {
+  padding: 0;
+
+  .module {
+    display: flex;
+    flex-direction: column;
+    .module-title {
+      flex: 0 1 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0.5rem;
+      border-bottom: 1px solid $color-blue;
+
+      .previous,
+      .next {
+        display: block;
+        flex: 0 1 50px;
+        text-align: center;
+        padding: 5px 0;
+        .icon {
+          color: lighten($color-black, 40%);
+          width: 30px;
+          height: 30px;
+          vertical-align: middle;
+        }
+      }
+
+      h3 {
+        flex: 1 1 auto;
+        font-size: 1.4rem;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+    .module-content {
+      flex: 1 1 auto;
+      .video {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+        background-color: rgba($color-blue, 0.1);
+        iframe {
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 100%;
+          position: absolute;
+        }
+      }
+
+      .details {
+        padding: 1rem 0.8rem;
+        .title {
+          font-size: 1.5rem;
+        }
+        .note {
+          color: rgba($color-black, 0.8);
+          padding-left: 0.1rem;
+          margin: 1rem 0;
+        }
+        .download {
+          button {
+            outline: 0;
+            border-radius: 5px;
+            border: 1px solid $color-black;
+            padding: 0.6rem 0.8rem;
+            cursor: pointer;
+          }
+
+          .pdf {
+            border-color: $color-red;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $device-tablet) {
+  .module-page {
+    .module {
+    }
+  }
+}
+
+@media (max-width: $device-mobile) {
+  .module-page {
+    .module {
+    }
+  }
+}
