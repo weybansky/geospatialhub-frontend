@@ -113,6 +113,7 @@
               name="first_name"
               placeholder="First Name"
               v-model="data.first_name"
+              required
             />
             <input
               class="input"
@@ -120,6 +121,7 @@
               name="last_name"
               placeholder="Last Name"
               v-model="data.last_name"
+              required
             />
           </div>
         </div>
@@ -147,43 +149,58 @@
         </div>
 
         <div class="form-group">
-          <label for="date_of_birth">Date Of Birth</label>
+          <label for="dob">Date Of Birth</label>
           <input
             class="input"
-            type="text"
-            name="date_of_birth"
+            type="date"
+            name="dob"
             placeholder="YYYY-MM-DD"
-            v-model="data.date_of_birth"
+            v-model="data.dob"
           />
         </div>
 
         <div class="form-group">
           <label for="location_country">Country</label>
-          <input
+          <select
             class="input"
-            type="text"
             name="location_country"
-            placeholder="location_country"
+            id="location_country"
             v-model="data.location_country"
-          />
+          >
+            <option value="">Select your Country</option>
+            <option
+              v-for="(c, index) in countries"
+              :key="index"
+              :value="c.country"
+              v-html="c.country"
+            ></option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="location">Location</label>
           <div class="input-group">
+            <select
+              class="input"
+              name="location_state"
+              id="location_state"
+              v-model="data.location_state"
+            >
+              <option value="">Select City</option>
+              <option
+                v-for="(state, index) in states"
+                :key="index"
+                :value="state"
+                v-html="state"
+              ></option>
+            </select>
+
             <input
               class="input"
               v-model="data.location_city"
               type="text"
               name="location_city"
-              placeholder="location_city"
-            />
-            <input
-              class="input"
-              v-model="data.location_state"
-              type="text"
-              name="location_state"
-              placeholder="location_state"
+              placeholder="City"
             />
           </div>
         </div>
@@ -244,6 +261,7 @@
 
 <script>
 import LoadSpinner from "@/components/LoadSpinner";
+import moment from "moment";
 
 export default {
   name: "EditProfile",
@@ -264,7 +282,7 @@ export default {
         last_name: "",
         phone: "",
         bio: "",
-        date_of_birth: "",
+        dob: "",
         location_country: "",
         location_state: "",
         location_city: "",
@@ -275,11 +293,19 @@ export default {
       loading: false,
       loadingUploading: false,
       showUploadError: false,
-      errors: {}
+      errors: {},
+      countries: []
     };
   },
 
   computed: {
+    dob() {
+      if (moment(this.data.dob).isValid()) {
+        return moment(this.data.dob).format("YYYY-MM-DD");
+      } else {
+        return null;
+      }
+    },
     user() {
       return this.$store.state.auth.user;
     },
@@ -289,6 +315,14 @@ export default {
     bannerImage() {
       const image = this.user.profile.banner_pic || null;
       return `url(${image})`;
+    },
+    states() {
+      let country = this.countries.filter(
+        c => c.country == this.data.location_country
+      );
+      if (!country.length) return [];
+
+      return country[0].states || [];
     }
   },
 
@@ -296,6 +330,7 @@ export default {
     await this.$store.dispatch("auth/getUser").then(() => {
       this.setData();
     });
+    this.loadCountries();
   },
 
   methods: {
@@ -315,7 +350,7 @@ export default {
     updateProfile() {
       this.loading = true;
       this.$store
-        .dispatch("auth/updateUser", this.data)
+        .dispatch("auth/updateUser", { ...this.data, date_of_birth: this.dob })
         .catch(() => {
           alert("Failed");
         })
@@ -376,6 +411,16 @@ export default {
           this.newImage.title = "";
           this.newImage.image = null;
           this.showImage = false;
+        });
+    },
+    async loadCountries() {
+      await this.$store
+        .dispatch("auth/getCountries")
+        .then(data => {
+          this.countries = data;
+        })
+        .catch(() => {
+          this.countries = [];
         });
     }
   }

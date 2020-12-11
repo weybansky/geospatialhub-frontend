@@ -51,6 +51,16 @@
       </router-link>
       <load-spinner :loading="loadingCourses" />
     </div>
+
+    <div
+      class="ads-component"
+      v-if="isActive('ads')"
+      :style="{ order: order('ads') }"
+    >
+      <h3 class="title">ADS</h3>
+      <div class="ads"></div>
+      <load-spinner :loading="loadingAds" />
+    </div>
   </aside>
 </template>
 
@@ -68,7 +78,8 @@ export default {
     return {
       loadingChats: false,
       loadingUsers: false,
-      loadingCourses: false
+      loadingCourses: false,
+      loadingAds: false
     };
   },
 
@@ -91,6 +102,9 @@ export default {
           .filter(course => !course.is_user_enrolled)
           .slice(1, 10) || []
       );
+    },
+    ads() {
+      return [];
     }
   },
 
@@ -102,7 +116,6 @@ export default {
       return this.layoutOrder.indexOf(component) + 1;
     },
     modifyChat(chat) {
-      // return chat;
       let chatClone = Object.assign({}, chat);
       chatClone.text = chat.text.slice(0, 50) + "...";
       return chatClone;
@@ -125,6 +138,11 @@ export default {
       await this.$store.dispatch("getLayoutCourses");
       this.loadingCourses = false;
     }
+    // if (this.isActive("ads")) {
+    //   this.loadingAds = true;
+    //   await this.$store.dispatch("getLayoutAds");
+    //   this.loadingAds = false;
+    // }
   }
 };
 </script>

@@ -12,6 +12,11 @@
 
       a {
         color: $color-blue;
+        display: inline-block;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid $color-blue;
+        vertical-align: middle;
         &:hover {
           color: $color-black;
         }
@@ -318,7 +323,7 @@
     button {
       flex: 0 1 100px;
       cursor: pointer;
-      
+
       &:disabled {
         opacity: 0.6;
         cursor: not-allowed;

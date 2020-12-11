@@ -20,7 +20,7 @@
           </svg>
         </div>
         <h3>{{ courseModule.title || "" }}</h3>
-        <div class="next" @click="next">
+        <div class="next" v-if="hasNext" @click="next">
           <svg
             aria-hidden="true"
             focusable="false"
@@ -83,14 +83,31 @@ export default {
 
   computed: {
     course() {
-      return this.$store.state.course.course || null;
+      return this.$store.state.course.course || { title: "" };
+    },
+    modules() {
+      return this.course.modules || [];
+    },
+    sortModules() {
+      if (!this.modules.length) return [];
+      return this.modules.map(mod => mod.id);
     },
     courseModule() {
-      if (!this.course) return null;
-      return this.$store.state.course.courseModule || null;
+      if (!this.course) return { title: "", video_url: "" };
+      return (
+        this.$store.state.course.courseModule || { title: "", video_url: "" }
+      );
     },
     videoId() {
       return getIdFromURL(this.courseModule.video_url);
+    },
+    hasNext() {
+      const position = this.sortModules.indexOf(this.courseModule.id) + 1;
+      if (position >= this.modules.length) {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
 
@@ -98,23 +115,46 @@ export default {
     ready() {
       // this.loadingVideo = false;
     },
-    previous() {},
-    next() {},
+    previous() {
+      const position = this.sortModules.indexOf(this.courseModule.id) + 1;
+      if (position <= 1) {
+        this.$router.push("/courses/" + this.course.id);
+      } else {
+        this.$router.push(
+          "/courses/" +
+            this.course.id +
+            "/modules/" +
+            this.sortModules[position - 2]
+        );
+      }
+    },
+    next() {
+      const position = this.sortModules.indexOf(this.courseModule.id) + 1;
+      if (position >= this.modules.length) {
+        // console.log("no next module");
+      } else {
+        this.$router.push(
+          "/courses/" +
+            this.course.id +
+            "/modules/" +
+            this.sortModules[position]
+        );
+      }
+    },
     downloadPDF() {
       window.location.href = this.courseModule.pdf_file;
     }
   },
 
-  // async beforeRouteUpdate(to, from, next) {
-  //   const courseId = to.params.courseId;
-  //   const moduleId = to.params.moduleId;
-  //   this.loading = true;
-  //   await this.$store.dispatch("course/getModule", {
-  //     courseId,
-  //     moduleId
-  //   });
-  //   next();
-  // },
+  async beforeRouteUpdate(to, from, next) {
+    const courseId = to.params.courseId;
+    const moduleId = to.params.moduleId;
+    await this.$store.dispatch("course/getModule", {
+      courseId,
+      moduleId
+    });
+    next();
+  },
 
   async mounted() {
     const courseId = this.$route.params.courseId;

@@ -60,7 +60,8 @@ export default new Vuex.Store({
       state.layout.sidebarEnabled = true;
     },
     setSidebarComponents(state, components) {
-      state.layout.components = components || ["users", "chats"];
+      components.push("ads");
+      state.layout.components = components || ["users", "chats", "ads"];
     },
 
     setSidebarUsersConfig(state, data) {

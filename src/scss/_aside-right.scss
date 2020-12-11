@@ -1,6 +1,7 @@
 .chats-component,
 .users-component,
-.courses-component {
+.courses-component,
+.ads-component {
   padding: 1rem 0.6rem;
   position: relative;
   .title {
@@ -125,6 +126,19 @@
 
 .courses-component {
   .courses {
+  }
+}
 
+.ads-component {
+  padding: 1rem 0;
+  .title {
+    background: $color-blue;
+    color: $color-white;
+    padding-left: 1rem;
+  }
+  .ads {
+    padding: 0 0.6rem;
+    .ad {
+    }
   }
 }

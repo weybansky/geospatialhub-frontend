@@ -161,9 +161,6 @@ export default {
   },
 
   mounted() {
-    if (window.screen.width < 768) {
-      this.$store.commit("disableSideBar");
-    }
     this.$store.commit("setSidebarComponents", ["users"]);
     const userId = this.$route.params.userId;
     this.loadChat(userId);

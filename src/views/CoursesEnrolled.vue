@@ -18,7 +18,7 @@
         <div class="details">
           <h4 class="course-title">0 Courses</h4>
           <br />
-          <router-link to="/courses" tag="p">
+          <router-link to="/all-courses" tag="p">
             <a class="text-blue">Take Courses from our amazing authors</a>
           </router-link>
         </div>

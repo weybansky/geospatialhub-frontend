@@ -43,7 +43,7 @@
                 fill="currentColor"
               />
             </svg>
-            <span>{{ estimatedTime }} minutes</span>
+            <span>{{ estimatedTime }} hours</span>
           </p>
 
           <div class="price" v-if="!enrolled">

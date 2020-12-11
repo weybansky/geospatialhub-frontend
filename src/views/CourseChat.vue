@@ -39,7 +39,7 @@ export default {
 
   computed: {
     course() {
-      return this.$store.state.course.course || null;
+      return this.$store.state.course.course || {};
     },
     chats() {
       // return this.$store.state.course.chat.chats || [];
@@ -75,12 +75,6 @@ export default {
         .finally(() => {
           this.loadingForm = false;
         });
-    }
-  },
-
-  mounted() {
-    if (window.screen.width < 768) {
-      this.$store.commit("disableSideBar");
     }
   },
 

@@ -264,6 +264,17 @@ export default {
           dispatch("getChat", data);
           return response;
         });
+    },
+
+    async getCountries() {
+      return await axios
+        .get(window.location.origin + "/countries.json")
+        .then(({ data }) => {
+          return data.countries;
+        })
+        .catch(() => {
+          return [];
+        });
     }
   },
 
