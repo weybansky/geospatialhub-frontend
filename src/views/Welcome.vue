@@ -53,16 +53,48 @@
       </div>
 
       <div class="right">
-        <h1>Welcome to your professional community</h1>
-        <p class="">
-          This is an awesome community where you meet geospatial professionals
-          and connect with mentor and create credible solution hub for
-          geospatial needs.
-        </p>
-        <div class="links">
-          <router-link to="/login" class="link bg-blue text-white">
-            Get Started
-          </router-link>
+        <div v-if="index == 0">
+          <h1>Welcome to your professional community</h1>
+          <p class="">
+            A nurturing community for geospatial professionals to build
+            in-demand skills with courses, foster beneficial connections,
+            connect with mentors, and create solution hub for geospatial needs.
+          </p>
+          <div class="links">
+            <router-link to="/login" class="link bg-blue text-white">
+              Get Started
+            </router-link>
+          </div>
+        </div>
+
+        <div v-if="index == 1">
+          <h1>Master skills with in-depth learning</h1>
+          <p class="text-right">
+            Start streaming on-demand geospatial courses today. The courses are
+            flexible and affordable. Apply what you learn with self=paced
+            quizzes and hands-on projects. Get feedback from a global community
+            of learners.
+          </p>
+          <div class="links">
+            <router-link to="/login" class="link bg-blue text-white">
+              Get Started
+            </router-link>
+          </div>
+        </div>
+
+        <div v-if="index == 2">
+          <h1>Find and meet a geospatial mentor</h1>
+          <p class="text-right">
+            Start streaming on-demand geospatial courses today. The courses are
+            flexible and affordable. Apply what you learn with self=paced
+            quizzes and hands-on projects. Get feedback from a global community
+            of learners.
+          </p>
+          <div class="links">
+            <router-link to="/login" class="link bg-blue text-white">
+              Get Started
+            </router-link>
+          </div>
         </div>
       </div>
     </main>

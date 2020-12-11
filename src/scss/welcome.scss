@@ -129,23 +129,29 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      div {
+        transition: all 1s ease;
+        
+        h1 {
+          font-size: 3rem;
+          margin-bottom: 3rem;
+        }
 
-      h1 {
-        font-size: 3rem;
-        margin-bottom: 3rem;
-      }
+        p {
+          font-size: 1.5rem;
+          margin-bottom: 2rem;
+        }
 
-      p {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-      }
-
-      .link {
-        border-radius: 5px;
-        outline: 0;
-        border: 0;
-        display: inline-block;
-        padding: 0.8rem 1rem;
+        .links {
+          text-align: center;
+          .link {
+            border-radius: 3px;
+            outline: 0;
+            border: 0;
+            display: inline-block;
+            padding: 0.8rem 1rem;
+          }
+        }
       }
     }
   }
