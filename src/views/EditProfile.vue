@@ -103,7 +103,21 @@
 
     <section class="about">
       <h3>Details</h3>
-      <form action="POST" @submit.prevent="updateProfile" class="form">
+      <form
+        action="POST"
+        @submit.prevent="updateProfile"
+        class="form"
+        @keydown="handleFormError($event.target.name)"
+      >
+        <div class="form-group">
+          <small class="form-input-error text-green" v-if="data.successMessage">
+            {{ data.successMessage }}
+          </small>
+          <small class="form-input-error text-red" v-if="data.errorMessage">
+            {{ data.errorMessage }}
+          </small>
+        </div>
+
         <div class="form-group">
           <label for="name">Name</label>
           <div class="input-group">
@@ -124,6 +138,12 @@
               required
             />
           </div>
+          <small class="form-input-error text-red" v-if="errors.first_name">
+            {{ errors.first_name[0] }}
+          </small>
+          <small class="form-input-error text-red" v-if="errors.last_name">
+            {{ errors.last_name[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -135,6 +155,9 @@
             placeholder="+2348123456789"
             v-model="data.phone"
           />
+          <small class="form-input-error text-red" v-if="errors.phone">
+            {{ errors.phone[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -146,6 +169,9 @@
             placeholder="bio"
             v-model="data.bio"
           ></textarea>
+          <small class="form-input-error text-red" v-if="errors.bio">
+            {{ errors.bio[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -157,6 +183,9 @@
             placeholder="YYYY-MM-DD"
             v-model="data.dob"
           />
+          <small class="form-input-error text-red" v-if="errors.date_of_birth">
+            {{ errors.date_of_birth[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -175,6 +204,12 @@
               v-html="c.country"
             ></option>
           </select>
+          <small
+            class="form-input-error text-red"
+            v-if="errors.location_country"
+          >
+            {{ errors.location_country[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -203,6 +238,12 @@
               placeholder="City"
             />
           </div>
+          <small class="form-input-error text-red" v-if="errors.location_state">
+            {{ errors.location_state[0] }}
+          </small>
+          <small class="form-input-error text-red" v-if="errors.location_city">
+            {{ errors.location_city[0] }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -214,7 +255,11 @@
             placeholder="occupation"
             v-model="data.occupation"
           />
+          <small class="form-input-error text-red" v-if="errors.occupation">
+            {{ errors.occupation[0] }}
+          </small>
         </div>
+
         <div class="form-group">
           <label for="organisation">Organization</label>
           <input
@@ -224,7 +269,11 @@
             placeholder="organisation"
             v-model="data.organisation"
           />
+          <small class="form-input-error text-red" v-if="errors.organisation">
+            {{ errors.organisation[0] }}
+          </small>
         </div>
+
         <div class="form-group">
           <label for="institution">Institution</label>
           <input
@@ -234,6 +283,18 @@
             placeholder="institution"
             v-model="data.institution"
           />
+          <small class="form-input-error text-red" v-if="errors.institution">
+            {{ errors.institution[0] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <small class="form-input-error text-green" v-if="data.successMessage">
+            {{ data.successMessage }}
+          </small>
+          <small class="form-input-error text-red" v-if="data.errorMessage">
+            {{ data.errorMessage }}
+          </small>
         </div>
 
         <div class="form-group">
@@ -251,6 +312,63 @@
               class="input bg-blue text-white"
             >
               Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="about password">
+      <h3>Change Password</h3>
+      <form
+        action="POST"
+        @submit.prevent="changePassword"
+        class="form"
+        @keydown="handleFormError($event.target.name)"
+      >
+        <div class="form-group">
+          <small class="form-input-error text-green">
+            {{ password.successMessage }}
+          </small>
+          <small class="form-input-error text-red">
+            {{ password.errorMessage }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="new_password1">New Password</label>
+          <input
+            class="input"
+            type="password"
+            name="new_password1"
+            placeholder="******"
+            v-model="password.new_password1"
+          />
+          <small class="form-input-error text-red" v-if="errors.new_password1">
+            {{ errors.new_password1[0] }}
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="new_password2">Confirm Password</label>
+          <input
+            class="input"
+            type="password"
+            name="new_password2"
+            placeholder="******"
+            v-model="password.new_password2"
+          />
+          <small class="form-input-error text-red" v-if="errors.new_password2">
+            {{ errors.new_password2[0] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <button type="reset" class="input bg-white text-blue">
+              Reset
+            </button>
+            <button type="submit" class="input bg-blue text-white">
+              Change
             </button>
           </div>
         </div>
@@ -288,7 +406,15 @@ export default {
         location_city: "",
         occupation: "",
         organisation: "",
-        institution: ""
+        institution: "",
+        successMessage: "",
+        errorMessage: ""
+      },
+      password: {
+        new_password1: "",
+        new_password2: "",
+        successMessage: "",
+        errorMessage: ""
       },
       loading: false,
       loadingUploading: false,
@@ -349,10 +475,17 @@ export default {
     },
     updateProfile() {
       this.loading = true;
+      this.data.successMessage = "";
+      this.data.errorMessage = "";
       this.$store
         .dispatch("auth/updateUser", { ...this.data, date_of_birth: this.dob })
-        .catch(() => {
-          alert("Failed");
+        .then(() => {
+          this.data.successMessage = "Profile Updated successfully";
+        })
+        .catch(({ response }) => {
+          this.errors = response.data || {};
+          this.data.errorMessage =
+            "Something went wrong. Double check all field";
         })
         .finally(() => {
           this.loading = false;
@@ -422,6 +555,35 @@ export default {
         .catch(() => {
           this.countries = [];
         });
+    },
+    changePassword() {
+      this.loading = true;
+      this.password.successMessage = "";
+      this.password.errorMessage = "";
+      this.$store
+        .dispatch("auth/changePasswordFromProfile", {
+          new_password1: this.password.new_password1,
+          new_password2: this.password.new_password2
+        })
+        .then(({ data }) => {
+          this.password.successMessage = data.detail;
+          this.password.new_password1 = "";
+          this.password.new_password2 = "";
+        })
+        .catch(({ response }) => {
+          this.password.errorMessage = "Password change failed";
+          this.errors = response.data || {};
+          if (response.data.non_field_errors != null) {
+            this.errors.new_password1 = response.data.non_field_errors;
+          }
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+
+    handleFormError(field) {
+      delete this.errors[field];
     }
   }
 };

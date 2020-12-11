@@ -216,6 +216,10 @@ export default {
       return await axios.post("/v1/rest-auth/password/reset/confirm/", data);
     },
 
+    async changePasswordFromProfile(context, data) {
+      return await axios.post("/v1/rest-auth/password/change/", data);
+    },
+
     async followUser(context, user) {
       return await axios.get("/v1/users/follow/" + user.userId + "/");
     },
