@@ -20,6 +20,31 @@
           >
             Edit Profile
           </button>
+
+          <button
+            @click="showMobileMenu = !showMobileMenu"
+            type="button"
+            class="mobile-menu"
+          >
+            <svg
+              class="icon"
+              width="50"
+              height="50"
+              viewBox="0 0 50 50"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M10.4167 16.667L25.0001 33.3337L39.5834 16.667H10.4167Z"
+                fill="currentColor"
+              />
+            </svg>
+            <ul class="menu" v-if="showMobileMenu">
+              <li class="item bg-red text-white" @click="logout">Logout</li>
+            </ul>
+          </button>
         </div>
       </main>
     </header>
@@ -103,7 +128,8 @@ export default {
 
   data() {
     return {
-      showContactInfo: false
+      showContactInfo: false,
+      showMobileMenu: false
     };
   },
 
@@ -161,6 +187,12 @@ export default {
           return post;
         }) || []
       );
+    }
+  },
+
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
     }
   },
 

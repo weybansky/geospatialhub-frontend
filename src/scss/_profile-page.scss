@@ -76,6 +76,10 @@
             }
           }
         }
+
+        button.mobile-menu {
+          display: none;
+        }
       }
     }
   }
@@ -358,6 +362,32 @@
         }
         .actions {
           flex: 100%;
+          button.mobile-menu {
+            border: 1px solid $color-red;
+            flex: 0 1 20px;
+            width: 40px;
+            padding: 5px;
+            display: inline-block;
+            .icon {
+              color: $color-red;
+              height: 20px;
+              width: 20px;
+            }
+            position: relative;
+            .menu {
+              position: absolute;
+              top: 50px;
+              right: 0px;
+              width: 150px;
+              background: $color-white;
+              min-height: 40px;
+              list-style: none;
+              .item {
+                padding: 0.5rem;
+                border-top: 1px solid rgba($color-black, 0.5);
+              }
+            }
+          }
         }
       }
     }
@@ -411,4 +441,7 @@
   .edit-profile-page {
     //
   }
+}
+
+@media (max-width: $device-mobile) {
 }
