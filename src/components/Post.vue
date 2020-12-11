@@ -210,9 +210,14 @@ export default {
 
   methods: {
     likePost() {
-      this.$store.dispatch("post/likePost", this.post.id).then(() => {
-        this.liked = !this.liked;
-      });
+      this.$store
+        .dispatch("post/likePost", {
+          postId: this.post.id,
+          isComment: this.isComment
+        })
+        .then(() => {
+          this.liked = !this.liked;
+        });
     },
 
     deletePost() {

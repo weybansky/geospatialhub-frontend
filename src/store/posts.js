@@ -51,11 +51,19 @@ export default {
     },
 
     updatePostLikes(state, data) {
-      state.posts.map(post => {
-        if (post.id == data.postId) {
-          post.likes_count = data.likesCount;
-        }
-      });
+      if (!data.isComment) {
+        state.posts.map(post => {
+          if (post.id == data.postId) {
+            post.likes_count = data.likesCount;
+          }
+        });
+      } else {
+        state.comments.map(comment => {
+          if (comment.id == data.postId) {
+            comment.likes_count = data.likesCount;
+          }
+        });
+      }
     },
 
     setSearchConfig(state, data) {
@@ -144,14 +152,15 @@ export default {
     },
 
     // Like/Un-like a post
-    async likePost({ commit }, postId) {
+    async likePost({ commit }, likeData) {
       return await axios
-        .post("/v1/users/post/rate/" + postId + "/", { liked: true })
+        .post("/v1/users/post/rate/" + likeData.postId + "/", { liked: true })
         .then(({ data }) => {
           // update the likes_count on post with total_likes
           commit("updatePostLikes", {
-            postId: postId,
-            likesCount: data.total_likes
+            postId: likeData.postId,
+            likesCount: data.total_likes,
+            isComment: likeData.isComment || false
           });
         });
     },
