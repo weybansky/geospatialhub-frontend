@@ -69,11 +69,11 @@
     >
       <h3 class="title">Course Discussion</h3>
       <div class="chats">
-        <Chat
+        <!-- <Chat
           v-for="(chat, index) in courseChats"
           :chat="modifyCourseChat(chat)"
           :key="index"
-        />
+        /> -->
       </div>
       <!-- <router-link to="/chats" class="footer"> See all chats... </router-link> -->
       <load-spinner :loading="loadingChats" />

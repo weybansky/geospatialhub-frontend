@@ -79,6 +79,7 @@ export default {
   },
 
   async created() {
+    this.$store.commit("setSidebarComponents", ["course-chats"]);
     const courseId = this.$route.params.courseId;
     this.loading = true;
     if (!this.course) {
