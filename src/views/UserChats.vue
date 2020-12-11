@@ -51,7 +51,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit("setSidebarComponents", ["users"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     this.loading = true;
     this.loadChats().finally(() => {
       this.loading = false;

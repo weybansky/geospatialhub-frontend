@@ -69,12 +69,23 @@
     >
       <h3 class="title">Course Discussion</h3>
       <div class="chats">
-        <!-- <Chat
+        <CourseChat
           v-for="(chat, index) in courseChats"
-          :chat="modifyCourseChat(chat)"
+          :chat="chat"
           :key="index"
-        /> -->
+        />
       </div>
+      <form @submit.prevent="sendChat" class="post-chat">
+        <LoadSpinner :loading="loadingForm" />
+        <input type="text" v-model="courseChatText" />
+        <button
+          :disabled="loadingForm"
+          type="submit"
+          class="bg-blue text-white"
+        >
+          POST
+        </button>
+      </form>
       <!-- <router-link to="/chats" class="footer"> See all chats... </router-link> -->
       <load-spinner :loading="loadingChats" />
     </div>
@@ -84,19 +95,22 @@
 <script>
 import Chat from "../components/Chat";
 import UserCard from "../components/UserCard";
+import CourseChat from "./CourseChat.vue";
 import LoadSpinner from "./LoadSpinner.vue";
 
 export default {
   name: "AsideRight",
 
-  components: { UserCard, Chat, LoadSpinner },
+  components: { UserCard, Chat, LoadSpinner, CourseChat },
 
   data() {
     return {
       loadingChats: false,
       loadingUsers: false,
       loadingCourses: false,
-      loadingAds: false
+      loadingAds: false,
+      courseChatText: "",
+      loadingForm: false
     };
   },
 
@@ -124,7 +138,9 @@ export default {
       return [];
     },
     courseChats() {
-      return this.$store.getters["course/sortChats"];
+      const chats = this.$store.getters["course/sortChats"];
+      const length = this.$store.getters["course/sortChats"].length;
+      return chats.slice(length - 7, length);
     },
     coursesChatsCourseId() {
       return this.$route.params.courseId || null;
@@ -143,55 +159,65 @@ export default {
       chatClone.text = chat.text.slice(0, 50) + "...";
       return chatClone;
     },
-    modifyCourseChat(chat) {
-      return chat;
-      // let chatClone = Object.assign({}, chat);
-      // chatClone.text = chat.text.slice(0, 50) + "...";
-      // return chatClone;
-    },
     async sendChat() {
       this.loadingForm = true;
       await this.$store
         .dispatch("course/postCourseChat", {
-          courseId: this.course.id,
-          text: this.text
+          courseId: this.coursesChatsCourseId,
+          text: this.courseChatText
         })
         .then(() => {
-          this.text = "";
+          this.courseChatText = "";
         })
         .finally(() => {
           this.loadingForm = false;
         });
+    },
+    async runComponents(courseId) {
+      if (this.isActive("users")) {
+        this.loadingUsers = true;
+        await this.$store.dispatch("getLayoutUsers");
+        this.loadingUsers = false;
+      }
+      if (this.isActive("chats")) {
+        this.loadingChats = true;
+        await this.$store.dispatch("auth/getChats");
+        this.loadingChats = false;
+      }
+      if (this.isActive("courses")) {
+        this.loadingCourses = true;
+        await this.$store.dispatch("getLayoutCourses");
+        this.loadingCourses = false;
+      }
+      if (this.isActive("ads")) {
+        // this.loadingAds = true;
+        // await this.$store.dispatch("getLayoutAds");
+        // this.loadingAds = false;
+      }
+      if (this.isActive("course-chats")) {
+        this.loadingChats = true;
+        await this.$store.dispatch("course/getCourseChats", courseId);
+        this.loadingChats = false;
+      }
     }
   },
 
-  async mounted() {
-    if (this.isActive("users")) {
-      this.loadingUsers = true;
-      await this.$store.dispatch("getLayoutUsers");
-      this.loadingUsers = false;
-    }
-    if (this.isActive("chats")) {
-      this.loadingChats = true;
-      await this.$store.dispatch("auth/getChats");
-      this.loadingChats = false;
-    }
-    if (this.isActive("courses")) {
-      this.loadingCourses = true;
-      await this.$store.dispatch("getLayoutCourses");
-      this.loadingCourses = false;
-    }
-    // if (this.isActive("ads")) {
-    //   this.loadingAds = true;
-    //   await this.$store.dispatch("getLayoutAds");
-    //   this.loadingAds = false;
-    // }
-    if (this.isActive("course-chats")) {
+  watch: {
+    layoutOrder() {
       const courseId = this.$route.params.courseId;
-      this.loadingChats = true;
-      await this.$store.dispatch("course/getCourseChats", courseId);
-      this.loadingChats = false;
+      this.runComponents(courseId);
     }
+  },
+
+  beforeRouteUpdate(to, from, next) {
+    const courseId = to.params.courseId;
+    this.runComponents(courseId);
+    next();
+  },
+
+  mounted() {
+    const courseId = this.$route.params.courseId;
+    this.runComponents(courseId);
   }
 };
 </script>

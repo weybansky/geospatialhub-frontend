@@ -1,7 +1,7 @@
 <template>
   <section class="courses-page course-page course-chat-page page">
     <div class="course">
-      <h4 class="course-title">{{ course.title || "" }}</h4>
+      <h4 class="course-title" v-if="course">{{ course.title }}</h4>
       <p>Discussion: Chat with other people taking the course</p>
     </div>
 
@@ -39,7 +39,7 @@ export default {
 
   computed: {
     course() {
-      return this.$store.state.course.course || {};
+      return this.$store.state.course.course || null;
     },
     chats() {
       // return this.$store.state.course.chat.chats || [];
@@ -78,18 +78,19 @@ export default {
     }
   },
 
-  async created() {
-    this.$store.commit("setSidebarComponents", ["course-chats"]);
+  async mounted() {
     const courseId = this.$route.params.courseId;
     this.loading = true;
     if (!this.course) {
-      await this.$store.dispatch("course/getCourse", courseId).then(() => {
-        this.loading = false;
-      });
+      await this.$store.dispatch("course/getCourse", courseId);
     }
     await this.$store.dispatch("course/getCourseChats", courseId).then(() => {
       this.loading = false;
     });
+  },
+
+  created() {
+    this.$store.commit("setSidebarComponents", ["course-chats"]);
   }
 };
 </script>

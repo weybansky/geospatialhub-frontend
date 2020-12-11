@@ -44,7 +44,7 @@ export default {
   },
 
   async mounted() {
-    this.$store.commit("setSidebarComponents", ["users", "chats"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     this.loading = true;
     await this.$store.dispatch("post/getPosts");
     this.loading = false;

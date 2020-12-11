@@ -18,7 +18,7 @@
           ></path>
         </svg>
       </div>
-      <div class="user">
+      <div class="user" @click="$router.push('/users/' + receiver.id)">
         <div class="image">
           <img
             :src="receiver.profile.profile_pic || '/user.png'"
@@ -161,7 +161,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit("setSidebarComponents", ["users"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     const userId = this.$route.params.userId;
     this.loadChat(userId);
     this.getChatTimer = setInterval(() => {

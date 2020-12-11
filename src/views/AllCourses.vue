@@ -143,7 +143,7 @@ export default {
   },
 
   async mounted() {
-    this.$store.commit("setSidebarComponents", ["chats", "users"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     this.loading = true;
     if (this.$store.state.course.categories.length < 1) {
       await this.$store.dispatch("course/getCategories");

@@ -26,7 +26,7 @@ export default new Vuex.Store({
 
     layout: {
       sidebarEnabled: true,
-      components: ["users", "chats"],
+      components: ["chats", "ads"],
       user: {
         count: 0,
         page: 1,
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     },
     setSidebarComponents(state, components) {
       components.push("ads");
-      state.layout.components = components || ["users", "chats", "ads"];
+      state.layout.components = components || ["chats", "ads"];
     },
 
     setSidebarUsersConfig(state, data) {

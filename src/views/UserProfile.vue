@@ -252,7 +252,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit("setSidebarComponents", ["users", "chats"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     const userId = this.$route.params.userId;
     if (this.$store.state.auth.user.id == userId) {
       this.$router.push("/profile");

@@ -165,7 +165,7 @@ export default {
   },
 
   async mounted() {
-    this.$store.commit("setSidebarComponents", ["users", "chats"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     if (this.$store.state.auth.posts.length < 1) {
       await this.$store.dispatch("auth/getUserPosts");
     }

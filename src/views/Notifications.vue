@@ -37,7 +37,7 @@ export default {
   },
 
   mounted() {
-    this.$store.commit("setSidebarComponents", ["users", "chats"]);
+    this.$store.commit("setSidebarComponents", ["chats"]);
     this.$store.dispatch("auth/getNotifications");
   }
 };

@@ -59,6 +59,7 @@
     padding: 50px 1px 10px;
     flex: 0 1 25%;
     min-width: 300px;
+    max-width: 300px;
     overflow-y: auto;
     background-color: inherit;
 
@@ -66,6 +67,15 @@
     flex-direction: column;
 
     @import "aside-right";
+  }
+}
+
+@media (min-width: 1200px) {
+  .layout {
+    .aside-right {
+      min-width: 350px;
+      max-width: 350px;
+    }
   }
 }
 
