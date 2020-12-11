@@ -40,7 +40,7 @@
       </div>
       <div class="module-content">
         <div class="video">
-          <youtube
+          <YouTubePlayer
             :video-id="videoId"
             :player-vars="{ start: 0, autoplay: 0 }"
             :mute="false"
@@ -69,11 +69,11 @@
 
 <script>
 import LoadSpinner from "../components/LoadSpinner.vue";
-import { getIdFromURL } from "vue-youtube-embed";
+import { getIdFromURL, YouTubePlayer } from "vue-youtube-embed";
 
 export default {
   name: "Module",
-  components: { LoadSpinner },
+  components: { LoadSpinner, YouTubePlayer },
 
   data() {
     return {
@@ -157,6 +157,7 @@ export default {
   },
 
   async mounted() {
+    this.$store.commit("setSidebarComponents", ["course-chats"]);
     const courseId = this.$route.params.courseId;
     const moduleId = this.$route.params.moduleId;
     this.loading = true;

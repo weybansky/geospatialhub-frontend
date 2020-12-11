@@ -119,7 +119,8 @@ export default {
       loading: false,
       loadingPayment: false,
       paymentError: false,
-      unenrollMessage: ""
+      unenrollMessage: "",
+      unenrollReload: null
     };
   },
 
@@ -186,17 +187,20 @@ export default {
         .dispatch("course/unenroll", this.course.id)
         .then(({ data }) => {
           if (data.unenroll_status) {
-            this.unenrollMessage = "You have been unenrolled from this course"; //sucess
-            if (data.refund_status) {
-              this.unenrollMessage =
-                "You have been unenrolled from this course. And refund is being processed";
-            } else {
-              this.unenrollMessage =
-                "You have been unenrolled from this course. No refund processed as you have exceeded the 14-day offer";
-            }
-            setTimeout(() => {
-              window.location.href = `/courses`;
-            }, 30000);
+            this.unenrollMessage = data.message;
+            // if (data.refund_status) {
+            //   this.unenrollMessage =
+            //     "You have been unenrolled from this course. And refund is being processed";
+            // } else {
+            //   this.unenrollMessage =
+            //     "You have been unenrolled from this course. No refund processed as you have exceeded the 14-day offer";
+            // }
+            this.unenrollReload = setTimeout(() => {
+              this.$store.dispatch("course/getCourse", this.course.id);
+              // window.location.href = `/courses`;
+            }, 15000);
+          } else {
+            this.unenrollMessage = "You have been unenrolled";
           }
         })
         .finally(() => {
@@ -205,7 +209,13 @@ export default {
     }
   },
 
+  async beforeRouteLeave(to, from, next) {
+    await clearTimeout(this.unenrollReload);
+    next();
+  },
+
   async created() {
+    this.$store.commit("setSidebarComponents", ["course-chats"]);
     const courseId = this.$route.params.courseId;
     this.loading = true;
     await this.$store.dispatch("course/getCourse", courseId).then(() => {

@@ -63,13 +63,20 @@
     </div>
 
     <div
-      class="course-chats-component"
+      class="chats-component course-chats-component"
       v-if="isActive('course-chats')"
       :style="{ order: order('course-chats') }"
     >
-      <h3 class="title">ADS</h3>
-      <div class="course-chats"></div>
-      <load-spinner :loading="loadingAds" />
+      <h3 class="title">Course Discussion</h3>
+      <div class="chats">
+        <Chat
+          v-for="(chat, index) in courseChats"
+          :chat="modifyCourseChat(chat)"
+          :key="index"
+        />
+      </div>
+      <!-- <router-link to="/chats" class="footer"> See all chats... </router-link> -->
+      <load-spinner :loading="loadingChats" />
     </div>
   </aside>
 </template>
@@ -115,6 +122,12 @@ export default {
     },
     ads() {
       return [];
+    },
+    courseChats() {
+      return this.$store.getters["course/sortChats"];
+    },
+    coursesChatsCourseId() {
+      return this.$route.params.courseId || null;
     }
   },
 
@@ -129,6 +142,26 @@ export default {
       let chatClone = Object.assign({}, chat);
       chatClone.text = chat.text.slice(0, 50) + "...";
       return chatClone;
+    },
+    modifyCourseChat(chat) {
+      return chat;
+      // let chatClone = Object.assign({}, chat);
+      // chatClone.text = chat.text.slice(0, 50) + "...";
+      // return chatClone;
+    },
+    async sendChat() {
+      this.loadingForm = true;
+      await this.$store
+        .dispatch("course/postCourseChat", {
+          courseId: this.course.id,
+          text: this.text
+        })
+        .then(() => {
+          this.text = "";
+        })
+        .finally(() => {
+          this.loadingForm = false;
+        });
     }
   },
 
@@ -153,6 +186,12 @@ export default {
     //   await this.$store.dispatch("getLayoutAds");
     //   this.loadingAds = false;
     // }
+    if (this.isActive("course-chats")) {
+      const courseId = this.$route.params.courseId;
+      this.loadingChats = true;
+      await this.$store.dispatch("course/getCourseChats", courseId);
+      this.loadingChats = false;
+    }
   }
 };
 </script>

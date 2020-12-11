@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       loading: false,
-      status: ""
+      status: "",
+      redirect: null
     };
   },
 
@@ -74,8 +75,13 @@ export default {
     }
   },
 
+  async beforeRouteLeave(to, from, next) {
+    await clearTimeout(this.redirect);
+    next();
+  },
+
   mounted() {
-    setTimeout(() => {
+    this.redirect = setTimeout(() => {
       this.goToCourse();
     }, 20000);
   },
