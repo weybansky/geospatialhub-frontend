@@ -40,11 +40,13 @@
     margin: 1rem 0;
     list-style: none;
     border-bottom: 3px solid darken($color-white, 15%);
+    overflow-x: auto;
+    white-space: nowrap;
 
     .category {
       cursor: pointer;
       display: inline-block;
-      padding: 7px 12px;
+      padding: 5px 12px;
       font-size: 1.05rem;
 
       &.active {
