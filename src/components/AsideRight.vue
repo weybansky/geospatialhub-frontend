@@ -61,6 +61,16 @@
       <div class="ads"></div>
       <load-spinner :loading="loadingAds" />
     </div>
+
+    <div
+      class="course-chats-component"
+      v-if="isActive('course-chats')"
+      :style="{ order: order('course-chats') }"
+    >
+      <h3 class="title">ADS</h3>
+      <div class="course-chats"></div>
+      <load-spinner :loading="loadingAds" />
+    </div>
   </aside>
 </template>
 
