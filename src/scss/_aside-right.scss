@@ -144,9 +144,33 @@
 }
 
 .course-chats-component {
-  .course-chats {
-    .post-chat {
-      display: none;
+  .post-chat {
+    display: flex;
+    input,
+    button {
+      height: 40px;
+      border: 1px solid $color-blue;
+      border-radius: 5px;
+      padding: 3px 0.5rem;
+      outline: 0;
+    }
+    input {
+      flex: 1 1 auto;
+      margin-right: 3px;
+      background: darken($color-white, 8%);
+
+      &:focus {
+        background: $color-white;
+      }
+    }
+    button {
+      flex: 0 1 100px;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
     }
   }
 }
