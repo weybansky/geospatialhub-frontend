@@ -46,6 +46,7 @@
             :mute="false"
             @ready="ready"
           />
+          <LoadSpinner :loading="loadingVideo" />
         </div>
         <div class="details" v-if="!loading">
           <h3 class="title">{{ courseModule.title || "" }}</h3>
@@ -77,7 +78,8 @@ export default {
 
   data() {
     return {
-      loading: false
+      loading: false,
+      loadingVideo: true
     };
   },
 
@@ -113,7 +115,7 @@ export default {
 
   methods: {
     ready() {
-      // this.loadingVideo = false;
+      this.loadingVideo = false;
     },
     previous() {
       const position = this.sortModules.indexOf(this.courseModule.id) + 1;
