@@ -31,7 +31,7 @@
         <button type="submit" class="bg-blue text-white">SEARCH</button>
       </form>
 
-      <div class="links" v-if="!authenticated">
+      <div class="links">
         <router-link v-if="!authenticated" class="link blue" to="/register">
           Join Now
         </router-link>
