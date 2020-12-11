@@ -53,6 +53,14 @@
           <div class="note" v-html="courseModule.note"></div>
           <div class="download">
             <button
+              type="button"
+              @click="$router.push('/courses/' + course.id + '/chats/')"
+              class="bg-blue text-white"
+            >
+              Discussion
+            </button>
+
+            <button
               @click="downloadPDF"
               class="pdf"
               type="button"

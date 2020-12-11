@@ -135,7 +135,7 @@ export default {
       const queryCategory = this.$route.query.category;
       if (queryCategory != value) {
         return this.$router.push({
-          path: "/courses",
+          path: "/all-courses",
           query: { category: value }
         });
       }
