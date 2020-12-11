@@ -3,10 +3,11 @@
 .welcome-page {
   min-height: 100vh;
   align-items: center;
-  background: url(../assets/svg/bg_triangles.svg), darken($color-white, 8%);
+  background: url(../assets/svg/bg_triangles_welcome.svg),
+    darken($color-white, 8%);
   background-repeat: no-repeat, no-repeat;
   background-position: top right, center;
-  background-size: 10%, cover;
+  background-size: 30%, cover;
   color: $color-black;
   padding-top: 40px;
   display: flex;
@@ -30,6 +31,53 @@
       flex: 1;
       img {
         height: 100%;
+      }
+    }
+
+    form.search {
+      height: 50px;
+      flex: 3;
+      position: relative;
+      margin: 5px 0;
+
+      .search-icon {
+        position: absolute;
+        z-index: 10;
+        height: 40px;
+        margin: 5px 0;
+        width: 1.5rem;
+        left: 1rem;
+      }
+
+      input {
+        height: 100%;
+        width: 100%;
+        border: 0;
+        outline: 0;
+        box-shadow: 0 0 10px 1px rgba($color-blue, 0.25);
+        padding: 0.5rem 6rem 0.5rem 3rem;
+        font-size: 1rem;
+
+        &:focus {
+          transition: all 0.3s ease-out;
+          transform: scale(1.01);
+          padding-left: 3rem;
+          padding-right: 6rem;
+        }
+      }
+
+      button {
+        border: 0;
+        outline: 0;
+        padding: 0 0.8rem;
+        font-size: 0.75rem;
+        position: absolute;
+        z-index: 10;
+        right: 0.6rem;
+        height: 40px;
+        margin: 5px 0;
+        cursor: pointer;
+        border-right: 5px;
       }
     }
 
@@ -61,7 +109,6 @@
     flex: 0 1 100%;
     padding: 1rem;
     min-height: 65vh;
-    max-height: 90vh;
 
     .left {
       padding: 1rem;
@@ -69,59 +116,11 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      background: url(../assets/bg_home_left.jpg);
+      background-image: url("/img/bg_welcome_11.png");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: contain;
-
-      form {
-        height: 50px;
-        width: 75%;
-        flex: 1 1 75%;
-        position: relative;
-        text-align: center;
-        margin: 1rem 0;
-
-        .search-icon {
-          position: absolute;
-          z-index: 10;
-          height: 40px;
-          margin: 5px 0;
-          width: 1.5rem;
-          left: 1rem;
-        }
-
-        input {
-          height: 100%;
-          width: 100%;
-          border: 0;
-          outline: 0;
-          box-shadow: 0 0 10px 1px rgba($color-blue, 0.25);
-          padding: 0.5rem 6rem 0.5rem 3rem;
-          font-size: 1rem;
-
-          &:focus {
-            transition: all 0.3s ease-out;
-            transform: scale(1.01);
-            padding-left: 3rem;
-            padding-right: 6rem;
-          }
-        }
-
-        button {
-          border: 0;
-          outline: 0;
-          padding: 0 0.8rem;
-          font-size: 0.75rem;
-          position: absolute;
-          z-index: 10;
-          right: 0.6rem;
-          height: 40px;
-          margin: 5px 0;
-          cursor: pointer;
-          border-right: 5px;
-        }
-      }
+      transition: background-image 1s ease;
     }
 
     .right {
@@ -156,7 +155,7 @@
     min-height: 100px;
     text-align: center;
 
-    h3 {
+    h2 {
       margin-top: 1rem;
       font-size: 2rem;
       color: $color-blue;
@@ -192,6 +191,10 @@
         max-width: 20%;
       }
 
+      form.search {
+        display: none;
+      }
+
       .links {
         flex: 80%;
         max-width: 80%;
@@ -207,6 +210,10 @@
     main {
       flex-direction: column;
       padding: 0;
+
+      .left {
+        min-height: 500px;
+      }
 
       .right {
         h1 {
@@ -225,7 +232,7 @@
     }
 
     footer {
-      h3 {
+      h2 {
         font-size: 1.5rem;
       }
       .course {
