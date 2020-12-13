@@ -40,12 +40,6 @@ export default {
     logout() {
       this.$store.dispatch("auth/logout");
     }
-  },
-
-  mounted() {
-    if (window.screen.width < 768) {
-      this.$store.commit("disableSideBar");
-    }
   }
 };
 </script>

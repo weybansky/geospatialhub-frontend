@@ -125,8 +125,8 @@ export default {
     return {
       searchInput: "",
       backgroundImage: [
-        "/img/bg_welcome_11.png",
         "/img/bg_welcome_22.png",
+        "/img/bg_welcome_11.png",
         "/img/bg_welcome_33.png"
       ],
       index: 0,
@@ -159,7 +159,7 @@ export default {
     this.animation = setInterval(() => {
       this.index += 1;
       if (this.index > 2) this.index = 0;
-    }, 3000);
+    }, 6000);
   }
 };
 </script>

@@ -7,6 +7,7 @@ import userModule from "./users";
 import postModule from "./posts";
 
 import axios from "axios";
+import router from "../router";
 
 Vue.use(Vuex);
 
@@ -62,6 +63,16 @@ export default new Vuex.Store({
     setSidebarComponents(state, components) {
       components.push("ads");
       state.layout.components = components || ["chats", "ads"];
+      if (window.screen.width < 768) {
+        const route = router.app.$route.name;
+        console.log(route);
+        if (route == "Home" || route == "UserChat" || route == "CourseChat") {
+          this.commit("disableSideBar");
+        } else {
+          this.commit("enableSideBar");
+          state.layout.components = ["ads"];
+        }
+      }
     },
 
     setSidebarUsersConfig(state, data) {
