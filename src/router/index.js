@@ -10,8 +10,8 @@ import NotFound from "../views/NotFound.vue";
 import Home from "../views/Home.vue";
 import AllCourses from "../views/AllCourses.vue";
 import Notifications from "../views/Notifications.vue";
-import About from "../views/About.vue";
-import Contact from "../views/Contact.vue";
+// import About from "../views/About.vue";
+// import Contact from "../views/Contact.vue";
 import CoursesEnrolled from "../views/CoursesEnrolled.vue";
 import Course from "../views/Course.vue";
 import CoursePayment from "../views/CoursePayment.vue";
@@ -100,14 +100,14 @@ const routes = [
           requiresAuth: true
         }
       },
-      {
-        path: "/about",
-        name: "About",
-        component: About,
-        meta: {
-          requiresAuth: true
-        }
-      },
+      // {
+      //   path: "/about",
+      //   name: "About",
+      //   component: About,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
       {
         path: "/profile",
         name: "Profile",
@@ -180,14 +180,14 @@ const routes = [
           requiresAuth: true
         }
       },
-      {
-        path: "/contact",
-        name: "Contact",
-        component: Contact,
-        meta: {
-          requiresAuth: true
-        }
-      },
+      // {
+      //   path: "/contact",
+      //   name: "Contact",
+      //   component: Contact,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // },
       {
         path: "/all-courses",
         name: "AllCourses",

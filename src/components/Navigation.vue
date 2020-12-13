@@ -165,7 +165,7 @@
       <span class="text">About</span>
     </router-link> -->
 
-    <router-link to="/contact" class="nav-link hidden-mobile dropdown" exact>
+    <!-- <router-link to="/contact" class="nav-link hidden-mobile dropdown" exact>
       <div class="nav-link-icon">
         <svg
           class="icon"
@@ -243,7 +243,7 @@
           <span class="text">{{ phone }}</span>
         </li>
       </ul>
-    </router-link>
+    </router-link> -->
 
     <a class="nav-link hidden-tablet hidden-mobile" @click="logout">
       <div class="nav-link-icon">
