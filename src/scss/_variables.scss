@@ -112,11 +112,16 @@ img {
   justify-content: center;
 
   .spinner {
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    border-top: 5px solid $color-blue;
-    animation: rotate 0.25s linear infinite;
+    // border-top: 5px solid $color-blue;
+    animation: rotate 0.35s linear infinite;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   @keyframes rotate {

@@ -1,6 +1,8 @@
 <template>
   <div class="load-spinner" v-if="loading">
-    <div class="spinner"></div>
+    <div class="spinner">
+      <img src="/img/icons/favicon-32x32.png" alt="" />
+    </div>
   </div>
 </template>
 
