@@ -69,9 +69,9 @@
 
         <div v-if="index == 1">
           <h1>Master skills with in-depth learning</h1>
-          <p class="text-right">
+          <p>
             Start streaming on-demand geospatial courses today. The courses are
-            flexible and affordable. Apply what you learn with self=paced
+            flexible and affordable. Apply what you learn with self-paced
             quizzes and hands-on projects. Get feedback from a global community
             of learners.
           </p>
@@ -84,9 +84,9 @@
 
         <div v-if="index == 2">
           <h1>Find and meet a geospatial mentor</h1>
-          <p class="text-right">
+          <p>
             Start streaming on-demand geospatial courses today. The courses are
-            flexible and affordable. Apply what you learn with self=paced
+            flexible and affordable. Apply what you learn with self-paced
             quizzes and hands-on projects. Get feedback from a global community
             of learners.
           </p>

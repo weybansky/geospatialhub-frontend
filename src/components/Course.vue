@@ -45,15 +45,15 @@
       </p>
 
       <div class="price" v-if="!enrolled">
-        <span class="strikethrough">₦{{ course.price_before_discount }}</span>
-        <span>₦{{ course.price }}</span>
+        <span class="strikethrough">${{ course.price_before_discount }}</span>
+        <span>${{ course.price }}</span>
       </div>
       <div class="price" v-else>
         Enrolled
         <small>14-day money-back</small>
       </div>
 
-      <p class="overview" v-html="course.overview.slice(1, 100) + '...'"></p>
+      <p class="overview" v-html="course.overview.slice(0, 100) + '...'"></p>
       <p class="author" v-if="course.author.first_name">
         Author:
         {{ course.author.first_name + " " + course.author.last_name }}

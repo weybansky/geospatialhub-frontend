@@ -57,7 +57,7 @@
       v-if="isActive('ads')"
       :style="{ order: order('ads') }"
     >
-      <h3 class="title">ADS</h3>
+      <h3 class="title">Place your Ads here</h3>
       <div class="ads"></div>
       <load-spinner :loading="loadingAds" />
     </div>
