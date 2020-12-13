@@ -101,10 +101,15 @@
 
     <footer class="container">
       <h2>The larget selection of Geospatial Courses from Africa</h2>
-      <p class="courses">
-        <span class="course" v-for="course in courses" :key="course.id">
-          {{ course.title }}
-        </span>
+      <p class="categories">
+        <span class="category">Python</span>
+        <span class="category">Earth Engine </span>
+        <span class="category">GGIS</span>
+        <span class="category">ArcGIS</span>
+        <span class="category">WebGIS</span>
+        <span class="category">JavaScript</span>
+        <span class="category">Geopandas</span>
+        <span class="category">Arcpy</span>
       </p>
     </footer>
   </div>
@@ -132,11 +137,6 @@ export default {
   computed: {
     authenticated() {
       return this.$store.getters["auth/isAuthenticated"];
-    },
-
-    courses() {
-      return [];
-      // return this.$store.state.course.courses.slice(0, 10);
     }
   },
 
@@ -160,20 +160,6 @@ export default {
       this.index += 1;
       if (this.index > 2) this.index = 0;
     }, 3000);
-    if (this.$store.state.course.courses.length < 1) {
-      // axios.defaults.headers.common["Authorization"] = null;
-      // await axios
-      //   .get("/v1/courses/", null, {
-      //     headers: { Authorization: "vrkjvjbjvfvbhjfdbvjbj" }
-      //   })
-      //   .then(({ data }) => {
-      //     console.log(data.results);
-      //     this.$store.commit("course/setCourses", data.results);
-      //   })
-      //   .catch(error => {
-      //     console.log(error.response);
-      //   });
-    }
   }
 };
 </script>
