@@ -473,23 +473,39 @@ export default {
       this.data.organisation = this.user.profile.organisation;
       this.data.institution = this.user.profile.institution;
     },
+    validate() {
+      const phonePattern = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/;
+      if (!phonePattern.test(this.data.phone) && this.data.phone != "") {
+        this.errors.phone = ["Phone number invalid. Please confirm/re-format"];
+        return false;
+      } else {
+        return true;
+      }
+    },
     updateProfile() {
-      this.loading = true;
-      this.data.successMessage = "";
-      this.data.errorMessage = "";
-      this.$store
-        .dispatch("auth/updateUser", { ...this.data, date_of_birth: this.dob })
-        .then(() => {
-          this.data.successMessage = "Profile Updated successfully";
-        })
-        .catch(({ response }) => {
-          this.errors = response.data || {};
-          this.data.errorMessage =
-            "Something went wrong. Double check all field";
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      if (!this.validate()) {
+        this.data.errorMessage = "Double check all field";
+      } else {
+        this.loading = true;
+        this.data.successMessage = "";
+        this.data.errorMessage = "";
+        this.$store
+          .dispatch("auth/updateUser", {
+            ...this.data,
+            date_of_birth: this.dob
+          })
+          .then(() => {
+            this.data.successMessage = "Profile Updated successfully";
+          })
+          .catch(({ response }) => {
+            this.errors = response.data || {};
+            this.data.errorMessage =
+              "Something went wrong. Double check all field";
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
     },
     previewImage(title) {
       this.showImage = true;

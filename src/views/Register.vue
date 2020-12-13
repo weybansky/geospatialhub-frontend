@@ -132,37 +132,59 @@ export default {
   },
 
   methods: {
-    register() {
-      this.loading = true;
-      this.$store
-        .dispatch("auth/register", {
-          username: this.username,
-          email: this.email,
-          password1: this.password1,
-          password2: this.password2
-        })
-        .catch(error => {
-          this.errors = error.response.data || {};
-          this.errors.username = error.response.data.username || null;
-          this.errors.email = error.response.data.email || null;
-          this.errors.password1 = error.response.data.password1 || null;
-          this.errors.password2 = error.response.data.password2 || null;
-          if (error.response.data.non_field_errors != null) {
-            this.errors.password1 = error.response.data.non_field_errors;
-          }
+    validate() {
+      var usernamePattern = /^[a-zA-z0-9]{0,}$/;
+      if (!usernamePattern.test(this.username)) {
+        this.errors.username = [
+          "Username can only be letters(a-z) and number(0-9)"
+        ];
+        return false;
+      } else if (this.password1 !== this.password2) {
+        this.errors.password2 = ["Passwords must be the smae"];
+        return false;
+      } else {
+        return true;
+      }
+    },
 
-          this.$store.commit(
-            "showAlert",
-            {
-              message: error.response.data.message || "Registration Failed",
-              status: "error"
-            },
-            { root: true }
-          );
-        })
-        .finally(() => {
-          this.loading = false;
+    register() {
+      if (!this.validate()) {
+        this.$store.commit("showAlert", {
+          message: "Registration Failed",
+          status: "error"
         });
+      } else {
+        this.loading = true;
+        this.$store
+          .dispatch("auth/register", {
+            username: this.username,
+            email: this.email,
+            password1: this.password1,
+            password2: this.password2
+          })
+          .catch(error => {
+            this.errors = error.response.data || {};
+            this.errors.username = error.response.data.username || null;
+            this.errors.email = error.response.data.email || null;
+            this.errors.password1 = error.response.data.password1 || null;
+            this.errors.password2 = error.response.data.password2 || null;
+            if (error.response.data.non_field_errors != null) {
+              this.errors.password1 = error.response.data.non_field_errors;
+            }
+
+            this.$store.commit(
+              "showAlert",
+              {
+                message: error.response.data.message || "Registration Failed",
+                status: "error"
+              },
+              { root: true }
+            );
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
     },
 
     handleFormError(field) {
