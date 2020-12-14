@@ -1,6 +1,6 @@
 <template>
   <!-- @click="$router.push('/users/' + notification.id)" -->
-  <div class="notification" :class="{ read: !read }" @click="action">
+  <div class="notification" :class="{ read: read }" @click="action">
     <template v-if="type == 'new_course'">
       <div class="image">
         <svg
@@ -30,10 +30,12 @@
           alt="Profile Picture"
         />
       </div>
-      <div class="text">@{{ follower.username }} followed you</div>
+      <div class="text">
+        <span>@{{ follower.username }}</span> followed you
+      </div>
       <div class="time">{{ postedAt }}</div>
     </template>
-    <template v-if="type == 'unenrolled_course'">
+    <template v-if="type == 'unenroll_course'">
       <div class="image">
         <svg
           class="image"
@@ -99,12 +101,14 @@ export default {
   },
 
   methods: {
-    action() {
+    async action() {
+      this.$store.dispatch("auth/markNotification", this.notification.id);
+
       if (this.type == "new_course") {
         this.$router.push("/courses/" + this.course.id);
       } else if (this.type == "new_follower") {
         this.$router.push("/users/" + this.follower.id);
-      } else if (this.type == "unenrolled_course") {
+      } else if (this.type == "unenroll_course") {
         this.$router.push("/courses/" + this.course.id);
       } else {
         //

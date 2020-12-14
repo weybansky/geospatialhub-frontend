@@ -188,6 +188,8 @@ export default {
           if (data.unenroll_status) {
             this.unenrollMessage = data.message || "You have been unenrolled";
             this.$store.dispatch("course/getCourse", this.course.id);
+            this.$store.dispatch("course/getCourses", null);
+            this.$store.dispatch("auth/getUserCourses", null);
           } else {
             this.unenrollMessage = "You have been unenrolled";
           }
