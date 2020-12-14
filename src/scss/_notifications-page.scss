@@ -14,16 +14,18 @@
 
   .notification {
     display: flex;
-    padding: 0.4rem 0.5rem;
-    margin-bottom: 4px;
+    padding: 0.6em 0.5rem;
+    margin-bottom: 1px;
     align-items: center;
     cursor: pointer;
 
     .image {
       flex: 0 1 30px;
+      .image {
+        width: 30px;
+        height: 30px;
+      }
       img {
-        width: 100%;
-        height: 100%;
         border-radius: 50%;
         border: 1px solid $color-blue;
       }
@@ -31,6 +33,11 @@
     .text {
       flex: 1 1 auto;
       padding: 0 0.6rem;
+      color: lighten($color-black, 30%);
+      span {
+        font-size: 1.1rem;
+        color: lighten($color-black, 0%);
+      }
     }
     .time {
       flex: 0 1 auto;
@@ -39,10 +46,10 @@
       font-weight: 300;
     }
 
-    &:hover {
+    &:hover,
+    &.read {
       background: darken($color-white, 20%);
     }
-    // &.unread {}
   }
 }
 
