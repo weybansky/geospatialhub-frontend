@@ -71,7 +71,7 @@ export default {
     },
 
     async getUser({ commit }, userId) {
-      return await axios.get("/v1/users/" + userId).then(response => {
+      return await axios.get("/v1/users/" + userId + "/").then(response => {
         commit("setUser", response.data);
         return response;
       });

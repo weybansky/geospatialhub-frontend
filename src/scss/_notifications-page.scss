@@ -7,9 +7,12 @@
     .title {
       color: $color-black;
       font-size: 2.85rem;
-      margin-bottom: 1rem;
       color: lighten($color-black, 25%);
     }
+    p {
+      margin-bottom: 1rem;
+    }
+    border-bottom: 1px solid $color-white;
   }
 
   .notification {
@@ -18,6 +21,7 @@
     margin-bottom: 1px;
     align-items: center;
     cursor: pointer;
+    background: rgba($color-blue, 0.15);
 
     .image {
       flex: 0 1 30px;

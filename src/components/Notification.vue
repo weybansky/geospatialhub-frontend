@@ -102,7 +102,7 @@ export default {
 
   methods: {
     async action() {
-      this.$store.dispatch("auth/markNotification", this.notification.id);
+      await this.$store.dispatch("auth/markNotification", this.notification.id);
 
       if (this.type == "new_course") {
         this.$router.push("/courses/" + this.course.id);

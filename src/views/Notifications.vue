@@ -2,6 +2,9 @@
   <section class="notifications-page">
     <div class="page-title">
       <h1 class="title">Notifications</h1>
+      <p>
+        <small>{{ notificationUnreadCount }} unread notifications</small>
+      </p>
     </div>
 
     <div class="notifications" v-if="notifications.length">
@@ -14,7 +17,7 @@
 
     <div class="notifications" v-else>
       <div class="notification">
-        <div class="text text-center">0 New Notifications</div>
+        <div class="text text-center">0 Notifications</div>
       </div>
     </div>
   </section>
@@ -32,8 +35,10 @@ export default {
 
   computed: {
     notifications() {
-      // return this.$store.state.auth.notification.notifications || [];
       return this.$store.getters["auth/sortNotifications"] || [];
+    },
+    notificationUnreadCount() {
+      return this.$store.state.auth.notification.unread_notifications_count;
     }
   },
 

@@ -56,6 +56,14 @@ export default {
     setNotifications(state, notifications) {
       state.notification.notifications = notifications || [];
     },
+    markNotificationAsRead(state, notificationId) {
+      state.notification.notifications.map(notification => {
+        if (notification.id == notificationId) {
+          notification.is_read = true;
+        }
+        return notification;
+      });
+    },
 
     setFollowers(state, followers) {
       state.followers = followers || [];
@@ -213,8 +221,17 @@ export default {
     async getNotifications({ commit }) {
       return await axios.get("/v1/users/notification/").then(response => {
         commit("setNotifications", response.data.results);
+        commit("setNotificationConfig", response.data);
         return response;
       });
+    },
+
+    async markNotification({ commit }, notificationId) {
+      return await axios
+        .post("/v1/users/notification/", { notification_id: notificationId })
+        .then(() => {
+          commit("markNotificationAsRead", notificationId);
+        });
     },
 
     async sendResetEmail(context, data) {
