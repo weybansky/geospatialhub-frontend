@@ -104,7 +104,6 @@
       <p class="categories">
         <span class="category">Python</span>
         <span class="category">Earth Engine </span>
-        <span class="category">QGIS</span>
         <span class="category">ArcGIS</span>
         <span class="category">WebGIS</span>
         <span class="category">JavaScript</span>
