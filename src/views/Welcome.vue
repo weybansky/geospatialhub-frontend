@@ -104,12 +104,15 @@
       <p class="categories">
         <span class="category">Python</span>
         <span class="category">Earth Engine </span>
-        <span class="category">GGIS</span>
+        <span class="category">QGIS</span>
         <span class="category">ArcGIS</span>
         <span class="category">WebGIS</span>
         <span class="category">JavaScript</span>
         <span class="category">Geopandas</span>
         <span class="category">Arcpy</span>
+        <span class="category">GIS</span>
+        <span class="category">QGIS </span>
+        <span class="category">Remote sensing</span>
       </p>
     </footer>
   </div>

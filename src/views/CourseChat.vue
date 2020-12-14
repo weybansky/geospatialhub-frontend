@@ -81,16 +81,21 @@ export default {
   async mounted() {
     const courseId = this.$route.params.courseId;
     this.loading = true;
-    if (!this.course) {
-      await this.$store.dispatch("course/getCourse", courseId);
-    }
     await this.$store.dispatch("course/getCourseChats", courseId).then(() => {
       this.loading = false;
     });
   },
 
-  created() {
-    this.$store.commit("setSidebarComponents", ["course-chats"]);
+  async created() {
+    const courseId = this.$route.params.courseId;
+    if (!this.course) {
+      await this.$store.dispatch("course/getCourse", courseId);
+    }
+    if (!this.course.is_user_enrolled) {
+      this.$router.push("/courses/" + courseId);
+    } else {
+      this.$store.commit("setSidebarComponents", ["chats"]);
+    }
   }
 };
 </script>

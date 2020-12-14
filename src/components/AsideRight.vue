@@ -14,7 +14,6 @@
         />
       </div>
       <router-link to="/chats" class="footer"> See all chats... </router-link>
-      <load-spinner :loading="loadingChats" />
     </div>
 
     <div
@@ -32,10 +31,9 @@
         />
       </div>
       <router-link to="/users" class="footer"> See all people... </router-link>
-      <load-spinner :loading="loadingUsers" />
     </div>
 
-    <div
+    <!-- <div
       class="courses-component"
       v-if="isActive('courses')"
       :style="{ order: order('courses') }"
@@ -43,14 +41,12 @@
       <h3 class="title">Courses</h3>
       <div class="courses">
         <div v-for="course in courses" :key="course.id">
-          <!-- {{ course }} -->
         </div>
       </div>
       <router-link to="/courses" class="footer">
         See all Courses...
       </router-link>
-      <load-spinner :loading="loadingCourses" />
-    </div>
+    </div> -->
 
     <div
       class="ads-component"
@@ -59,7 +55,6 @@
     >
       <h3 class="title">Place your Ads here</h3>
       <div class="ads"></div>
-      <load-spinner :loading="loadingAds" />
     </div>
 
     <div
@@ -86,8 +81,6 @@
           POST
         </button>
       </form>
-      <!-- <router-link to="/chats" class="footer"> See all chats... </router-link> -->
-      <load-spinner :loading="loadingChats" />
     </div>
   </aside>
 </template>

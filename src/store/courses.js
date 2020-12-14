@@ -102,11 +102,12 @@ export default {
       }
     },
 
-    async payForCourse({ rootState }, courseId) {
+    async payForCourse(context, courseId) {
+      const frontEndURL = window.location.origin;
       return await axios
         .get("/v1/courses/" + courseId + "/pay/", {
           params: {
-            callback_url: `${rootState.frontEndURL}/courses/${courseId}/payment/`
+            callback_url: `${frontEndURL}/courses/${courseId}/payment/`
           }
         })
         .then(response => {

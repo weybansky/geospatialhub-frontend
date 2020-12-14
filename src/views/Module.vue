@@ -56,6 +56,7 @@
               type="button"
               @click="$router.push('/courses/' + course.id + '/chats/')"
               class="bg-blue text-white"
+              v-if="course.is_user_enrolled"
             >
               Discussion
             </button>
@@ -141,7 +142,7 @@ export default {
     next() {
       const position = this.sortModules.indexOf(this.courseModule.id) + 1;
       if (position >= this.modules.length) {
-        // console.log("no next module");
+        //
       } else {
         this.$router.push(
           "/courses/" +
@@ -167,7 +168,6 @@ export default {
   },
 
   async mounted() {
-    this.$store.commit("setSidebarComponents", ["course-chats"]);
     const courseId = this.$route.params.courseId;
     const moduleId = this.$route.params.moduleId;
     this.loading = true;
@@ -176,6 +176,12 @@ export default {
       moduleId
     });
     this.loading = false;
+
+    if (this.course.is_user_enrolled) {
+      this.$store.commit("setSidebarComponents", ["course-chats"]);
+    } else {
+      this.$store.commit("setSidebarComponents", ["chats"]);
+    }
   }
 };
 </script>
