@@ -32,7 +32,8 @@ export default {
 
   computed: {
     notifications() {
-      return this.$store.state.auth.notifications.new_follower || [];
+      // return this.$store.state.auth.notification.notifications || [];
+      return this.$store.getters["auth/sortNotifications"] || [];
     }
   },
 

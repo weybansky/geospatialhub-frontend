@@ -8,10 +8,15 @@ export default {
     user: null,
     courses: [],
     posts: [],
-    notifications: {
+    notification: {
+      count: 0,
+      next: null,
+      previous: null,
       unread_message_count: 0,
-      new_follower: []
+      unread_notifications_count: 0,
+      notifications: []
     },
+
     followers: [],
     following: [],
 
@@ -40,11 +45,16 @@ export default {
       state.posts = posts || [];
     },
 
+    setNotificationConfig(state, data) {
+      state.notification.count = data.count;
+      state.notification.next = data.next;
+      state.notification.previous = data.previous;
+      state.notification.unread_message_count = data.unread_message_count;
+      state.notification.unread_notifications_count =
+        data.unread_notifications_count;
+    },
     setNotifications(state, notifications) {
-      state.notifications = notifications || {
-        unread_message_count: 0,
-        new_follower: []
-      };
+      state.notification.notifications = notifications || [];
     },
 
     setFollowers(state, followers) {
@@ -201,8 +211,9 @@ export default {
     },
 
     async getNotifications({ commit }) {
-      return await axios.get("/v1/users/notification/").then(({ data }) => {
-        commit("setNotifications", data);
+      return await axios.get("/v1/users/notification/").then(response => {
+        commit("setNotifications", response.data.results);
+        return response;
       });
     },
 
@@ -298,7 +309,7 @@ export default {
 
     sortNotifications(state) {
       // TODO
-      return state.notications;
+      return state.notification.notifications;
     },
 
     sortMessages(state) {
