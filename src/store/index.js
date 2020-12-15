@@ -63,7 +63,6 @@ export default new Vuex.Store({
       state.layout.components = components || ["chats", "ads"];
       if (window.screen.width < 768) {
         const route = router.app.$route.name;
-        console.log(route);
         if (route == "Home" || route == "UserChat" || route == "CourseChat") {
           this.commit("disableSideBar");
         } else {

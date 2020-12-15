@@ -65,7 +65,8 @@ export default {
       return moment(this.chat.created).fromNow();
     },
     read() {
-      return this.is_read;
+      if (this.sender.id == this.authUser.id) return true;
+      return this.chat.is_read;
     }
   },
 

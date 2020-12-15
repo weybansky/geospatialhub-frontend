@@ -29,6 +29,9 @@
         width: 30px;
         height: 30px;
       }
+      svg {
+        color: lighten($color-black, 30%);
+      }
       img {
         border-radius: 50%;
         border: 1px solid $color-blue;

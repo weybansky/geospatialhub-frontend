@@ -28,9 +28,6 @@ export default {
   },
 
   computed: {
-    isAuthenticated() {
-      return this.$store.getters["auth/isAuthenticated"];
-    },
     sidebarEnabled() {
       return this.$store.state.layout.sidebarEnabled;
     }
@@ -40,6 +37,12 @@ export default {
     logout() {
       this.$store.dispatch("auth/logout");
     }
+  },
+
+  mounted() {
+    setInterval(() => {
+      this.$store.dispatch("auth/getNotifications");
+    }, 30000);
   }
 };
 </script>
