@@ -22,6 +22,9 @@ export default {
 
     chats: [],
     chat: {
+      count: 0,
+      next: null,
+      previous: null,
       receiver: null,
       messages: []
     }
@@ -82,8 +85,9 @@ export default {
     },
 
     setChatConfig(state, data) {
-      state.chat.page = data.page || 1;
       state.chat.count = data.count || 0;
+      state.chat.next = data.next || null;
+      state.chat.previous = data.previous || null;
     },
     setChatReceiver(state, receiver) {
       state.chat.receiver = receiver || null;
@@ -93,6 +97,9 @@ export default {
     },
     addMessageToMessages(state, message) {
       state.chat.messages.push(message);
+    },
+    addMessagesToMessages(state, messages) {
+      state.chat.messages = state.chat.messages.concat(messages);
     },
 
     setChat(state, chats) {
@@ -282,6 +289,29 @@ export default {
         .get("/v1/users/chats/" + data.userId + "/")
         .then(response => {
           commit("setChatMessages", response.data.results);
+          commit("setChatConfig", response.data);
+          return response;
+        });
+    },
+
+    async loadPreviousChats({ state, commit }, data) {
+      // next is old messages
+      if (state.chat.next && data.isNext) {
+        console.log("data", data);
+        return await axios.get(state.chat.next).then(response => {
+          commit("addMessagesToMessages", response.data.results);
+          commit("setChatConfig", response.data);
+          return response;
+        });
+      }
+    },
+
+    async getCurrentChatMessages({ commit }, data) {
+      return await axios
+        .get("/v1/users/chats/" + data.userId + "/")
+        .then(response => {
+          commit("addMessagesToMessages", response.data.results);
+          // commit("setChatConfig", response.data);
           return response;
         });
     },

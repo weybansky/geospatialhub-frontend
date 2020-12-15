@@ -29,7 +29,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
   .app-update {
-    position: absolute;
+    position: fixed;
     z-index: 900;
     right: 0;
     left: 0;

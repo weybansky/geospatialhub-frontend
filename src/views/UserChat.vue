@@ -52,6 +52,16 @@
     </header>
 
     <div class="messages" ref="messages">
+      <LoadMore
+        class="post"
+        text="Load More.."
+        v-if="showLoadMore"
+        :loading="loadingMoreChat"
+        @loadMore="loadPreviousChats"
+        :isNext="true"
+      />
+      <!-- next = true for previous messages  -->
+
       <Message
         v-for="(message, index) in messages"
         :message="message"
@@ -93,19 +103,22 @@
 <script>
 import Message from "../components/Message.vue";
 import LoadSpinner from "../components/LoadSpinner";
+import LoadMore from "../components/LoadMore.vue";
 export default {
   name: "UserChat",
 
   components: {
     Message,
-    LoadSpinner
+    LoadSpinner,
+    LoadMore
   },
 
   data() {
     return {
       loading: false,
       text: "",
-      getChatTimer: null
+      getChatTimer: null,
+      loadingMoreChat: false
     };
   },
 
@@ -113,7 +126,6 @@ export default {
     messages() {
       if (this.loading) return [];
       return this.$store.getters["auth/sortMessages"];
-      // return this.$store.state.auth.chat.messages;
     },
     sender() {
       if (this.loading)
@@ -141,6 +153,10 @@ export default {
     },
     noInput() {
       return !this.text.length;
+    },
+    showLoadMore() {
+      const chat = this.$store.state.auth.chat;
+      return chat.messages.length < chat.count;
     }
   },
 
@@ -189,6 +205,18 @@ export default {
       }
       await this.$store.dispatch("auth/sendMessage", message).then(() => {
         this.text = "";
+      });
+    },
+
+    async loadPreviousChats(data) {
+      // const userId = this.$route.params.userId;
+      this.loadingMoreChat = true;
+      await clearInterval(this.getChatTimer);
+      this.$store.dispatch("auth/loadPreviousChats", data).finally(() => {
+        this.loadingMoreChat = false;
+        // this.getChatTimer = setInterval(() => {
+        //   this.$store.dispatch("auth/getCurrentChatMessages", { userId });
+        // }, 3500);
       });
     }
   }
