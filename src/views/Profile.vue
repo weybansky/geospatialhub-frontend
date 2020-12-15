@@ -75,10 +75,14 @@
         <p class="title">Studied at</p>
         <p class="content">{{ study }}</p>
       </div>
-      <!-- <div class="bio"> -->
-      <!-- <p class="title">Martital Status</p> -->
-      <!-- <p class="content">Divorced</p> -->
-      <!-- </div> -->
+      <div class="bio">
+        <p class="title">Organization</p>
+        <p class="content">{{ organization }}</p>
+      </div>
+      <div class="bio">
+        <p class="title">Location</p>
+        <p class="content">{{ location }}</p>
+      </div>
       <div class="bio">
         <p class="title">See</p>
         <p
@@ -86,7 +90,7 @@
           @click="showContactInfo = !showContactInfo"
           style="cursor:pointer;"
         >
-          Conatct info
+          Contact info
         </p>
       </div>
     </section>
@@ -170,6 +174,19 @@ export default {
     },
     study() {
       return this.user.profile.institution || "Institution?";
+    },
+    organization() {
+      return this.user.profile.organization || "Organization?";
+    },
+    location() {
+      let city = this.user.profile.location_city || "";
+      if (city) city = `${city}, `;
+      let state = this.user.profile.location_state || "";
+      if (state) state = `${state}, `;
+      const country = this.user.profile.location_country || "";
+      const location = `${city}${state}${country}`;
+      if (!location) return "Location?";
+      return location;
     },
     //
     phone() {

@@ -221,7 +221,7 @@
               id="location_state"
               v-model="data.location_state"
             >
-              <option value="">Select City</option>
+              <option value="">Select State</option>
               <option
                 v-for="(state, index) in states"
                 :key="index"
