@@ -5,6 +5,11 @@ export default {
 
   state: () => ({
     posts: [],
+    postsConfig: {
+      next: null,
+      previous: null,
+      count: 0
+    },
 
     post: null,
     comments: [],
@@ -22,6 +27,18 @@ export default {
   mutations: {
     setPosts(state, posts) {
       state.posts = posts || [];
+    },
+    setPostsConfig(state, data) {
+      state.postsConfig.count = data.count;
+      state.postsConfig.next = data.next;
+      state.postsConfig.previous = data.previous;
+      // limit, offset, ordering, search;
+    },
+    addPreviousPostToPosts(state, posts) {
+      // remove duplicate
+      let existingPostIds = state.posts.map(post => post.id);
+      let newPosts = posts.filter(post => !existingPostIds.includes(post.id));
+      state.posts = state.posts.concat(newPosts);
     },
 
     setPost(state, post) {
@@ -81,9 +98,29 @@ export default {
   actions: {
     // Get all post
     async getPosts({ commit }) {
-      return await axios.get("/v1/users/post/").then(({ data }) => {
-        commit("setPosts", data.results);
+      return await axios.get("/v1/users/post/").then(response => {
+        commit("setPosts", response.data.results);
+        commit("setPostsConfig", response.data);
+        return response;
       });
+    },
+
+    async loadMorePosts({ state, commit }, data) {
+      if (state.postsConfig.next && data.isNext) {
+        return await axios.get(state.postsConfig.next).then(response => {
+          commit("addPreviousPostToPosts", response.data.results);
+          commit("setPostsConfig", response.data);
+          return response;
+        });
+      }
+      if (state.postsConfig.previous && !data.isNext) {
+        return await axios.get(this.postsConfig.previous).then(response => {
+          commit("addPreviousPostToPosts", response.data.results);
+          commit("setPostsConfig", response.data);
+          return response;
+        });
+      }
+      // return;
     },
 
     // Get single post with id

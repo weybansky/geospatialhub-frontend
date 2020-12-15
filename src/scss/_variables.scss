@@ -133,3 +133,28 @@ img {
     }
   }
 }
+
+.load-more {
+  position: relative;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  button {
+    border: 1px solid $color-blue;
+    border-radius: 5px;
+    // background: $color-white;
+    padding: 0.5rem 0.75rem;
+    color: lighten($color-black, 10%);
+    cursor: pointer;
+    outline: 0;
+
+    &:hover {
+      color: $color-white;
+      background: $color-blue;
+      transition: all 0.2s ease-in;
+    }
+  }
+}
