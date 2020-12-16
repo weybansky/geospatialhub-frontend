@@ -93,13 +93,37 @@ export default {
       state.chat.receiver = receiver || null;
     },
     setChatMessages(state, messages) {
+      // add id
+      messages = messages.map(message => {
+        message.id = Number(
+          message.sender.id + "" + moment(message.created).format("x")
+        );
+        return message;
+      });
       state.chat.messages = messages || [];
     },
     addMessageToMessages(state, message) {
-      state.chat.messages.push(message);
+      if (message) {
+        message.id = Number(
+          message.sender.id + "" + moment(message.created).format("x")
+        );
+        state.chat.messages.push(message);
+      }
     },
     addMessagesToMessages(state, messages) {
-      state.chat.messages = state.chat.messages.concat(messages);
+      // add id
+      messages = messages.map(message => {
+        message.id = Number(
+          message.sender.id + "" + moment(message.created).format("x")
+        );
+        return message;
+      });
+      // remove duplicates
+      let existingMessageIds = state.chat.messages.map(message => message.id);
+      let newMessages = messages.filter(
+        message => !existingMessageIds.includes(message.id)
+      );
+      state.chat.messages = state.chat.messages.concat(newMessages);
     },
 
     setChat(state, chats) {
@@ -297,7 +321,6 @@ export default {
     async loadPreviousChats({ state, commit }, data) {
       // next is old messages
       if (state.chat.next && data.isNext) {
-        console.log("data", data);
         return await axios.get(state.chat.next).then(response => {
           commit("addMessagesToMessages", response.data.results);
           commit("setChatConfig", response.data);

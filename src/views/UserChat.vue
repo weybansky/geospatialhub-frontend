@@ -65,7 +65,8 @@
       <Message
         v-for="(message, index) in messages"
         :message="message"
-        :key="index"
+        :key="message.id"
+        :keyi="index"
       />
       <LoadSpinner :loading="loading" />
     </div>
@@ -181,8 +182,9 @@ export default {
     const userId = this.$route.params.userId;
     this.loadChat(userId);
     this.getChatTimer = setInterval(() => {
-      this.$store.dispatch("auth/getChat", { userId });
-    }, 3500);
+      // this.$store.dispatch("auth/getChat", { userId });
+      this.$store.dispatch("auth/getCurrentChatMessages", { userId });
+    }, 4000);
   },
 
   methods: {
@@ -211,12 +213,12 @@ export default {
     async loadPreviousChats(data) {
       // const userId = this.$route.params.userId;
       this.loadingMoreChat = true;
-      await clearInterval(this.getChatTimer);
+      // await clearInterval(this.getChatTimer);
       this.$store.dispatch("auth/loadPreviousChats", data).finally(() => {
         this.loadingMoreChat = false;
         // this.getChatTimer = setInterval(() => {
         //   this.$store.dispatch("auth/getCurrentChatMessages", { userId });
-        // }, 3500);
+        // }, 4000);
       });
     }
   }
