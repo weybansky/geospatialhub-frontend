@@ -99,6 +99,8 @@
       background: inherit;
       display: flex;
       max-height: 50px;
+      min-width: 100%;
+      max-width: none;
     }
 
     .main {
