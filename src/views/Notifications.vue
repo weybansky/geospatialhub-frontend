@@ -73,9 +73,20 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     this.$store.commit("setSidebarComponents", ["chats"]);
-    this.$store.dispatch("auth/getNotifications");
+    await this.$store.dispatch("auth/getNotifications");
+    this.$store.commit("auth/setNotificationConfig", {
+      unread_notifications_count: 0
+    });
+    setTimeout(() => {
+      const unreadNotifications = this.notifications
+        .slice()
+        .filter(notification => !notification.is_read);
+      unreadNotifications.forEach(notification => {
+        this.$store.dispatch("auth/markNotification", notification.id);
+      });
+    }, 3000);
   }
 };
 </script>

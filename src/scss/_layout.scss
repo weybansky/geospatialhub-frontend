@@ -19,7 +19,8 @@
 
   .aside-left {
     flex: 0 1 20%;
-    min-width: 250px;
+    min-width: 260px;
+    max-width: 260px;
     border-right: 4px solid $color-white;
     padding: 40px 1px 15px;
     overflow-y: auto;
@@ -58,8 +59,8 @@
     border-left: 4px solid $color-white;
     padding: 50px 1px 10px;
     flex: 0 1 25%;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 280px;
+    max-width: 280px;
     overflow-y: auto;
     background-color: inherit;
 
@@ -72,7 +73,11 @@
 
 @media (min-width: 1200px) {
   .layout {
-    .aside-right {
+    .aside-left {
+      min-width: 300px;
+      max-width: 300px;
+    }
+     .aside-right {
       min-width: 350px;
       max-width: 350px;
     }
@@ -111,8 +116,8 @@
     .aside-right {
       padding: 0.4rem;
       flex: 0 1 30%;
-      min-width: 265px;
-      max-width: 350px;
+      min-width: 300px;
+      max-width: 300px;
     }
   }
 }

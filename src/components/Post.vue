@@ -84,7 +84,7 @@
         </svg>
         <span v-html="commentsCount"></span>
       </div>
-      <div class="share">
+      <div class="share" @click="sharePost">
         <svg
           class="icon"
           width="58"
@@ -218,6 +218,10 @@ export default {
         .then(() => {
           this.liked = !this.liked;
         });
+    },
+
+    sharePost() {
+      // console.log("Sharing");
     },
 
     deletePost() {

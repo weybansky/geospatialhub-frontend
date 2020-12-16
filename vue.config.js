@@ -7,7 +7,7 @@ module.exports = {
     appleMobileWebAppStatusBarStyle: "black",
 
     manifestOptions: {
-      short_name: "GeosptatialHub"
+      short_name: "The Geospatial Hub"
     },
     // configure the workbox plugin
     workboxPluginMode: "InjectManifest",
