@@ -85,6 +85,13 @@
     <span class="error" v-if="errors.text">{{ errors.text[0] }}</span>
     <span class="error" v-if="errors.image">{{ errors.image[0] }}</span>
 
+    <div class="preview-image" v-if="fileSelected" @click="removeFile">
+      <img :src="postImage" />
+      <div class="close">
+        <span>&times;</span>
+      </div>
+    </div>
+
     <LoadSpinner :loading="loading" />
   </div>
 </template>
@@ -117,7 +124,8 @@ export default {
       text: "",
       fileSelected: false,
       errors: {},
-      loading: false
+      loading: false,
+      postImage: null
     };
   },
 
@@ -161,8 +169,24 @@ export default {
         });
     },
 
-    fileSelect(e) {
-      this.fileSelected = e.target.files.length ? true : false;
+    fileSelect(event) {
+      this.fileSelected = event.target.files.length ? true : false;
+
+      let input = this.$refs.image;
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        const vue = this;
+        reader.onload = function(e) {
+          vue.postImage = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    removeFile() {
+      console.log("remove");
+      this.$refs.image.value = "";
+      this.postImage = null;
+      this.fileSelected = false;
     }
   }
 };

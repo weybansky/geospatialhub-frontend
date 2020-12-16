@@ -131,6 +131,33 @@
         color: $color-white;
       }
     }
+
+    .preview-image {
+      flex: 100%;
+      order: 10;
+      text-align: center;
+      position: relative;
+      img {
+        max-height: 200px;
+        margin: 1rem auto 0 auto;
+      }
+      .close {
+        position: absolute;
+        bottom: 5%;
+        left: 45%;
+        border-radius: 50%;
+        background: ($color-red);
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        span {
+          color: $color-white;
+          font-size: 30px;
+          font-weight: bold;
+          vertical-align: middle;
+        }
+      }
+    }
   }
 
   .posts {
