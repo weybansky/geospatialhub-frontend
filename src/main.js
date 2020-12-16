@@ -9,6 +9,9 @@ import axios from "axios";
 import VueYouTubeEmbed from "vue-youtube-embed";
 Vue.use(VueYouTubeEmbed, { global: false });
 
+import VueSocialSharing from "vue-social-sharing";
+Vue.use(VueSocialSharing);
+
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 // if (process.env.NODE_ENV === "production") {
 axios.defaults.baseURL = "https://geospatialhub.herokuapp.com/api/";

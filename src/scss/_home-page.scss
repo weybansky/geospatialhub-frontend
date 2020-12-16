@@ -272,6 +272,31 @@
         .like.liked {
           color: $color-blue;
         }
+
+        .share {
+          position: relative;
+          .social {
+            position: absolute;
+            right: 50%;
+            bottom: 125%;
+            display: flex;
+            background: rgba(darken($color-white, 15%), 0.75);
+            border-radius: 5px;
+            padding: 0.6rem;
+
+            a {
+              flex: 1;
+              display: inline-block;
+              margin: 0 0.6rem;
+              text-decoration: none;
+              color: lighten($color-black, 30%);
+              .icon {
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+            }
+          }
+        }
       }
     }
   }
