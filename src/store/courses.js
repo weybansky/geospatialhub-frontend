@@ -15,6 +15,11 @@ export default {
       next: null
     },
     courses: [],
+    coursesConfig: {
+      next: null,
+      previous: null,
+      count: 0
+    },
     categories: [],
 
     search: {
@@ -38,6 +43,20 @@ export default {
 
     setCourses(state, courses) {
       state.courses = courses || [];
+    },
+    setCoursesConfig(state, data) {
+      state.coursesConfig.count = data.count;
+      state.coursesConfig.next = data.next;
+      state.coursesConfig.previous = data.previous;
+      // limit, offset, ordering, search;
+    },
+    addCoursesToCourses(state, courses) {
+      // remove duplicate
+      let existingCourseIds = state.courses.map(course => course.id);
+      let newPosts = courses.filter(
+        course => !existingCourseIds.includes(course.id)
+      );
+      state.courses = state.courses.concat(newPosts);
     },
 
     setCategories(state, categories) {
@@ -71,8 +90,26 @@ export default {
     async getCourses({ commit }) {
       return await axios.get("/v1/courses/").then(response => {
         commit("setCourses", response.data.results);
+        commit("setCoursesConfig", response.data);
         return response;
       });
+    },
+    async loadMoreCourses({ state, commit }, data) {
+      if (state.coursesConfig.next && data.isNext) {
+        return await axios.get(state.coursesConfig.next).then(response => {
+          commit("addCoursesToCourses", response.data.results);
+          commit("setCoursesConfig", response.data);
+          return response;
+        });
+      }
+      if (state.coursesConfig.previous && !data.isNext) {
+        return await axios.get(this.coursesConfig.previous).then(response => {
+          commit("addCoursesToCourses", response.data.results);
+          commit("setCoursesConfig", response.data);
+          return response;
+        });
+      }
+      // return;
     },
 
     async getCategories({ commit }) {

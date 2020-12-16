@@ -2,7 +2,7 @@
   <div class="home-page user-follow-page page">
     <Search />
 
-    <div class="users">
+    <div class="users" v-if="users.length">
       <UserCard
         class="user"
         v-for="user in users"
@@ -10,7 +10,20 @@
         :user="user"
       />
       <LoadSpinner :loading="loadingUsers" />
-      <div class="user" v-if="users.length < 1">
+    </div>
+    <div class="users" v-if="users.length">
+      <LoadMore
+        v-if="showLoadMore"
+        style="margin: auto"
+        :isNext="true"
+        text="Load More.."
+        :loading="loadingMoreUsers"
+        @loadMore="loadMore"
+      />
+    </div>
+
+    <div class="users" v-else>
+      <div class="user">
         <div class="details"><p class="text-center">No User found</p></div>
       </div>
     </div>
@@ -21,6 +34,7 @@
 import Search from "../components/Search";
 import LoadSpinner from "../components/LoadSpinner";
 import UserCard from "../components/UserCard.vue";
+import LoadMore from "../components/LoadMore.vue";
 
 export default {
   name: "SearchPage",
@@ -28,37 +42,41 @@ export default {
   components: {
     Search,
     LoadSpinner,
-    UserCard
+    UserCard,
+    LoadMore
   },
 
   data() {
     return {
-      query: "",
-      loadingUsers: false
+      loadingUsers: false,
+      loadingMoreUsers: false
     };
   },
 
   computed: {
     users() {
-      return this.$store.state.user.search.users || [];
+      return this.$store.state.user.users || [];
+    },
+    showLoadMore() {
+      return this.users.length < this.$store.state.user.usersConfig.count;
     }
   },
 
   methods: {
-    async loadReults(query) {
-      this.loadingUsers = true;
-      await this.$store.dispatch("user/searchUsers", query).finally(() => {
-        this.loadingUsers = false;
+    loadMore(data) {
+      this.loadingMoreUsers = true;
+      this.$store.dispatch("user/loadMoreUsers", data).finally(() => {
+        this.loadingMoreUsers = false;
       });
-    },
-
-    // TODO
-    loadMore() {}
+    }
   },
 
   async mounted() {
     this.$store.commit("setSidebarComponents", ["chats"]);
-    this.loadReults(this.query);
+    this.loadingUsers = true;
+    await this.$store.dispatch("user/getUsers").finally(() => {
+      this.loadingUsers = false;
+    });
   }
 };
 </script>

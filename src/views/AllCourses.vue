@@ -83,6 +83,18 @@
     <div class="courses" v-if="courses.length">
       <Course v-for="course in courses" :key="course.id" :course="course" />
     </div>
+
+    <div class="courses" v-if="courses.length && !$route.query.category">
+      <LoadMore
+        style="margin: auto"
+        v-if="showLoadMore"
+        :isNext="true"
+        text="Load More"
+        :loading="loadingMoreCourses"
+        @loadMore="loadMore"
+      />
+    </div>
+
     <div class="courses" v-else>
       <div class="course">
         <div class="details">
@@ -95,16 +107,18 @@
 
 <script>
 import Course from "../components/Course.vue";
+import LoadMore from "../components/LoadMore.vue";
 import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
   name: "AllCourses",
 
-  components: { Course, LoadSpinner },
+  components: { Course, LoadSpinner, LoadMore },
 
   data() {
     return {
       courses: [],
-      loading: false
+      loading: false,
+      loadingMoreCourses: false
     };
   },
 
@@ -127,6 +141,11 @@ export default {
 
     categories() {
       return this.$store.state.course.categories;
+    },
+    showLoadMore() {
+      return (
+        this.allCourses.length < this.$store.state.course.coursesConfig.count
+      );
     }
   },
 
@@ -139,6 +158,13 @@ export default {
           query: { category: value }
         });
       }
+    },
+
+    loadMore(data) {
+      this.loadingMoreCourses = true;
+      this.$store.dispatch("course/loadMoreCourses", data).finally(() => {
+        this.loadingMoreCourses = false;
+      });
     }
   },
 

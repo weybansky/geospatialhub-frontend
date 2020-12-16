@@ -4,12 +4,23 @@
       <h1 class="title">Chats</h1>
     </div>
 
-    <div class="chats" style="position:relative">
+    <div class="chats" style="position:relative" v-if="chats.length">
       <Chat v-for="(chat, index) in chats" :chat="chat" :key="index" />
-
       <LoadSpinner :loading="loading" />
+    </div>
 
-      <div class="chat" v-if="!chats.length">
+    <div class="chats" v-if="chats.length">
+      <LoadMore
+        v-if="showLoadMore"
+        :isNext="true"
+        text="Load More.."
+        :loading="loadingMoreChats"
+        @loadMore="loadMore"
+      />
+    </div>
+
+    <div class="chats" v-else>
+      <div class="chat">
         <div class="details">
           <p class="username">No Chats Found</p>
         </div>
@@ -20,19 +31,22 @@
 
 <script>
 import Chat from "../components/Chat.vue";
+import LoadMore from "../components/LoadMore.vue";
 import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
   name: "UserChats",
 
   components: {
     Chat,
-    LoadSpinner
+    LoadSpinner,
+    LoadMore
   },
 
   data() {
     return {
       loading: false,
-      getChatsTimer: null
+      getChatsTimer: null,
+      loadingMoreChats: false
     };
   },
 
@@ -42,6 +56,9 @@ export default {
     },
     user() {
       return this.$store.state.auth.user || { profile: {} };
+    },
+    showLoadMore() {
+      return this.chats.length < this.$store.state.auth.chatsConfig.count;
     }
   },
 
@@ -64,6 +81,12 @@ export default {
   methods: {
     async loadChats() {
       this.$store.dispatch("auth/getChats");
+    },
+    loadMore(data) {
+      this.loadingMoreCourses = true;
+      this.$store.dispatch("auth/loadMoreChats", data).finally(() => {
+        this.loadingMoreCourses = false;
+      });
     }
   }
 };

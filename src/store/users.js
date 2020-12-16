@@ -5,6 +5,11 @@ export default {
 
   state: () => ({
     users: [],
+    usersConfig: {
+      next: null,
+      previous: null,
+      count: 0
+    },
 
     user: {
       id: 0,
@@ -46,6 +51,18 @@ export default {
     setUsers(state, users) {
       state.users = users;
     },
+    setUsersConfig(state, data) {
+      state.usersConfig.count = data.count;
+      state.usersConfig.next = data.next;
+      state.usersConfig.previous = data.previous;
+      // limit, offset, ordering, search;
+    },
+    addUsersToUsers(state, users) {
+      // remove duplicate
+      let existingUserIds = state.users.map(user => user.id);
+      let newUsers = users.filter(user => !existingUserIds.includes(user.id));
+      state.users = state.users.concat(newUsers);
+    },
 
     setUser(state, user) {
       state.user = user;
@@ -65,9 +82,28 @@ export default {
 
   actions: {
     async getUsers({ commit }) {
-      return await axios.get("/v1/users/").then(({ data }) => {
-        commit("setUsers", data.results);
+      return await axios.get("/v1/users/").then(response => {
+        commit("setUsers", response.data.results);
+        commit("setUsersConfig", response.data);
+        return response;
       });
+    },
+    async loadMoreUsers({ state, commit }, data) {
+      if (state.usersConfig.next && data.isNext) {
+        return await axios.get(state.usersConfig.next).then(response => {
+          commit("addUsersToUsers", response.data.results);
+          commit("setUsersConfig", response.data);
+          return response;
+        });
+      }
+      if (state.usersConfig.previous && !data.isNext) {
+        return await axios.get(this.usersConfig.previous).then(response => {
+          commit("addUsersToUsers", response.data.results);
+          commit("setUsersConfig", response.data);
+          return response;
+        });
+      }
+      // return;
     },
 
     async getUser({ commit }, userId) {
