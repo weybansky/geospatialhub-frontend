@@ -71,6 +71,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit("setSidebarComponents", ["chats"]);
     const postId = this.$route.params.post;
     this.loadPage(postId);
   }
