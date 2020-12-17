@@ -290,9 +290,12 @@
             margin-left: 0.5rem;
           }
 
-          &:hover {
-            cursor: pointer;
-            color: $color-blue;
+          // For touch devices
+          @media (hover: hover) and (pointer: fine) {
+            &:hover {
+              cursor: pointer;
+              color: $color-blue;
+            }
           }
         }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page search-page user-follow-page">
+  <div class="home-page search-page user-follow-page courses-page">
     <Search :placeholder="query" />
 
     <div class="tabs">
@@ -19,15 +19,14 @@
         Users
         <span class="badge">({{ users.length }})</span>
       </div>
-      <!-- TODO -->
-      <!-- <div
+      <div
         class="tab"
         :class="{ active: tab == 'courses' }"
         @click="tab = 'courses'"
       >
         Courses
         <span class="badge">({{ courses.length }})</span>
-      </div> -->
+      </div>
     </div>
 
     <div class="posts" v-if="tab == 'posts'">
@@ -55,6 +54,10 @@
 
     <div class="courses" v-if="tab == 'courses'">
       <!--  -->
+      <Course v-for="course in courses" :key="course.id" :course="course" />
+      <!-- {{ course.title }} -->
+      <!-- </div> -->
+      <!--  -->
       <LoadSpinner :loading="loadingCourses" />
       <div class="course text-center" v-if="courses.length < 1">
         <p>No Course found</p>
@@ -68,6 +71,7 @@ import Search from "../components/Search";
 import Post from "../components/Post";
 import LoadSpinner from "../components/LoadSpinner";
 import UserCard from "../components/UserCard.vue";
+import Course from "../components/Course";
 
 export default {
   name: "SearchPage",
@@ -76,7 +80,8 @@ export default {
     Post,
     Search,
     LoadSpinner,
-    UserCard
+    UserCard,
+    Course
   },
 
   data() {
@@ -123,13 +128,13 @@ export default {
       }
       // TODO
       // Courses
-      // this.loadingCourses = true;
-      // await this.$store.dispatch("course/searchCourses", query).finally(() => {
-      //   this.loadingCourses = false;
-      // });
-      // if (this.users.length < 1 && this.courses.length) {
-      //   this.tab = "courses";
-      // }
+      this.loadingCourses = true;
+      await this.$store.dispatch("course/searchCourses", query).finally(() => {
+        this.loadingCourses = false;
+      });
+      if (this.users.length < 1 && this.courses.length) {
+        this.tab = "courses";
+      }
     }
   },
 

@@ -175,7 +175,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      
+
       .category {
         margin: 0 1rem 1rem;
       }
@@ -194,19 +194,7 @@
     nav {
       display: flex;
 
-      .logo {
-        flex: 20%;
-        max-width: 20%;
-      }
-
-      form.search {
-        display: none;
-      }
-
       .links {
-        flex: 80%;
-        max-width: 80%;
-
         .link {
           border-width: 1px;
           padding: 10px 7px;
@@ -254,6 +242,29 @@
 
 @media (max-width: $device-mobile) {
   .welcome-page {
+    nav {
+      max-height: none;
+      flex-wrap: wrap;
+      padding: 0.4rem;
+
+      .logo {
+        order: 1;
+        flex: 45%;
+        img {
+          height: auto;
+          width: 125px;
+        }
+      }
+      .links {
+        flex: 55%;
+        order: 2;
+      }
+      form.search {
+        flex: 100%;
+        order: 3;
+      }
+    }
+
     main {
       .left {
         padding: 0;

@@ -156,6 +156,8 @@ export default {
           //
           this.text = "";
           this.$refs.image.value = "";
+          this.postImage = null;
+          this.fileSelected = false;
           this.errors = {};
         })
         .catch(error => {
@@ -183,7 +185,6 @@ export default {
       }
     },
     removeFile() {
-      console.log("remove");
       this.$refs.image.value = "";
       this.postImage = null;
       this.fileSelected = false;

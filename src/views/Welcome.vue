@@ -56,9 +56,9 @@
         <div v-if="index == 0">
           <h1>Welcome to your professional community</h1>
           <p class="">
-            A nurturing community for geospatial professionals to build
-            in-demand skills with courses, foster beneficial connections,
-            connect with mentors, and create solution hub for geospatial needs.
+            A nuturing community for geospatial professionals to build in-demand
+            skills with courses, establish beneficial connections, collaborate
+            and share stories and experience.
           </p>
           <div class="links">
             <router-link to="/login" class="link bg-blue text-white">
@@ -85,10 +85,8 @@
         <div v-if="index == 2">
           <h1>Find and meet a geospatial mentor</h1>
           <p>
-            Start streaming on-demand geospatial courses today. The courses are
-            flexible and affordable. Apply what you learn with self-paced
-            quizzes and hands-on projects. Get feedback from a global community
-            of learners.
+            Get connected to experts, rich in experience who will guide you
+            through career paths, educational choices and life/work balance.
           </p>
           <div class="links">
             <router-link to="/login" class="link bg-blue text-white">
@@ -100,7 +98,7 @@
     </main>
 
     <footer class="container">
-      <h2>The larget selection of Geospatial Courses from Africa</h2>
+      <h2>The largest selection of Geospatial Courses from Africa</h2>
       <p class="categories">
         <span class="category">Python</span>
         <span class="category">Earth Engine </span>

@@ -1,5 +1,7 @@
 <template>
-  <section class="courses-page page">
+  <section class="home-page courses-page page">
+    <Search />
+
     <div class="page-title">
       <h1 class="title">
         Courses <router-link to="courses">My Courses</router-link>
@@ -109,10 +111,11 @@
 import Course from "../components/Course.vue";
 import LoadMore from "../components/LoadMore.vue";
 import LoadSpinner from "../components/LoadSpinner.vue";
+import Search from "../components/Search";
 export default {
   name: "AllCourses",
 
-  components: { Course, LoadSpinner, LoadMore },
+  components: { Course, LoadSpinner, LoadMore, Search },
 
   data() {
     return {
