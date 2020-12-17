@@ -40,9 +40,10 @@ export default {
   },
 
   mounted() {
+    this.$store.dispatch("auth/getNotifications");
     setInterval(() => {
       this.$store.dispatch("auth/getNotifications");
-    }, 30000);
+    }, 15000);
   }
 };
 </script>
