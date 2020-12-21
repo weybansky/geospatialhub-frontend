@@ -233,6 +233,13 @@
     </div>
 
     <LoadSpinner :loading="loading" />
+
+    <div class="preview-image" v-if="previewImage">
+      <img :src="post.image" alt="Post Image" />
+      <div class="close" @click="previewImage = false">
+        <span>&times;</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -252,7 +259,8 @@ export default {
       liked: false,
       showActions: false,
       loading: false,
-      showShareButtons: false
+      showShareButtons: false,
+      previewImage: false
     };
   },
 
@@ -345,7 +353,6 @@ export default {
     },
 
     sharePost() {
-      // console.log("Sharing")
       this.showShareButtons = !this.showShareButtons;
       if (this.showShareButtons && navigator.share) {
         navigator.share({
@@ -381,7 +388,15 @@ export default {
     },
 
     viewPost() {
-      this.$router.push("/posts/" + this.post.id);
+      const to = "/posts/" + this.post.id;
+      if (this.$route.path == to) {
+        // if on post page, preview post image
+        if (this.post.image) {
+          this.previewImage = true;
+        }
+      } else {
+        this.$router.push(to);
+      }
     }
   },
 
