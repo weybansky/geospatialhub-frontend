@@ -72,12 +72,14 @@ export default {
         state.posts.map(post => {
           if (post.id == data.postId) {
             post.likes_count = data.likesCount;
+            post.authenticated_user_like_status = data.postWasLiked;
           }
         });
       } else {
         state.comments.map(comment => {
           if (comment.id == data.postId) {
             comment.likes_count = data.likesCount;
+            comment.authenticated_user_like_status = data.postWasLiked;
           }
         });
       }
@@ -164,7 +166,6 @@ export default {
 
     // Delete post
     async deletePost({ commit }, data) {
-      // console.log(data.postId, data.isComment);
       return await axios
         .delete("/v1/users/post/" + data.postId + "/")
         .then(() => {
@@ -189,16 +190,39 @@ export default {
     },
 
     // Like/Un-like a post
-    async likePost({ commit }, likeData) {
+    async likePost({ state, commit }, likeData) {
       return await axios
         .post("/v1/users/post/rate/" + likeData.postId + "/", { liked: true })
-        .then(({ data }) => {
+        .then(response => {
           // update the likes_count on post with total_likes
+          // get current like;
+          let oldPost = null;
+          if (
+            state.posts.filter(post => post.id == likeData.postId).length > 0
+          ) {
+            oldPost = state.posts.filter(
+              post => (post.id = likeData.postId)
+            )[0];
+          } else {
+            oldPost - state.post;
+          }
+          const oldPostLikes = oldPost.likes_count;
+          const newLikes = response.data.total_likes;
+
+          if (newLikes > oldPostLikes) {
+            response.data.postWasLiked = true;
+          } else {
+            response.data.postWasLiked = false;
+          }
+
           commit("updatePostLikes", {
             postId: likeData.postId,
-            likesCount: data.total_likes,
+            likesCount: response.data.total_likes,
+            postWasLiked: response.data.postWasLiked,
             isComment: likeData.isComment || false
           });
+
+          return response;
         });
     },
 

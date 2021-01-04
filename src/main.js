@@ -13,11 +13,12 @@ import VueSocialSharing from "vue-social-sharing";
 Vue.use(VueSocialSharing);
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-// if (process.env.NODE_ENV === "production") {
-axios.defaults.baseURL = "https://geospatialhub.herokuapp.com/api/";
-// } else {
-//   axios.defaults.baseURL = "http://localhost:8000/api/";
-// }
+if (process.env.NODE_ENV === "production") {
+  axios.defaults.baseURL = "https://geospatialhub.herokuapp.com/api/";
+  // axios.defaults.baseURL = "https://backend.thegeospatialhub.com/api/";
+} else {
+  axios.defaults.baseURL = "http://localhost:8000/api/";
+}
 const token = localStorage.getItem("token");
 axios.defaults.headers.common["Authorization"] = "Token " + token;
 // axios.defaults.withCredentials = true;

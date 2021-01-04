@@ -347,8 +347,9 @@ export default {
           postId: this.post.id,
           isComment: this.isComment
         })
-        .then(() => {
-          this.liked = !this.liked;
+        .then(({ data }) => {
+          // this.liked = !this.liked;
+          this.liked = data.postWasLiked;
         });
     },
 
