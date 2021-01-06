@@ -256,7 +256,6 @@ export default {
 
   data() {
     return {
-      liked: false,
       showActions: false,
       loading: false,
       showShareButtons: false,
@@ -337,6 +336,11 @@ export default {
         description: "",
         hashtags: "geospatial, geospatialhub"
       };
+    },
+
+    liked() {
+      console.log(this.post.authenticated_user_like_status);
+      return this.post.authenticated_user_like_status;
     }
   },
 
@@ -347,9 +351,10 @@ export default {
           postId: this.post.id,
           isComment: this.isComment
         })
-        .then(({ data }) => {
+        .then(() => {
           // this.liked = !this.liked;
-          this.liked = data.postWasLiked;
+          // this.liked = data.postWasLiked;
+          // swith to computed property
         });
     },
 
@@ -399,10 +404,6 @@ export default {
         this.$router.push(to);
       }
     }
-  },
-
-  mounted() {
-    this.liked = this.post.authenticated_user_like_status;
   }
 };
 </script>
