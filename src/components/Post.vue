@@ -339,7 +339,6 @@ export default {
     },
 
     liked() {
-      console.log(this.post.authenticated_user_like_status);
       return this.post.authenticated_user_like_status;
     }
   },
