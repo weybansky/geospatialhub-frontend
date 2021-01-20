@@ -200,9 +200,7 @@ export default {
           if (
             state.posts.filter(post => post.id == likeData.postId).length > 0
           ) {
-            oldPost = state.posts.filter(
-              post => (post.id = likeData.postId)
-            )[0];
+            oldPost = state.posts.filter(post => post.id == likeData.postId)[0];
           } else {
             oldPost - state.post;
           }
