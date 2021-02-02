@@ -6,9 +6,6 @@ import store from "./store";
 
 import axios from "axios";
 
-import VueYouTubeEmbed from "vue-youtube-embed";
-Vue.use(VueYouTubeEmbed, { global: false });
-
 import VueSocialSharing from "vue-social-sharing";
 Vue.use(VueSocialSharing);
 

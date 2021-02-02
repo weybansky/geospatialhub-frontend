@@ -39,15 +39,7 @@
         </div>
       </div>
       <div class="module-content">
-        <div class="video">
-          <YouTubePlayer
-            :video-id="videoId"
-            :player-vars="{ start: 0, autoplay: 0 }"
-            :mute="false"
-            @ready="ready"
-          />
-          <LoadSpinner :loading="loadingVideo" />
-        </div>
+        <div class="video" v-html="courseModule.video_embed_code"></div>
         <div class="details" v-if="!loading">
           <h3 class="title">{{ courseModule.title || "" }}</h3>
           <div class="note" v-html="courseModule.note"></div>
@@ -79,17 +71,13 @@
 
 <script>
 import LoadSpinner from "../components/LoadSpinner.vue";
-import { getIdFromURL, YouTubePlayer } from "vue-youtube-embed";
 
 export default {
   name: "Module",
-  components: { LoadSpinner, YouTubePlayer },
+  components: { LoadSpinner },
 
   data() {
-    return {
-      loading: false,
-      loadingVideo: true
-    };
+    return { loading: false };
   },
 
   computed: {
@@ -109,9 +97,6 @@ export default {
         this.$store.state.course.courseModule || { title: "", video_url: "" }
       );
     },
-    videoId() {
-      return getIdFromURL(this.courseModule.video_url);
-    },
     hasNext() {
       const position = this.sortModules.indexOf(this.courseModule.id) + 1;
       if (position >= this.modules.length) {
@@ -123,9 +108,6 @@ export default {
   },
 
   methods: {
-    ready() {
-      this.loadingVideo = false;
-    },
     previous() {
       const position = this.sortModules.indexOf(this.courseModule.id) + 1;
       if (position <= 1) {
