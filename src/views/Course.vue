@@ -48,9 +48,9 @@
 
           <div class="price" v-if="!enrolled">
             <span class="strikethrough"
-              >${{ course.price_before_discount }}</span
+              >₦{{ course.price_before_discount }}</span
             >
-            <span>${{ course.price }}</span>
+            <span>₦{{ course.price }}</span>
             <button type="button" class="bg-blue text-white" @click="payNow()">
               Buy Now
             </button>

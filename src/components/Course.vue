@@ -45,8 +45,8 @@
       </p>
 
       <div class="price" v-if="!enrolled">
-        <span class="strikethrough">${{ course.price_before_discount }}</span>
-        <span>${{ course.price }}</span>
+        <span class="strikethrough">₦{{ course.price_before_discount }}</span>
+        <span>₦{{ course.price }}</span>
       </div>
       <div class="price" v-else>
         Enrolled
