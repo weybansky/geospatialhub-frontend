@@ -1,3 +1,6 @@
+const path = require("path");
+const PrerenderSPAPlugin = require("prerender-spa-plugin");
+
 module.exports = {
   pwa: {
     name: "The Geospatial Hub",
@@ -19,5 +22,16 @@ module.exports = {
       exclude: [/_redirects/]
       // exclude: [/\.map$/, /_redirects/],
     }
+  },
+
+  configureWebpack: {
+    plugins: [
+      new PrerenderSPAPlugin({
+        // Required - The path to the webpack-outputted app to prerender.
+        staticDir: path.join(__dirname, "dist"),
+        // Required - Routes to render.
+        routes: ["/", "/home"]
+      })
+    ]
   }
 };
